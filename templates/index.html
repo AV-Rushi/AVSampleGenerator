@@ -1,0 +1,975 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sample Generator</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
+</head>
+<style>
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+  }
+
+  #format,
+  #no_of_batches,
+  #no_of_transaction,
+  #amount_entered,
+  #customedate,
+  #currency_type,
+  #inputccy,
+  #inputcountrycdtr,
+  #account_Lengthcdtr,
+  #account_Lengthdbtr,
+  #inputCCY,
+  #inputcountry {
+    border-color: lightcoral;
+    border-width: 2px;
+    box-shadow: 1px 1px 2px;
+  }
+
+  #format:hover,
+  #no_of_batches:hover,
+  #no_of_transaction:hover,
+  #amount_entered:hover,
+  #customedate:hover,
+  #currency_type:hover,
+  #inputccy:hover,
+  #inputcountrycdtr:hover,
+  #account_Lengthcdtr:hover,
+  #inputCCY:hover,
+  #inputcountry:hover,
+  #account_Lengthdbtr:hover {
+    border-color: black;
+    border-width: 2px;
+    box-shadow: 2px 2px 4px;
+    /* background-color: linen; */
+    background-color: rgb(230, 225, 223);
+  }
+
+  #no_of_batches::placeholder,
+  #no_of_transaction::placeholder,
+  #amount_entered::placeholder,
+  #currency_type::placeholder {
+    color: black;
+  }
+
+  #button {
+    background-color: blue;
+    color: white;
+  }
+
+  #button:hover {
+    background-color: white;
+    color: blue;
+  }
+</style>
+
+<body>
+  <div class="container-fluid p-0">
+    <form action="shortenurl1" method="post">
+      <div class="row text-center m-0 p-0">
+
+        <div class="col-12 col-md-12 border p-0 " style="background-color:rgb(229, 229, 232); box-shadow: 2px 2px 4px;">
+          <nav class="navbar navbar-expand-lg bg-body-tertiary  p-0 m-0 border-bottom border-dark border-3"
+            style="background-color:rgb(245, 238, 227)">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#"> 
+                <img src="{{ url_for('static', filename='arthavedh.png') }}" class="w-50 h-50"> </a>
+
+              <div class="collapse navbar-collapse text-start " id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0 fw-bold ">
+                  <h1 style="margin-left: -100px;">Sample Generator</h1>
+                </ul>
+
+              </div>
+            </div>
+          </nav>
+          <div class="row g-3 text-start mt-4">
+            <div class="col-12 col-md-2"></div>
+            <div class="col-12 col-md-4">
+              <label for="format" class="col-form-label text-start fw-bold">Format</label>
+            </div>
+            <div class="col-12 col-md-3">
+              <div class="dropdown ">
+                <select name="selectHK" class="form-select " id="format">
+                  <option selected disabled>--Select Format Type--</option>
+                  <option value='HKFPS_PACS008'>HKFPS_PACS008</option>
+                  <!--                  <option value='RTP_PACS008'>RTP_PACS008</option>-->
+                  <!--				  <option value='TCH_PACS008'>TCH_PACS008</option>-->
+                </select>
+              </div>
+            </div>
+            <div class="col-auto">
+              <a href="{{ config_url }}" type="button" class="btn btn-primary shadow" id="button" style="box-shadow: 2px 2px 4px;">Configure</a>
+            </div>
+
+            <div class="row g-3 mt-3 text-start ">
+              <div class="col-12 col-md-2"></div>
+              <div class="col-12 col-md-4">
+                <label for="no_of_batches" class="col-form-label text-start fw-bold ">No of Batches</label>
+              </div>
+              <div class="col-12 col-md-3">
+                <input type="number" id="no_of_batches" class="form-control ms-1" aria-describedby="passwordHelpInline"
+                  placeholder="--Enter Value--" name="batchNo" />
+              </div>
+            </div>
+            <!--End of Batches-->
+
+            <div class="row g-3 mt-3 text-start ">
+              <div class="col-12 col-md-2"></div>
+              <div class="col-12 col-md-4">
+                <label for="no_of_transaction" class="col-form-label fw-bold">No of Transactions</label>
+              </div>
+              <div class="col-12 col-md-3">
+                <input type="number" id="no_of_transaction" class="form-control ms-1"
+                  aria-describedby="passwordHelpInline" placeholder="--Enter Value--" name="txnNo" />
+              </div>
+            </div>
+            <!--End of Transactions-->
+
+            <div class="row g-3 mt-3 text-start ">
+              <div class="col-12 col-md-2"></div>
+              <div class="col-12 col-md-4">
+                <label class="col-form-label fw-bold">Amount</label>
+              </div>
+              <div class="col-auto ms-1">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="flexRadioDefault1" value="1" id="AmtPerTxn"
+                    checked />
+                  <label class="form-check-label">
+                    Amount Per Transaction
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="flexRadioDefault1" value="2" id="totalFileAmt" />
+                  <label class="form-check-label">
+                    Total Amount of File
+                  </label>
+                </div>
+              </div>
+            </div>
+            <!--End of Amount Radio-->
+
+            <div class="row g-3 align-items-center mt-3 text-start ">
+              <div class="col-12 col-md-2"></div>
+              <div class="col-12 col-md-4">
+                <label for="amount_entered" class="col-form-label fw-bold">Enter Amount</label>
+              </div>
+              <div class="col-12 col-md-3">
+                <input type="number" id="amount_entered" class="form-control ms-1" aria-describedby="passwordHelpInline"
+                  placeholder="--Enter Amount--" name="Amount" step="0.001" />
+              </div>
+            </div>
+            <!--End of Enter Amount-->
+
+
+            <div class="checkbox-card row mt-4">
+              <div class="col-12 col-md-2"></div>
+              <div class="checkbox fw-bold col-auto text-center">
+                <label>
+                  <input type="checkbox" name="ccyCheck" class="checkme fs-2" checked>Currency of IntrBkSttlmAmt and
+                  InstdAmt
+                  are same ? 
+                </label>
+              </div>
+
+              <div class="apply-box row g-3 align-items-center mt-4 text-start " id="txtPanNumber">
+                <div class="col-12 col-md-2"></div>
+                <div class="col-12 col-md-4 ms-2">
+                  <label for="currency_type" class="col-form-label text-start fw-bold">Currency</label>
+                </div>
+                <div class="col-12 col-md-3 ms-1">
+                  <div class="dropdown">
+                    <select name="ccy" class="form-select" id="currency_type">
+                      <option selected disabled>--Select Currency Type--</option>
+                      <option value="HKD">HKD</option>
+                      <option value="CNY">CNY</option>
+                      <option value="AUD">AUD</option>
+                      <option value="INR">INR</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="passport-box row g-3 align-items-center mt-3 text-start " id="box" style="display: none;">
+                <div class="col-12 col-md-2"></div>
+                <div class="col-12 col-md-4 ms-1">
+                  <label for="currency_type" class="col-form-label text-start fw-bold">IntrBkSttlmAmt</label>
+                </div>
+                <div class="col-12 col-md-3 ms-2">
+                  <div class="dropdown">
+                    <select name="ccy" class="form-select ">
+                      <option selected disabled>--Select Currency Type--</option>
+                      <option value="HKD">HKD</option>
+                      <option value="CNY">CNY</option>
+                      <option value="AUD">AUD</option>
+                      <option value="INR">INR</option>
+                    </select>
+                  </div>
+                </div>
+                <br>
+                <div class="col-12 col-md-3"></div>
+                <div class="col-12 col-md-"></div>
+                <div class="col-12 col-md-3">
+                  <label for="currency_type" class="col-form-label text-start">InstdAmt</label>
+                </div>
+                <div class="col-12 col-md-3 ms-1">
+                  <div class="dropdown">
+                    <select name="ccy1" class="form-select ">
+                      <option selected disabled>--Select Currency Type--</option>
+                      <option value="HKD">HKD</option>
+                      <option value="CNY">CNY</option>
+                      <option value="AUD">AUD</option>
+                      <option value="INR">INR</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+
+              <script src="jquery-latest.min.js"></script>
+              <script>
+                $(function () {
+                  $(".checkme").click(function (event) {
+                    var x = $(this).is(':checked');
+                    if (x == true) {
+                      $(this).parents(".checkbox-card").find('.passport-box').hide();
+                      $(this).parents(".checkbox-card").find('.apply-box').show();
+                    }
+                    else {
+                      $(this).parents(".checkbox-card").find('.passport-box').show();
+                      $(this).parents(".checkbox-card").find('.apply-box').hide();
+                    }
+                  });
+                })
+              </script>
+
+              <div class="row g-3 align-items-center mt-1 text-start ">
+                <div class="col-12 col-md-2"></div>
+                <div class="col-12 col-md-4 ms-2">
+                  <label for="customedate" class="col-form-label fw-bold">Value Date</label>
+                </div>
+                <div class="col-12 col-md-3 ms-1">
+                  <input type="date" name="valueDate" id="customedate" class="form-control "
+                    onchange="handleDateChange()" />
+                  <script>
+                    function handleDateChange() {
+                      var date_picker = document.getElementById("customedate").value;
+                    }
+                  </script>
+                </div>
+              </div>
+            </div>
+
+
+
+            <div class="row g-3 align-items-center mt-5">
+              <div class="col-12 col-md-6 text-center">
+                <h5 class="pb-5">Creditor</h5>
+
+                <div class="row text-center ms-4">
+
+                  <div class="form-check checkbox-card">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                      <input class="form-check-input" type="radio" value="1" name="flexRadioDefaultCdtr" id="dataExList"
+                        checked />
+
+                      Use Data From Existing List
+                    </label>
+
+                    <!-- <div class="row g-3 ms-4 mt-2 mb-2">
+                      <div class="col-12 col-md-2"></div>
+                      <div class="col-12 col-md-5">
+                        <label for="inputccy" class="col-form-label text-end">CCY</label>
+                      </div>
+                      <div class="col-12 col-md-3">
+                        <div class="dropdown">
+                          <select id="inputccy" class="form-select" name="ccy">
+                            <option selected disabled>--Select--</option>
+                            <option>one</option>
+                            <option>Two</option>
+                            <option>Three</option>
+                            <option>Four</option>
+                            <option>Five</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>-->
+                  </div>
+
+
+
+
+                  <div class="form-check">
+                    <label class="form-check-label ms-2 mt-3" for="flexRadioDefault2">
+                      <input class="form-check-input" type="radio" value='2' name="flexRadioDefaultCdtr"
+                        id="dataFaker" />
+                      Use Data From Dummy data
+                    </label>
+
+                    <div class="row g-3 ms-5 mt-3">
+                      <div class="col-12 col-md-2"></div>
+                      <!-- <div class="col-12 col-md-5">
+                        <label for="inputcountrycdtr" class="col-form-label text-end">Country Code</label>
+                      </div> -->
+                      <!-- <div class="col-12 col-md-3">
+                        <div class="dropdown">
+                          <select id="inputcountrycdtr" class="form-select " name="country">
+                            <option selected disabled>--Select--</option>
+                            <option>AU</option>
+                            <option>CA</option>
+                            <option>GB</option>
+                            <option>IE</option>
+                            <option>IN</option>
+                            <option>NZ</option>
+                            <option>PH</option>
+                            <option>TH</option>
+                            <option>US</option>
+                          </select>
+                        </div>
+                      </div> -->
+                      <div class="col-12 col-md-1"></div>
+                      <div class="col-12 col-md-5 ">
+                        <label for="account_Lengthcdtr" class="col-form-label">Enter Account Length</label>
+                      </div>
+                      <div class="col-12 col-md-3">
+                        <input type="number" id="account_Lengthcdtr" class="form-control" placeholder="--Enter--"
+                          name="cdtrAccountLength" value="0" />
+                      </div>
+
+
+                    </div>
+                  </div>
+                </div>
+              </div><!--End of creditor section-->
+
+
+
+              <div class="col-12 col-md-6 text-center">
+                <h5 class="pb-5">Debitor</h5>
+                <div class="row text-start ms-4">
+                  <div class="form-check text-center">
+                    <label class="form-check-label " for="flexRadioDefault1">
+                      <input class="form-check-input" type="radio" value='1' name="flexRadioDefaultDbtr"
+                        id="dataExtlist" checked />
+
+                      Use Data From Existing List
+                    </label>
+
+                    <!-- <div class="row g-3 align-items-center text-start ms-4 mt-1">
+                      <div class="col-12 col-md-4">
+                        <label for="inputoffices" class="col-form-label text-start">Office</label>
+                      </div>
+                      <div class="col-auto">
+                        <div class="dropdown">
+                          <select id="inputoffices" class="form-select shadow" name="office">
+                            <option selected disabled>--Select--</option>
+                            <option>one</option>
+                            <option>Two</option>
+                            <option>Three</option>
+                            <option>Four</option>
+                            <option>Five</option>
+                          </select>
+                        </div>
+                      </div>End of debitor office
+                    </div> -->
+
+                    <!-- <div class="row g-3 ms-5 mt-3 " id="ccyid">
+                      <div class="col-12 col-md-2"></div>
+                      <div class="col-12 col-md-5 text-center">
+                        <label for="inputCCY" class="col-form-label text-end">CCY</label>
+                      </div>
+                      <div class="col-12 col-md-3">
+                        <div class="dropdown">
+                          <select id="inputCCY" class="form-select" name="ccy">
+                            <option selected disabled>--Select--</option>
+                            <option>one</option>
+                            <option>Two</option>
+                            <option>Three</option>
+                            <option>Four</option>
+                            <option>Five</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div> --><!--End of debitor ccy-->
+                  </div>
+
+
+                  <div class="form-check text-center">
+                    <label class="form-check-label ms-2 mt-3" for="datafakers">
+                      <input class="form-check-input" type="radio" value='2' name="flexRadioDefaultDbtr"
+                        id="dataFakers" />
+
+                      Use Data From Dummy Data
+                    </label>
+                    <div class="row g-3 ms-5 mt-3">
+                      <div class="col-12 col-md-2"></div>
+                      <!-- <div class="col-12 col-md-5 text-center">
+                        <label for="inputcountry" class="col-form-label text-end">Country Code</label>
+                      </div>
+                      <div class="col-12 col-md-3">
+                        <div class="dropdown">
+                          <select id="inputcountry" class="form-select" name="country">
+                            <option selected disabled>--Select--</option>
+                            <option>AU</option>
+                            <option>CA</option>
+                            <option>GB</option>
+                            <option>IE</option>
+                            <option>IN</option>
+                            <option>NZ</option>
+                            <option>PH</option>
+                            <option>TH</option>
+                            <option>US</option>
+                          </select>
+                        </div>
+                      </div> -->
+                      <div class="col-12 col-md-1"></div>
+                      <div class="col-12 col-md-5 text-center">
+                        <label for="account_Lengthdbtr" class="col-form-label">Enter Account Length</label>
+                      </div>
+                      <div class="col-12 col-md-3 ">
+                        <input type="number" id="account_Lengthdbtr" class="form-control ms-1" placeholder="--Enter--"
+                          name="dbtrAccountLength" value="0" />
+                      </div>
+
+                    </div><!--End of debitor country-->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row g-3 align-items-center mt-3 ">
+            <div class="col-12 col-md-2"></div>
+            <div class="col-12 col-md-5 text-start">
+              <h5 class="pb-5">Creditor Agent</h5>
+
+              <div class="col-12 col-md-5 ms-1">
+                <div class="form-check text-start">
+                  <label class="form-check-label " for="ExtList">
+                    <input class="form-check-input " type="radio"  name="flexRadioDefaultCdtrAgt" value="1" id="ExtList"
+                      onchange="disableDiv()" checked />
+                    Use from existing list
+                  </label>
+                </div>
+                <div class="form-check text-start mb-3">
+                  <label class="form-check-label mt-3 " for="Manually">
+                    <input class="form-check-input " type="radio"  name="flexRadioDefaultCdtrAgt" value="2" id="Manually"
+                      onchange="enableDiv()" />
+                    Enter manually
+                  </label>
+                </div>
+              </div>
+
+
+              <div class="row">
+                <div class="col-12 col-md-5 text-start">
+                  <label for="chkCdtrBic1" class="fw-bold">
+                    <input type="checkbox" name="chkCdtrBic" id="chkCdtrBic1" onclick="EnableDisableTextbox6(this)" />
+                    BIC
+                  </label>
+                </div>
+                <div class="col-12 col-md-7 ">
+                  <input type="text" name="cdtrBic" id="txtCdtrBic" disabled="disabled" class="border border-dark"
+                    style="display: none;">
+                </div>
+              </div>
+
+
+
+
+              <div class=" checkbox-card mt-3">
+                <div class="checkbox text-start">
+                  <label for="chkCdtrClrSysId1" class="fw-bold ">
+                    <input type="checkbox" name="chkCdtrClrSysId" id="chkCdtrClrSysId1"
+                      class="checkme border border-dark "> ClrSysId
+                  </label>
+                </div>
+
+                <div class="apply-box row mt-3" id="box" style="display: none;">
+                  <div class="col-12 col-md-3"></div>
+                  <div class="col-12 col-md-3 text-start mb-3">
+                    <label for="chkCdtrCd" class="fw-bold">
+                      <input type="radio" name="radioCdtrCdPrtry" value="1" id="firstradio"
+                        onclick="EnableDisableTextbox8(this)" checked /> Cd
+                    </label>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <input type="text" name="cdtrCd" id="textbox" style="display: none;">
+                  </div>
+
+
+                  <div class="col-12 col-md-6 text-end">
+                    <label for="chkCdtrPrtry" class="fw-bold">
+                      <input type="radio" name="radioCdtrCdPrtry" value="2" id="secondradio"
+                        onclick="EnableDisableTextbox99(this)" />
+                      Prtry
+                    </label>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <input type="text" name="cdtrPrtry" id="textbox1" disabled="disabled" style="display: none;">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mt-3">
+                <div class="col-12 col-md-5 text-start">
+                  <label for="chkCdtrMmbId1" class="fw-bold">
+                    <input type="checkbox" name="chkCdtrMmbId" id="chkCdtrMmbId1"
+                      onclick="EnableDisableTextbox10(this)" />
+                    MmbId
+                  </label>
+                </div>
+                <div class="col-12 col-md-7 ">
+                  <input type="text" name="cdtrMmbId" id="cdtrMmbId1" disabled="disabled" class="border border-dark"
+                    style="display: none;">
+                </div>
+              </div>
+
+              <div class="row mt-3">
+                <div class="col-12 col-md-5 text-start">
+                  <label for="chkCdtrOth" class="fw-bold">
+                    <input type="checkbox" name="chkCdtrOtherId" id="chkCdtrOth"
+                      onclick="EnableDisableTextbox11(this)" />
+                    OtherId
+                  </label>
+                </div>
+                <div class="col-12 col-md-7 ">
+                  <input type="text" name="cdtrOtherId" id="cdtrOtherId1" disabled="disabled" class="border border-dark"
+                    style="display: none;">
+                </div>
+              </div>
+
+            </div><!--End of creditor section-->
+
+
+
+            <div class="col-12 col-md-4 text-center">
+              <h5 class="pb-5">Debitor Agent</h5>
+
+
+              <div class="col-auto ms-1">
+                <div class="form-check text-start">
+                  <label class="form-check-label " for="ExtList">
+                    <input class="form-check-input " type="radio"  name="flexRadioDefaultDbtrAgt" value="1" id="ExtList"
+                      onchange="disableDiv1()" checked />
+                    Use from existing list
+                  </label>
+                </div>
+                <div class="form-check text-start mb-3">
+                  <label class="form-check-label mt-3 " for="Manually">
+                    <input class="form-check-input " type="radio"  name="flexRadioDefaultDbtrAgt" value="2" id="Manually"
+                      onchange="enableDiv1()" />
+                    Enter manually
+                  </label>
+                </div>
+              </div>
+
+
+              <div class="row">
+                <div class="col-12 col-md-5 text-start">
+                  <label for="chkDbtrBic2" class="fw-bold">
+                    <input type="checkbox" name="chkDbtrBic" id="chkDbtrBic2" onclick="EnableDisableTextbox(this)" />
+                    BIC
+                  </label>
+                </div>
+                <div class="col-12 col-md-7 ">
+                  <input type="text" name="dbtrBic" id="txtDbtrBic" disabled="disabled" class="border border-dark"
+                    style="display: none;">
+                </div>
+              </div>
+
+
+              <div class=" checkbox-card mt-3">
+                <div class="checkbox text-start">
+                  <label for="chkDbtrClrSysId2" class="fw-bold">
+                    <input type="checkbox" name="chkDbtrClrSysId" id="chkDbtrClrSysId2" class="checkme "> ClrSysId
+                  </label>
+                </div>
+
+                <div class="apply-box row mt-3" id="box" style="display: none;">
+                  <div class="col-12 col-md-3"></div>
+                  <div class="col-12 col-md-3 text-start mb-3">
+                    <label for="thirdradio" class="fw-bold">
+                      <input type="radio" name="radioDbtrCdPrtry" value="1" id="thirdradio"
+                        onclick="EnableDisableTextbox8(this)" checked /> Cd
+                    </label>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <input type="text" name="dbtrCd" id="textbox2" class="border border-dark" style="display: none;">
+                  </div>
+
+
+                  <div class="col-12 col-md-6 text-end">
+                    <label for="fourthradio" class="fw-bold">
+                      <input type="radio" name="radioDbtrCdPrtry" value="2" id="fourthradio"
+                        onclick="EnableDisableTextbox9(this)" />
+                      Prtry
+                    </label>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <input type="text" name="dbtrPrtry" id="textbox3" disabled="disabled" class="border border-dark"
+                      style="display: none;">
+                  </div>
+                </div>
+              </div>
+
+
+
+              <div class="row mt-3">
+                <div class="col-12 col-md-5 text-start">
+                  <label for="chkDbtrMmbId2" class="fw-bold">
+                    <input type="checkbox" name='chkDbtrMmbId' id="chkDbtrMmbId2"
+                      onclick="EnableDisableTextbox4(this)" /> MmbId
+                  </label>
+                </div>
+                <div class="col-12 col-md-7 ">
+                  <input type="text" name="dbtrMmbId" id="dbtrMmbId2" disabled="disabled" class="border border-dark"
+                    style="display: none;">
+                </div>
+              </div>
+
+              <div class="row mt-3">
+                <div class="col-12 col-md-5 text-start">
+                  <label for="chkDbtrOth" class="fw-bold">
+                    <input type="checkbox" name='chkDbtrOtherId' id="chkDbtrOth"
+                      onclick="EnableDisableTextbox5(this)" />
+                    OtherId
+                  </label>
+                </div>
+                <div class="col-12 col-md-7 ">
+                  <input type="text" name="dbtrOtherId" id="dbtrOtherId2" disabled="disabled"
+                    class="border border-dark " style="display: none;">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 text-center">
+            <button type="submit" class="btn btn-primary mt-5 mb-5 w-25">Submit</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script type="text/javascript">
+    function EnableDisableTextbox(chkDbtrBic2) {
+      var txtPan = document.getElementById("txtDbtrBic");
+      txtPan.disabled = chkDbtrBic2.checked ? false : true;
+      if (!txtPan.disabled) {
+        txtPan.focus();
+      }
+    }
+    // function EnableDisableTextbox1(chkClr) {
+    //   var clrsysid = document.getElementById("clrsysid");
+    //   clrsysid.disabled = chkClr.checked ? false : true;
+    //   if (!clrsysid.disabled) {
+    //     clrsysid.focus();
+    //   }
+    // }
+
+    // function EnableDisableTextbox2(chkCd) {
+    //   var cd = document.getElementById("cd");
+    //   cd.disabled = chkCd.checked ? false : true;
+    //   if (!cd.disabled) {
+    //     cd.focus();
+    //   }
+    // }
+
+    // function EnableDisableTextbox3(chkPrtry) {
+    //   var prtry = document.getElementById("prtry");
+    //   prtry.disabled = chkPrtry.checked ? false : true;
+    //   if (!prtry.disabled) {
+    //     prtry.focus();
+    //   }
+    // }
+
+    function EnableDisableTextbox8(thirdradio) {
+      var radio3 = document.getElementById("textbox2");
+      radio3.disabled = thirdradio.checked ? false : true;
+      if (!radio3.focus) {
+        radio3.ariaDisabled();
+      }
+      else
+        radio3.disabled();
+    }
+
+    function EnableDisableTextbox9(fourthradio) {
+      var radio4 = document.getElementById("textbox3");
+      radio4.disabled = fourthradio.checked ? false : true;
+      if (!radio4.disabled) {
+        radio4.focus();
+        radio4.ariaDisabled();
+      }
+      else
+        radio4.disabled();
+    }
+
+    function EnableDisableTextbox4(chkDbtrMmbId2) {
+      var mmbid = document.getElementById("dbtrMmbId2");
+      mmbid.disabled = chkDbtrMmbId2.checked ? false : true;
+      if (!mmbid.disabled) {
+        mmbid.focus();
+      }
+    }
+
+    function EnableDisableTextbox5(chkDbtrOth) {
+      var otherid = document.getElementById("dbtrOtherId2");
+      otherid.disabled = chkDbtrOth.checked ? false : true;
+      if (!otherid.disabled) {
+        otherid.focus();
+      }
+    }
+
+
+
+    function EnableDisableTextbox6(chkCdtrBic1) {
+      var txtCdtrBic = document.getElementById("txtCdtrBic");
+      txtCdtrBic.disabled = chkCdtrBic1.checked ? false : true;
+      if (!txtCdtrBic.disabled) {
+        txtCdtrBic.focus();
+      }
+    }
+    // function EnableDisableTextbox7(chkClr1) {
+    //   var clrsysid1 = document.getElementById("clrsysid1");
+    //   clrsysid1.disabled = chkClr1.checked ? false : true;
+    //   if (!clrsysid1.disabled) {
+    //     clrsysid1.focus();
+    //   }
+    // }
+
+    function EnableDisableTextbox8(firstradio) {
+      var radio1 = document.getElementById("textbox");
+      radio1.disabled = firstradio.checked ? false : true;
+      if (!radio1.focus) {
+        radio1.ariaDisabled();
+      }
+      else
+        radio1.disabled();
+    }
+
+    function EnableDisableTextbox99(secondradio) {
+      var radio2 = document.getElementById("textbox1");
+      radio2.disabled = secondradio.checked ? false : true;
+      if (!radio2.disabled) {
+        radio2.focus();
+      }
+      else
+        radio2.disabled();
+    }
+
+    function EnableDisableTextbox10(chkCdtrMmbId1) {
+      var mmbid1 = document.getElementById("cdtrMmbId1");
+      mmbid1.disabled = chkCdtrMmbId1.checked ? false : true;
+      if (!mmbid1.disabled) {
+        mmbid1.focus();
+      }
+    }
+
+    function EnableDisableTextbox11(chkCdtrOth) {
+      var otherid1 = document.getElementById("cdtrOtherId1");
+      otherid1.disabled = chkCdtrOth.checked ? false : true;
+      if (!otherid1.disabled) {
+        otherid1.focus();
+      }
+    }
+  </script>
+
+  <script type="text/javascript">
+
+    //function to change currency boxs ulternately
+    $(function () {
+      $(".checkme").click(function (event) {
+        var x = $(this).is(':checked');
+        if (x == true) {
+          $(this).parents(".checkbox-card").find('.passport-box').hide();
+          $(this).parents(".checkbox-card").find('.apply-box').show();
+        }
+        else {
+          $(this).parents(".checkbox-card").find('.passport-box').show();
+          $(this).parents(".checkbox-card").find('.apply-box').hide();
+        }
+      });
+    })
+
+
+    //function to hide and show textbox when checkbox is checked
+    function showHideTextbox() {
+      var box = document.getElementById("box");
+      if (checkbox.checked == true) {
+        box.style.display = "none";
+      } else {
+        box.style.display = "block";
+      }
+    }
+
+    //function to hide and show textbox when checkbox is checked
+    function showHideTextbox() {
+      var chkClr = document.getElementById("chkClr");
+      if (checkbox.checked == true) {
+        chkClr.style.display = "none";
+      } else {
+        chkClr.style.display = "block";
+      }
+    }
+
+
+    // Get the radio button and textbox elements
+    const firstradio = document.querySelector('#firstradio');
+    const secondradio = document.querySelector('#secondradio');
+
+    const textbox = document.querySelector('#textbox');
+    const textbox1 = document.querySelector('#textbox1');
+    // Add an event listener to the radio button
+    firstradio.addEventListener('click', function () {
+      // If the radio button is checked, enable the textbox
+      if (firstradio.checked) {
+        textbox.disabled = false;
+      } else {
+        // Otherwise, disable the textbox
+        textbox.disabled = true;
+      }
+    });
+
+
+    // Add an event listener to the radio off button
+    secondradio.addEventListener('click', function () {
+      // If the radio off button is checked, disable the textbox
+      if (secondradio.checked) {
+        textbox.disabled = true;
+      } else {
+        // Otherwise, enable the textbox
+        textbox.disabled = false;
+      }
+    });
+
+
+    // Add an event listener to the radio button
+    secondradio.addEventListener('click', function () {
+      // If the radio button is checked, enable the textbox
+      if (secondradio.checked) {
+        textbox1.disabled = false;
+      } else {
+        // Otherwise, disable the textbox
+        textbox1.disabled = true;
+      }
+    });
+    // Add an event listener to the radio off button
+    firstradio.addEventListener('click', function () {
+      // If the radio off button is checked, disable the textbox
+      if (firstradio.checked) {
+        textbox1.disabled = true;
+      } else {
+        // Otherwise, enable the textbox
+        textbox1.disabled = false;
+      }
+    });
+
+    // Get the radio button and textbox elements
+    const thirdradio = document.querySelector('#thirdradio');
+    const fourthradio = document.querySelector('#fourthradio');
+    const textbox2 = document.querySelector('#textbox2');
+    const textbox3 = document.querySelector('#textbox3');
+    // Add an event listener to the radio button
+    thirdradio.addEventListener('click', function () {
+      // If the radio button is checked, enable the textbox
+      if (thirdradio.checked) {
+        textbox2.disabled = false;
+      } else {
+        // Otherwise, disable the textbox
+        textbox2.disabled = true;
+      }
+    });
+
+    // Add an event listener to the radio off button
+    fourthradio.addEventListener('click', function () {
+      // If the radio off button is checked, disable the textbox
+      if (fourthradio.checked) {
+        textbox2.disabled = true;
+      } else {
+        // Otherwise, enable the textbox
+        textbox2.disabled = false;
+      }
+    });
+
+
+    // Add an event listener to the radio button
+    fourthradio.addEventListener('click', function () {
+      // If the radio button is checked, enable the textbox
+      if (fourthradio.checked) {
+        textbox3.disabled = false;
+      } else {
+        // Otherwise, disable the textbox
+        textbox3.disabled = true;
+      }
+    });
+
+    // Add an event listener to the radio off button
+    thirdradio.addEventListener('click', function () {
+      // If the radio off button is checked, disable the textbox
+      if (thirdradio.checked) {
+        textbox3.disabled = true;
+      } else {
+        // Otherwise, enable the textbox
+        textbox3.disabled = false;
+      }
+    });
+
+
+    function enableDiv() {
+      document.getElementById("txtCdtrBic").style.display = "block";
+      document.getElementById("textbox").style.display = "block";
+      document.getElementById("textbox1").style.display = "block";
+      document.getElementById("cdtrMmbId1").style.display = "block";
+      document.getElementById("cdtrOtherId1").style.display = "block";
+      document.getElementById("cdtrAgentBox").style.pointerEvents = "auto";
+    }
+
+    function disableDiv() {
+      document.getElementById("txtCdtrBic").style.display = "none";
+      document.getElementById("textbox").style.display = "none";
+      document.getElementById("textbox1").style.display = "none";
+      document.getElementById("cdtrMmbId1").style.display = "none";
+      document.getElementById("cdtrOtherId1").style.display = "none";
+      document.getElementById("cdtrAgentBox").style.pointerEvents = "auto";
+    }
+
+
+    function enableDiv1() {
+      document.getElementById("txtDbtrBic").style.display = "block";
+      document.getElementById("textbox2").style.display = "block";
+      document.getElementById("textbox3").style.display = "block";
+      document.getElementById("dbtrMmbId2").style.display = "block";
+      document.getElementById("dbtrOtherId2").style.display = "block";
+      document.getElementById("cdtrAgentBox").style.pointerEvents = "auto";
+    }
+
+    function disableDiv1() {
+      document.getElementById("txtDbtrBic").style.display = "none";
+      document.getElementById("textbox2").style.display = "none";
+      document.getElementById("textbox3").style.display = "none";
+      document.getElementById("dbtrMmbId2").style.display = "none";
+      document.getElementById("dbtrOtherId2").style.display = "none";
+      document.getElementById("cdtrAgentBox").style.pointerEvents = "auto";
+    }
+  </script>
+  </script>
+
+  <script src="script.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
+
+

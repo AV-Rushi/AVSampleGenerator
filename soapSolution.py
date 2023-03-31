@@ -65,7 +65,7 @@ def shortenurl():
 
 @app.route('/configure', methods=['GET'])
 def configurl():
-    conn = sqlite3.connect('SampleDB/SampleGenerator.db')
+    conn = sqlite3.connect('DataBase/SampleGenerator.db')
     cursor = conn.cursor()
     cursor.execute(
         "SELECT TemplateName,FileName,BatchTag,TransactionTag FROM template_association where TemplateName='HKFPS_PACS008'")

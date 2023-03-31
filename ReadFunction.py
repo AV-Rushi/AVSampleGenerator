@@ -1,7 +1,6 @@
 import sqlite3
 import time
 import xml.etree.ElementTree as ET
-import pandas as pd
 from faker import Faker
 import uuid
 import datetime
@@ -128,12 +127,9 @@ def writeFile(ccy,ccy1,valueDate,ccyCheck,cdtrDataChoice,dbtrDataChoice,cdtrAcco
         ET.register_namespace(j, ns[j])
 
     root = tree.getroot()
-    df = pd.read_csv("Input\Data\Account.csv")
-    Acc_no = df['ACC_NO']
-    Acc_name = df['ACCOUNTNAME']
     fake = Faker()
 
-    conn = sqlite3.connect('SampleDB/SampleGenerator.db')  # Connect to the database
+    conn = sqlite3.connect('DataBase/SampleGenerator.db')  # Connect to the database
     cur = conn.cursor()  # Create a cursor object
 
     now = datetime.datetime.now()
@@ -204,17 +200,22 @@ def writeFile(ccy,ccy1,valueDate,ccyCheck,cdtrDataChoice,dbtrDataChoice,cdtrAcco
         cdtrAcct = element.find(".//doc:CdtrAcct/doc:Id/doc:Othr/doc:Id", ns)
         cdtrNm = element.find(".//doc:Cdtr/doc:Nm", ns)
         if cdtrDataChoice == 1:
-            if (cdtrCount < len(df)):
+            cur.execute('SELECT AccountNumber,AccountName FROM account_info')
+            AccountData = cur.fetchall()
+            Acc_no = [temp[0] for temp in AccountData]
+            Acc_name = [temp[1] for temp in AccountData]
+
+            if (cdtrCount < len(AccountData)):
                 cdtrAcct.text = str(Acc_no[cdtrCount])
                 cdtrNm.text = str(Acc_name[cdtrCount])
                 cdtrCount = cdtrCount + 1
 
             else:
-                df = df.reset_index(drop=True)
                 cdtrCount = 0
                 cdtrAcct.text = str(Acc_no[cdtrCount])
                 cdtrNm.text = str(Acc_name[cdtrCount])
                 cdtrCount = cdtrCount + 1
+
         elif cdtrDataChoice == 2:
             name = fake.name()
             account_no = fake.random_number(digits=cdtrAccountLength)
@@ -226,13 +227,17 @@ def writeFile(ccy,ccy1,valueDate,ccyCheck,cdtrDataChoice,dbtrDataChoice,cdtrAcco
         Id1 = element.find(".//doc:DbtrAcct/doc:Id/doc:Othr/doc:Id", ns)
         Nm1 = element.find(".//doc:Dbtr/doc:Nm", ns)
         if dbtrDataChoice == 1:
-            if (dbtrCount < len(df)):
+            cur.execute('SELECT AccountNumber,AccountName FROM account_info')
+            AccountData = cur.fetchall()
+            Acc_no = [temp[0] for temp in AccountData]
+            Acc_name = [temp[1] for temp in AccountData]
+
+            if (dbtrCount < len(AccountData)):
                 Id1.text = str(Acc_no[dbtrCount])
                 Nm1.text = str(Acc_name[dbtrCount])
                 dbtrCount = dbtrCount + 1
 
             else:
-                df = df.reset_index(drop=True)
                 dbtrCount = 0
                 Id1.text = str(Acc_no[dbtrCount])
                 Nm1.text = str(Acc_name[dbtrCount])
@@ -377,6 +382,7 @@ def writeFile(ccy,ccy1,valueDate,ccyCheck,cdtrDataChoice,dbtrDataChoice,cdtrAcco
             cur.execute('SELECT OtherId FROM bank_details')
             OtherIdData = cur.fetchall()
             OtherIdData1 = [temp[0] for temp in OtherIdData]
+
             if (chkDbtrBic == 'on'):
                 dbtrBic1 = element.find('.//doc:DbtrAgt/doc:FinInstnId/doc:BICFI', ns)
                 if (dbtrAgtCountBic < len(BicData1)):

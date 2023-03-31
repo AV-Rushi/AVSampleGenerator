@@ -20,7 +20,7 @@ def readFile(file,batchNo,txnNo,amtType,amount,ccy,ccy1):
     for i in nskeys:
         ET.register_namespace(i, ns[i])
     root = tree.getroot()
-    conn = sqlite3.connect('SampleDB/SampleGenerator.db')  # Connect to the database
+    conn = sqlite3.connect('DataBase/SampleGenerator.db')  # Connect to the database
 
     cur = conn.cursor()  # Create a cursor object
 

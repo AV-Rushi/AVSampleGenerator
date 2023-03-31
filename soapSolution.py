@@ -74,7 +74,7 @@ def configure():
     #     return f'The selected value is {selected_value}'
     conn = sqlite3.connect('DataBase/SampleGenerator.db')
     cursor = conn.cursor()
-    # cursor.execute("SELECT TemplateName,FileName,BatchTag,TransactionTag FROM template_association where TemplateName=?", (file1,))
+    cursor.execute('SELECT TemplateName,FileName,BatchTag,TransactionTag FROM template_association where TemplateName="HKFPS_PACS008"')
     conf = cursor.fetchall()
     for temp in conf:
         template = temp[0]

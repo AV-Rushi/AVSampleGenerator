@@ -10,7 +10,7 @@ def formatCcy():
     pass
 
 
-def readFile(file,batchNo,txnNo,amtType,amount,ccy,ccy1):
+def readFile(file,batchNo,txnNo,amtType,ccy,ccy1,amount):
     file1 = (f"Input\Sample_Template\{file}.xml")
     tree = ET.parse(file1)
 

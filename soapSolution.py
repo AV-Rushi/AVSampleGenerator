@@ -57,7 +57,7 @@ def shortenurl1():
     cdtrAgtDataChoice= request.form.get('flexRadioDefaultCdtrAgt')
     dbtrAgtDataChoice= request.form.get('flexRadioDefaultDbtrAgt')
 
-    ReadFunction.readFile(file,int(batchNo),int(txnNo),int(amtType),int(amount),ccy,ccy1)
+    ReadFunction.readFile(file,int(batchNo),int(txnNo),int(amtType),ccy,ccy1,int(amount))
     ReadFunction.writeFile(str(ccy),str(ccy1),valueDate,ccyCheck,int(cdtrDataChoice),int(dbtrDataChoice),int(cdtrAccountLength), int(dbtrAccountLength),chkCdtrBic,cdtrBic,chkCdtrClrSysId,int(radioCdtrCdPrtry),cdtrCd,cdtrPrtry,chkCdtrMmbId,cdtrMmbId,chkCdtrOtherId,cdtrOtherId,chkDbtrBic,dbtrBic,chkDbtrClrSysId,int(radioDbtrCdPrtry),dbtrCd,dbtrPrtry,chkDbtrMmbId,dbtrMmbId,chkDbtrOtherId,dbtrOtherId,int(cdtrAgtDataChoice),int(dbtrAgtDataChoice))
     os.remove("Input\Temp\SampleFile1.xml")
     return "File Generated Successfully"

@@ -121,7 +121,7 @@ def readFile(file,batchNo,txnNo,amtType,amount,ccy,ccy1):
     print("File 1 generated sucessfully..")
 
 
-def writeFile(ccy,ccy1,valueDate,ccyCheck,cdtrDataChoice,dbtrDataChoice,cdtrAccountLength,dbtrAccountLength,chkCdtrBic,cdtrBic,chkCdtrClrSysId,radioCdtrCdPrtry,cdtrCd,cdtrPrtry,chkCdtrMmbId,cdtrMmbId,chkCdtrOtherId,cdtrOtherId,chkDbtrBic,dbtrBic,chkDbtrClrSysId,radioDbtrCdPrtry,dbtrCd,dbtrPrtry,chkDbtrMmbId,dbtrMmbId,chkDbtrOtherId,dbtrOtherId,cdtrAgtDataChoice,dbtrAgtDataChoice):
+def writeFile(file,ccy,ccy1,valueDate,ccyCheck,cdtrDataChoice,dbtrDataChoice,cdtrAccountLength,dbtrAccountLength,chkCdtrBic,cdtrBic,chkCdtrClrSysId,radioCdtrCdPrtry,cdtrCd,cdtrPrtry,chkCdtrMmbId,cdtrMmbId,chkCdtrOtherId,cdtrOtherId,chkDbtrBic,dbtrBic,chkDbtrClrSysId,radioDbtrCdPrtry,dbtrCd,dbtrPrtry,chkDbtrMmbId,dbtrMmbId,chkDbtrOtherId,dbtrOtherId,cdtrAgtDataChoice,dbtrAgtDataChoice):
     tree = ET.parse("Input\Temp\SampleFile1.xml")
     ns = dict([node for (_, node) in ET.iterparse("Input\Temp\SampleFile1.xml", events=['start-ns'])])
     nskeys_1 = list(ns.keys())
@@ -514,8 +514,8 @@ def writeFile(ccy,ccy1,valueDate,ccyCheck,cdtrDataChoice,dbtrDataChoice,cdtrAcco
             # for elem in root.findall(".//*"):
             # if UETR in elem:
             # elem.remove(UETR)
-
-    tree.write("Output\SampleFileMain.xml", xml_declaration=True, encoding='utf-8')
+    f_date = (now.strftime("%y%m%d%H%M%S"))
+    tree.write(f"Output\{file}_{f_date}.xml", xml_declaration=True, encoding='utf-8')
     print("File 2 generated sucessfully..")
 
 

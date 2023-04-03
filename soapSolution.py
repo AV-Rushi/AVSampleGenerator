@@ -15,9 +15,8 @@ def index():
 
 @app.route('/shortenurl1', methods=['GET', 'POST'])
 def shortenurl1():
-    # selected_value = request.form['selectHK']
-    # session['selected_value'] = selected_value
-    # return redirect(url_for('configure', selected_value=selected_value))
+    selected_value = request.form['selectHK']
+    session['selected_value'] = selected_value
 
     file = request.form.get('selectHK')
     batchNo = request.form.get('batchNo')
@@ -57,34 +56,27 @@ def shortenurl1():
     cdtrAgtDataChoice= request.form.get('flexRadioDefaultCdtrAgt')
     dbtrAgtDataChoice= request.form.get('flexRadioDefaultDbtrAgt')
 
-    ReadFunction.readFile(file,int(batchNo),int(txnNo),int(amtType),ccy,ccy1,int(amount))
+    ReadFunction.readFile(file,int(batchNo),int(txnNo),int(amtType),int(amount),ccy,ccy1)
     ReadFunction.writeFile(str(ccy),str(ccy1),valueDate,ccyCheck,int(cdtrDataChoice),int(dbtrDataChoice),int(cdtrAccountLength), int(dbtrAccountLength),chkCdtrBic,cdtrBic,chkCdtrClrSysId,int(radioCdtrCdPrtry),cdtrCd,cdtrPrtry,chkCdtrMmbId,cdtrMmbId,chkCdtrOtherId,cdtrOtherId,chkDbtrBic,dbtrBic,chkDbtrClrSysId,int(radioDbtrCdPrtry),dbtrCd,dbtrPrtry,chkDbtrMmbId,dbtrMmbId,chkDbtrOtherId,dbtrOtherId,int(cdtrAgtDataChoice),int(dbtrAgtDataChoice))
     os.remove("Input\Temp\SampleFile1.xml")
     return "File Generated Successfully"
-    # return redirect(url_for('configurl'))
-    # return redirect(url_for('configure', selected_value=selected_value))
-    # return render_template('shortenurl.html', file=batchNo)
 
 @app.route('/configure', methods=['GET', 'POST'])
 def configure():
-    # selected_value = session.get('selected_value', None)
-    # if selected_value is None:
-    #     return 'Selected value not set'
-    # else:
-    #     return f'The selected value is {selected_value}'
+    selected_value = request.args.get('selected_value', None)
+    tempNm = selected_value
     conn = sqlite3.connect('DataBase/SampleGenerator.db')
     cursor = conn.cursor()
-    cursor.execute('SELECT TemplateName,FileName,BatchTag,TransactionTag FROM template_association where TemplateName="HKFPS_PACS008"')
+    cursor.execute('SELECT TemplateName,FileName,BatchTag,TransactionTag FROM template_association where TemplateName=?',(tempNm,))
     conf = cursor.fetchall()
     for temp in conf:
         template = temp[0]
         file = temp[1]
         batchtag = temp[2]
         txntag = temp[3]
-    cursor.execute('SELECT FieldName,Path FROM template_config where TemplateName="HKFPS_PACS008"')
+    cursor.execute('SELECT FieldName,Path FROM template_config where TemplateName=?', (tempNm,))
     data = cursor.fetchall()
     return render_template("configure.html", data=data, template=template, file=file, batchtag=batchtag, txntag=txntag)
-    # return render_template('shortenurl.html', file=selected_value)
 if __name__== "__main__":
     app.run(debug=True,port='2024')
 

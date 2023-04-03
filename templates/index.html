@@ -143,9 +143,21 @@
 
             
             <div class="col-auto">
-              <a href="{{ config_url }}" onclick="sendValue()" type="button" class="btn btn-primary" id="button" style="box-shadow: 2px 2px 4px black;">Configure</a>
+              <a href="{{ config_url }}" onclick="sendValue()" type="button" class="btn btn-primary" id="FormatId" style="box-shadow: 2px 2px 4px black;">Configure</a>
+<!--                  <a href="#" id="destination-link" type="button">Click</a>-->
             </div>
 
+              <script>
+                  const selectValue = document.getElementById('format');
+                  const destinationLink = document.getElementById('FormatId');
+
+                  destinationLink.addEventListener('click', (event) => {
+                      event.preventDefault();
+                      const selectedValue = selectValue.value;
+                      const url = `/configure?selected_value=${selectedValue}`;
+                      window.location.href = url;
+                  });
+              </script>
             <div class="row g-3 mt-3 text-start ">
               <div class="col-12 col-md-2"></div>
               <div class="col-12 col-md-4">
@@ -204,7 +216,7 @@
               </div>
               </div>
                
-      <script>
+      <!-- <script>
         const input = document.querySelector('#amount_entered');
         input.addEventListener('blur', handleBlur);
       
@@ -215,7 +227,7 @@
             document.querySelector('#sampleGenerationForm').submit();
           }
         }
-      </script>
+      </script> -->
   <!--End of Enter Amount-->
 
 
@@ -243,6 +255,8 @@
                       <option value="CNY">CNY</option>
                       <option value="AUD">AUD</option>
                       <option value="INR">INR</option>
+					  <option value="KWD">KWD</option>
+                      <option value="BIF">BIF</option>
                     </select>
                   </div>
                 </div>
@@ -262,6 +276,8 @@
                       <option value="CNY">CNY</option>
                       <option value="AUD">AUD</option>
                       <option value="INR">INR</option>
+					  <option value="KWD">KWD</option>
+                      <option value="BIF">BIF</option>
                     </select>
                   </div>
                 </div>
@@ -291,6 +307,8 @@
                       <option value="CNY">CNY</option>
                       <option value="AUD">AUD</option>
                       <option value="INR">INR</option>
+					  <option value="KWD">KWD</option>
+                      <option value="BIF">BIF</option>
                     </select>
                   </div>
                 </div>

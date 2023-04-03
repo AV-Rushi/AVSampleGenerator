@@ -25,7 +25,10 @@
   #account_Lengthcdtr,
   #account_Lengthdbtr,
   #inputCCY,
-  #inputcountry {
+  #inputcountry
+  #InstdAmtCny
+  #IntrBkSttlmdAmtCny
+   {
     border-color: lightcoral;
     border-width: 2px;
     box-shadow: 2px 2px 4px black;
@@ -42,7 +45,10 @@
   #account_Lengthcdtr:hover,
   #inputCCY:hover,
   #inputcountry:hover,
-  #account_Lengthdbtr:hover {
+  #account_Lengthdbtr:hover
+  #InstdAmtCny:hover
+  #IntrBkSttlmdAmtCny:hover
+   {
     border-color: black;
     border-width: 2px;
     box-shadow: 2px 2px 4px;
@@ -165,7 +171,7 @@
               </div>
               <div class="col-12 col-md-3">
                 <input type="number" id="no_of_batches" class="form-control ms-1" aria-describedby="passwordHelpInline"
-                  placeholder="--Enter Value--" name="batchNo" />
+                  placeholder="--Enter Value--" name="batchNo" value="0" />
               </div>
             </div>
             <!--End of Batches-->
@@ -177,7 +183,7 @@
               </div>
               <div class="col-12 col-md-3">
                 <input type="number" id="no_of_transaction" class="form-control ms-1"
-                  aria-describedby="passwordHelpInline" placeholder="--Enter Value--" name="txnNo" />
+                  aria-describedby="passwordHelpInline" placeholder="--Enter Value--" name="txnNo" value="0" />
               </div>
             </div>
             <!--End of Transactions-->
@@ -212,7 +218,7 @@
               </div>
               <div class="col-12 col-md-3">
                 <input type="number" id="amount_entered" class="form-control ms-1" aria-describedby="passwordHelpInline"
-                  placeholder="--Enter Amount--" name="Amount" />
+                  placeholder="--Enter Amount--" name="Amount" step="0.0000000001" />
               </div>
               </div>
                
@@ -228,6 +234,26 @@
           }
         }
       </script> -->
+
+<script>
+  const myInput = document.getElementById("amount_entered");
+const myMessage = document.getElementById("myMessage");
+const myForm = document.querySelector("form");
+
+myForm.addEventListener("submit", (event) => {
+  const value = parseFloat(myInput.value);
+  if (isNaN(value) || !/^\d+(\.\d{1,10})?$/.test(myInput.value)) {
+    event.preventDefault();
+    myMessage.textContent = "Invalid input. Please enter a number with up to three decimal places.";
+    myInput.classList.add("error");
+  } else {
+    myMessage.textContent = "";
+    myInput.classList.remove("error");
+  }
+});
+
+</script>
+
   <!--End of Enter Amount-->
 
 
@@ -266,11 +292,12 @@
               <div class="passport-box row g-3 align-items-center mt-3 text-start " id="box" style="display: none;">
                 <div class="col-12 col-md-2"></div>
                 <div class="col-12 col-md-4 ms-1">
-                  <label for="currency_type" class="col-form-label text-start fw-bold" id="int">IntrBkSttlmAmt</label>
+                  <label for="IntrBkSttlmdAmtCny" class="col-form-label text-start fw-bold" id="int">IntrBkSttlmAmt</label>
                 </div>
                 <div class="col-12 col-md-3 ms-2">
                   <div class="dropdown">
-                    <select name="ccy" class="form-select " id="currency">
+                    <select name="ccy" class="form-select" style="border-color: lightcoral;border-width: 2px;
+                     box-shadow: 2px 2px 4px black; id="IntrBkSttlmdAmtCny">
                       <option selected disabled>--Select Currency Type--</option>
                       <option value="HKD">HKD</option>
                       <option value="CNY">CNY</option>
@@ -294,14 +321,15 @@
                   });
                 </script>
                 <br>
-                <div class="col-12 col-md-3"></div>
-                <div class="col-12 col-md-"></div>
-                <div class="col-12 col-md-3">
-                  <label for="currency_type" class="col-form-label text-start">InstdAmt</label>
+                <div class="col-12 col-md-2"></div>
+
+                <div class="col-12 col-md-4">
+            <label for="InstdAmtCny" class="col-form-label text-start fw-bold" style="margin-left:210px;">InstdAmt</label>
                 </div>
-                <div class="col-12 col-md-3 ms-1">
+                <div class="col-12 col-md-3 ms-1" >
                   <div class="dropdown">
-                    <select name="ccy1" class="form-select">
+                    <select name="ccy1" class="form-select" style="margin-left:215px;border-color: lightcoral;border-width: 2px;
+                     box-shadow: 2px 2px 4px black;" id="InstdAmtCny">
                       <option selected disabled>--Select Currency Type--</option>
                       <option value="HKD">HKD</option>
                       <option value="CNY">CNY</option>
@@ -587,7 +615,7 @@
                   </div>
 
 
-                  <div class="col-12 col-md-6 text-end">
+                  <div class="col-12 col-md-6 text-center" style="margin-left:40px">
                     <label for="chkCdtrPrtry" class="fw-bold">
                       <input type="radio" name="radioCdtrCdPrtry" value="2" id="secondradio"
                         onclick="EnableDisableTextbox99(this)" />
@@ -688,7 +716,7 @@
                   </div>
 
 
-                  <div class="col-12 col-md-6 text-end">
+                  <div class="col-12 col-md-6 text-center" style="margin-left:40px">
                     <label for="fourthradio" class="fw-bold">
                       <input type="radio" name="radioDbtrCdPrtry" value="2" id="fourthradio"
                         onclick="EnableDisableTextbox9(this)" />

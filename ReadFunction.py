@@ -43,7 +43,9 @@ def readFile(file,batchNo,txnNo,amtType,ccy,ccy1,amount):
     for j in range(txnNo - 1):
         txnElement = root.find(".//doc:CdtTrfTxInf", ns)  # CdtTrfTxInf Level Element
         fiToFiElement.append(txnElement)
-
+  
+    formatted_amount1=0
+    formatted_amount2=0
     if amtType == 1:
         if ccy1 is None:
             if ccy in [item for sublist in lst1 for item in sublist]:

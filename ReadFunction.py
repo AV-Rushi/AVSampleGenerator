@@ -7,7 +7,11 @@ import datetime
 
 
 def readFile(file,batchNo,txnNo,amtType,amount,ccy,ccy1):
-    file1 = (f"Input\Sample_Template\{file}.xml")
+    conn = sqlite3.connect('DataBase/SampleGenerator.db')  # Connect to the database
+    cur = conn.cursor()  # Create a cursor object
+    cur.execute('SELECT FileName FROM template_association where TemplateName=?', (file,))
+    FileName = cur.fetchone()
+    file1 = (f"Input\Sample_Template\{FileName[0]}")
     tree = ET.parse(file1)
 
     ns = dict([node for (_, node) in ET.iterparse(file1, events=['start-ns'])])
@@ -15,9 +19,6 @@ def readFile(file,batchNo,txnNo,amtType,amount,ccy,ccy1):
     for i in nskeys:
         ET.register_namespace(i, ns[i])
     root = tree.getroot()
-    conn = sqlite3.connect('DataBase/SampleGenerator.db')  # Connect to the database
-
-    cur = conn.cursor()  # Create a cursor object
 
     cur.execute('SELECT distinct CountryCode FROM currency where Decimals=3')
     lst1 = cur.fetchall()

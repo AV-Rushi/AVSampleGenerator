@@ -6,10 +6,6 @@ import uuid
 import datetime
 
 
-def formatCcy():
-    pass
-
-
 def readFile(file,batchNo,txnNo,amtType,amount,ccy,ccy1):
     file1 = (f"Input\Sample_Template\{file}.xml")
     tree = ET.parse(file1)

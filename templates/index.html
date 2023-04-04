@@ -28,12 +28,18 @@
   #inputcountry
   #InstdAmtCny
   #IntrBkSttlmdAmtCny
+  #inputcountryDbtr
    {
     border-color: lightcoral;
     border-width: 2px;
     box-shadow: 2px 2px 4px black;
   }
 
+  #inputcountryDbtr{
+    border-color: lightcoral;
+    border-width: 2px;
+    box-shadow: 2px 2px 4px black;
+  }
   #format:hover,
   #no_of_batches:hover,
   #no_of_transaction:hover,
@@ -48,6 +54,7 @@
   #account_Lengthdbtr:hover
   #InstdAmtCny:hover
   #IntrBkSttlmdAmtCny:hover
+  #inputcountryDbtr:hover
    {
     border-color: black;
     border-width: 2px;
@@ -56,6 +63,13 @@
     background-color: rgb(231, 247, 253);
   }
 
+  #inputcountryDbtr:hover{
+    border-color: black;
+    border-width: 2px;
+    box-shadow: 2px 2px 4px;
+    /* background-color: linen; */
+    background-color: rgb(231, 247, 253);
+  }
   #no_of_batches::placeholder,
   #no_of_transaction::placeholder,
   #amount_entered::placeholder,
@@ -83,7 +97,7 @@
           <nav class="navbar navbar-expand-lg bg-body-tertiary  p-0 m-0 border-bottom border-dark border-3"
             style="background-color:rgb(245, 238, 227)">
             <div class="container-fluid">
-              <a class="navbar-brand" href="#"> 
+              <a class="navbar-brand" href="#">
                 <img src="{{ url_for('static', filename='arthavedh.png') }}" class="w-50 h-50"> </a>
 
               <div class="collapse navbar-collapse text-start " id="navbarSupportedContent">
@@ -147,7 +161,7 @@
 });
 </script>
 
-            
+
             <div class="col-auto">
               <a href="{{ config_url }}" onclick="sendValue()" type="button" class="btn btn-primary" id="FormatId" style="box-shadow: 2px 2px 4px black;">Configure</a>
 <!--                  <a href="#" id="destination-link" type="button">Click</a>-->
@@ -221,11 +235,11 @@
                   placeholder="--Enter Amount--" name="Amount" step="0.0000000001" />
               </div>
               </div>
-               
+
       <!-- <script>
         const input = document.querySelector('#amount_entered');
         input.addEventListener('blur', handleBlur);
-      
+
         function handleBlur(event) {
           const value = event.target.value;
           if (!isNaN(value)) {
@@ -297,7 +311,7 @@ myForm.addEventListener("submit", (event) => {
                 <div class="col-12 col-md-3 ms-2">
                   <div class="dropdown">
                     <select name="ccy" class="form-select" style="border-color: lightcoral;border-width: 2px;
-                     box-shadow: 2px 2px 4px black; id="IntrBkSttlmdAmtCny">
+                     box-shadow: 2px 2px 4px black;" id="IntrBkSttlmdAmtCny">
                       <option selected disabled>--Select Currency Type--</option>
                       <option value="HKD">HKD</option>
                       <option value="CNY">CNY</option>
@@ -312,7 +326,7 @@ myForm.addEventListener("submit", (event) => {
                 <script>
                   const form1 = document.querySelector('#sampleGenerationForm');
                   const currency = document.querySelector('#currency');
-                
+
                   form.addEventListener('submit', function(event) {
                     if (!dropdown.value) {
                       alert('Please select currency from the dropdown');
@@ -424,28 +438,28 @@ myForm.addEventListener("submit", (event) => {
 
                     <div class="row g-3 ms-5 mt-3">
                       <div class="col-12 col-md-2"></div>
-                      <!-- <div class="col-12 col-md-5">
+                       <div class="col-12 col-md-4">
                         <label for="inputcountrycdtr" class="col-form-label text-end">Country Code</label>
-                      </div> -->
-                      <!-- <div class="col-12 col-md-3">
+                      </div>
+                       <div class="col-12 col-md-3">
                         <div class="dropdown">
-                          <select id="inputcountrycdtr" class="form-select " name="country">
+                          <select id="inputcountrycdtr" class="form-select " name="country" style="margin-left: 70px;">
                             <option selected disabled>--Select--</option>
-                            <option>AU</option>
-                            <option>CA</option>
-                            <option>GB</option>
-                            <option>IE</option>
-                            <option>IN</option>
-                            <option>NZ</option>
-                            <option>PH</option>
-                            <option>TH</option>
-                            <option>US</option>
+                            <option value="AU" >AUS</option>
+                            <option value="CA" >CAN</option>
+                            <option value="GB" >GBR</option>
+                            <option value="IE" >IRL</option>
+                            <option value="IN" >IND</option>
+                            <option value="NZ" >NZL</option>
+                            <option value="PH" >PHL</option>
+                            <option value="TH" >THA</option>
+                            <option value="US" >USA</option>
                           </select>
                         </div>
-                      </div> -->
-                      <div class="col-12 col-md-1"></div>
-                      <div class="col-12 col-md-5 ">
-                        <label for="account_Lengthcdtr" class="col-form-label">Enter Account Length</label>
+                      </div>
+                      <div class="col-12 col-md-4"></div>
+                      <div class="col-12 col-md-5 text-start " style="margin-left: -60px;">
+                        <label for="account_Lengthcdtr" class="col-form-label">Enter AccountNo Length</label>
                       </div>
                       <div class="col-12 col-md-3">
                         <input type="number" id="account_Lengthcdtr" class="form-control" placeholder="--Enter--"
@@ -519,28 +533,28 @@ myForm.addEventListener("submit", (event) => {
                     </label>
                     <div class="row g-3 ms-5 mt-3">
                       <div class="col-12 col-md-2"></div>
-                      <!-- <div class="col-12 col-md-5 text-center">
-                        <label for="inputcountry" class="col-form-label text-end">Country Code</label>
+                       <div class="col-12 col-md-5 text-center">
+                        <label for="inputcountryDbtr" class="col-form-label text-end" style="margin-left:-52px;">Country Code</label>
                       </div>
                       <div class="col-12 col-md-3">
                         <div class="dropdown">
-                          <select id="inputcountry" class="form-select" name="country">
+                          <select id="inputcountryDbtr" class="form-select" name="country">
                             <option selected disabled>--Select--</option>
-                            <option>AU</option>
-                            <option>CA</option>
-                            <option>GB</option>
-                            <option>IE</option>
-                            <option>IN</option>
-                            <option>NZ</option>
-                            <option>PH</option>
-                            <option>TH</option>
-                            <option>US</option>
+                            <option value="AU" >AUS</option>
+                            <option value="CA" >CAN</option>
+                            <option value="GB" >GBR</option>
+                            <option value="IE" >IRL</option>
+                            <option value="IN" >IND</option>
+                            <option value="NZ" >NZL</option>
+                            <option value="PH" >PHL</option>
+                            <option value="TH" >THA</option>
+                            <option value="US" >USA</option>
                           </select>
                         </div>
-                      </div> -->
-                      <div class="col-12 col-md-1"></div>
-                      <div class="col-12 col-md-5 text-center">
-                        <label for="account_Lengthdbtr" class="col-form-label">Enter Account Length</label>
+                      </div>
+                      <div class="col-12 col-md-3"></div>
+                      <div class="col-12 col-md-4 text-center">
+                        <label for="account_Lengthdbtr" class="col-form-label" style="margin-left:-45px;">Enter Account Length</label>
                       </div>
                       <div class="col-12 col-md-3 ">
                         <input type="number" id="account_Lengthdbtr" class="form-control ms-1" placeholder="--Enter--"
@@ -788,7 +802,7 @@ form2.addEventListener('submit', function(event) {
 });
 
 </script>
-        
+
         </div>
       </div>
     </form>

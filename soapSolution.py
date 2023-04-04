@@ -29,7 +29,9 @@ def shortenurl1():
     ccyCheck= request.form.get('ccyCheck')
     cdtrDataChoice= request.form.get('flexRadioDefaultCdtr')
     dbtrDataChoice= request.form.get('flexRadioDefaultDbtr')
+    cdtrAccountName = request.form.get('CdtrCountry')
     cdtrAccountLength= request.form.get('cdtrAccountLength')
+    dbtrAccountName = request.form.get('DbtrCountry')
     dbtrAccountLength = request.form.get('dbtrAccountLength')
     chkCdtrBic = request.form.get('chkCdtrBic')
     cdtrBic = request.form.get('cdtrBic')
@@ -57,7 +59,7 @@ def shortenurl1():
     dbtrAgtDataChoice= request.form.get('flexRadioDefaultDbtrAgt')
 
     ReadFunction.readFile(file,int(batchNo),int(txnNo),int(amtType),float(amount),ccy,ccy1)
-    ReadFunction.writeFile(file,str(ccy),str(ccy1),valueDate,ccyCheck,int(cdtrDataChoice),int(dbtrDataChoice),int(cdtrAccountLength), int(dbtrAccountLength),chkCdtrBic,cdtrBic,chkCdtrClrSysId,int(radioCdtrCdPrtry),cdtrCd,cdtrPrtry,chkCdtrMmbId,cdtrMmbId,chkCdtrOtherId,cdtrOtherId,chkDbtrBic,dbtrBic,chkDbtrClrSysId,int(radioDbtrCdPrtry),dbtrCd,dbtrPrtry,chkDbtrMmbId,dbtrMmbId,chkDbtrOtherId,dbtrOtherId,int(cdtrAgtDataChoice),int(dbtrAgtDataChoice))
+    ReadFunction.writeFile(file,str(ccy),str(ccy1),valueDate,ccyCheck,int(cdtrDataChoice),int(dbtrDataChoice),int(cdtrAccountLength), int(dbtrAccountLength),chkCdtrBic,cdtrBic,chkCdtrClrSysId,int(radioCdtrCdPrtry),cdtrCd,cdtrPrtry,chkCdtrMmbId,cdtrMmbId,chkCdtrOtherId,cdtrOtherId,chkDbtrBic,dbtrBic,chkDbtrClrSysId,int(radioDbtrCdPrtry),dbtrCd,dbtrPrtry,chkDbtrMmbId,dbtrMmbId,chkDbtrOtherId,dbtrOtherId,int(cdtrAgtDataChoice),int(dbtrAgtDataChoice),cdtrAccountName,dbtrAccountName)
     os.remove("Input\Temp\SampleFile1.xml")
     return "File Generated Successfully"
 

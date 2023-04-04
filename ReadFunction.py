@@ -118,7 +118,7 @@ def readFile(file,batchNo,txnNo,amtType,amount,ccy,ccy1):
     print("File 1 generated sucessfully..")
 
 
-def writeFile(file,ccy,ccy1,valueDate,ccyCheck,cdtrDataChoice,dbtrDataChoice,cdtrAccountLength,dbtrAccountLength,chkCdtrBic,cdtrBic,chkCdtrClrSysId,radioCdtrCdPrtry,cdtrCd,cdtrPrtry,chkCdtrMmbId,cdtrMmbId,chkCdtrOtherId,cdtrOtherId,chkDbtrBic,dbtrBic,chkDbtrClrSysId,radioDbtrCdPrtry,dbtrCd,dbtrPrtry,chkDbtrMmbId,dbtrMmbId,chkDbtrOtherId,dbtrOtherId,cdtrAgtDataChoice,dbtrAgtDataChoice):
+def writeFile(file,ccy,ccy1,valueDate,ccyCheck,cdtrDataChoice,dbtrDataChoice,cdtrAccountLength,dbtrAccountLength,chkCdtrBic,cdtrBic,chkCdtrClrSysId,radioCdtrCdPrtry,cdtrCd,cdtrPrtry,chkCdtrMmbId,cdtrMmbId,chkCdtrOtherId,cdtrOtherId,chkDbtrBic,dbtrBic,chkDbtrClrSysId,radioDbtrCdPrtry,dbtrCd,dbtrPrtry,chkDbtrMmbId,dbtrMmbId,chkDbtrOtherId,dbtrOtherId,cdtrAgtDataChoice,dbtrAgtDataChoice,cdtrAccountName,dbtrAccountName):
     tree = ET.parse("Input\Temp\SampleFile1.xml")
     ns = dict([node for (_, node) in ET.iterparse("Input\Temp\SampleFile1.xml", events=['start-ns'])])
     nskeys_1 = list(ns.keys())
@@ -127,6 +127,8 @@ def writeFile(file,ccy,ccy1,valueDate,ccyCheck,cdtrDataChoice,dbtrDataChoice,cdt
 
     root = tree.getroot()
     fake = Faker()
+    Cdtrfake = Faker(f"en_{cdtrAccountName}")
+    Dbtrfake = Faker(f"en_{dbtrAccountName}")
 
     conn = sqlite3.connect('DataBase/SampleGenerator.db')  # Connect to the database
     cur = conn.cursor()  # Create a cursor object
@@ -216,7 +218,7 @@ def writeFile(file,ccy,ccy1,valueDate,ccyCheck,cdtrDataChoice,dbtrDataChoice,cdt
                 cdtrCount = cdtrCount + 1
 
         elif cdtrDataChoice == 2:
-            name = fake.name()
+            name = Cdtrfake.name()
             account_no = fake.random_number(digits=cdtrAccountLength)
             cdtrAcct.text = str(account_no)
             cdtrNm.text = str(name)
@@ -243,7 +245,7 @@ def writeFile(file,ccy,ccy1,valueDate,ccyCheck,cdtrDataChoice,dbtrDataChoice,cdt
                 dbtrCount = dbtrCount + 1
 
         elif dbtrDataChoice == 2:
-            name = fake.name()
+            name = Dbtrfake.name()
             account_no = fake.random_number(digits=dbtrAccountLength)
             Id1.text = str(account_no)
             Nm1.text = str(name)

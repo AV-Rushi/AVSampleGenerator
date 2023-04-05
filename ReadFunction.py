@@ -127,8 +127,6 @@ def writeFile(file,ccy,ccy1,valueDate,ccyCheck,cdtrDataChoice,dbtrDataChoice,cdt
 
     root = tree.getroot()
     fake = Faker()
-    Cdtrfake = Faker(f"en_{cdtrAccountName}")
-    Dbtrfake = Faker(f"en_{dbtrAccountName}")
 
     conn = sqlite3.connect('DataBase/SampleGenerator.db')  # Connect to the database
     cur = conn.cursor()  # Create a cursor object
@@ -218,6 +216,7 @@ def writeFile(file,ccy,ccy1,valueDate,ccyCheck,cdtrDataChoice,dbtrDataChoice,cdt
                 cdtrCount = cdtrCount + 1
 
         elif cdtrDataChoice == 2:
+            Cdtrfake = Faker(f"en_{cdtrAccountName}")
             name = Cdtrfake.name()
             account_no = fake.random_number(digits=cdtrAccountLength)
             cdtrAcct.text = str(account_no)
@@ -245,6 +244,7 @@ def writeFile(file,ccy,ccy1,valueDate,ccyCheck,cdtrDataChoice,dbtrDataChoice,cdt
                 dbtrCount = dbtrCount + 1
 
         elif dbtrDataChoice == 2:
+            Dbtrfake = Faker(f"en_{dbtrAccountName}")
             name = Dbtrfake.name()
             account_no = fake.random_number(digits=dbtrAccountLength)
             Id1.text = str(account_no)
@@ -273,6 +273,11 @@ def writeFile(file,ccy,ccy1,valueDate,ccyCheck,cdtrDataChoice,dbtrDataChoice,cdt
                     cdtrAgtCountBic = 0
                     cdtrBic1.text = str(BicData1[cdtrAgtCountBic])
                     cdtrAgtCountBic = cdtrAgtCountBic + 1
+            else:
+                cdtrBic1 = element.find('.//doc:CdtrAgt/doc:FinInstnId/doc:BICFI', ns)
+                for elem in root.findall(".//*"):
+                    if cdtrBic1 in elem:
+                        elem.remove(cdtrBic1)
 
             if (chkCdtrClrSysId == 'on'):
                 if radioCdtrCdPrtry == 1:
@@ -286,9 +291,25 @@ def writeFile(file,ccy,ccy1,valueDate,ccyCheck,cdtrDataChoice,dbtrDataChoice,cdt
                         cdtrCd1.text = str(ClearingCodeData1[cdtrAgtCountCd])
                         cdtrAgtCountCd = cdtrAgtCountCd + 1
 
+                else:
+                    cdtrCd1 = element.find('.//doc:CdtrAgt/doc:FinInstnId/doc:ClrSysMmbId/doc:ClrSysId/doc:Cd', ns)
+                    for elem in root.findall(".//*"):
+                        if cdtrCd1 in elem:
+                            elem.remove(cdtrCd1)
+
                 if radioCdtrCdPrtry == 2:
                     cdtrPrtry1 = element.find('.//doc:CdtrAgt/doc:FinInstnId/doc:ClrSysMmbId/doc:ClrSysId/doc:Prtry', ns)
                     cdtrPrtry1.text = "Prtry12345"
+                else:
+                    cdtrPrtry1 = element.find('.//doc:CdtrAgt/doc:FinInstnId/doc:ClrSysMmbId/doc:ClrSysId/doc:Prtry', ns)
+                    for elem in root.findall(".//*"):
+                        if cdtrPrtry1 in elem:
+                            elem.remove(cdtrPrtry1)
+            else:
+                ClrSysId = element.find('.//doc:CdtrAgt/doc:FinInstnId/doc:ClrSysMmbId/doc:ClrSysId', ns)
+                for elem in root.findall(".//*"):
+                    if ClrSysId in elem:
+                        elem.remove(ClrSysId)
 
             if (chkCdtrMmbId == 'on'):
                 cdtrMmbId1 = element.find('.//doc:CdtrAgt/doc:FinInstnId/doc:ClrSysMmbId/doc:MmbId', ns)
@@ -301,6 +322,18 @@ def writeFile(file,ccy,ccy1,valueDate,ccyCheck,cdtrDataChoice,dbtrDataChoice,cdt
                     cdtrMmbId1.text = str(RoutingNoData1[cdtrAgtCountMmb])
                     cdtrAgtCountMmb = cdtrAgtCountMmb + 1
 
+            else:
+                cdtrMmbId1 = element.find('.//doc:CdtrAgt/doc:FinInstnId/doc:ClrSysMmbId/doc:MmbId', ns)
+                for elem in root.findall(".//*"):
+                    if cdtrMmbId1 in elem:
+                        elem.remove(cdtrMmbId1)
+
+            if (chkCdtrClrSysId != 'on') and (chkCdtrMmbId != 'on'):
+                ClrSysId = element.find('.//doc:CdtrAgt/doc:FinInstnId/doc:ClrSysMmbId', ns)
+                for elem in root.findall(".//*"):
+                    if ClrSysId in elem:
+                        elem.remove(ClrSysId)
+
             if (chkCdtrOtherId == 'on'):
                 cdtrOtherId1 = element.find('.//doc:CdtrAgt/doc:FinInstnId/doc:Othr/doc:Id', ns)
                 if (cdtrAgtCountOthr < len(OtherIdData1)):
@@ -311,6 +344,12 @@ def writeFile(file,ccy,ccy1,valueDate,ccyCheck,cdtrDataChoice,dbtrDataChoice,cdt
                     cdtrAgtCountOthr = 0
                     cdtrOtherId1.text = str(OtherIdData1[cdtrAgtCountOthr])
                     cdtrAgtCountOthr = cdtrAgtCountOthr + 1
+
+            else:
+                cdtrOtherId1 = element.find('.//doc:CdtrAgt/doc:FinInstnId/doc:Othr', ns)
+                for elem in root.findall(".//*"):
+                    if cdtrOtherId1 in elem:
+                        elem.remove(cdtrOtherId1)
 
         elif cdtrAgtDataChoice == 2:
             if (chkCdtrBic == 'on'):
@@ -345,7 +384,7 @@ def writeFile(file,ccy,ccy1,valueDate,ccyCheck,cdtrDataChoice,dbtrDataChoice,cdt
                             elem.remove(cdtrPrtry1)
 
             else:
-                ClrSysId = element.find('.//doc:CdtrAgt/doc:FinInstnId/doc:ClrSysMmbId', ns)
+                ClrSysId = element.find('.//doc:CdtrAgt/doc:FinInstnId/doc:ClrSysMmbId/doc:ClrSysId', ns)
                 for elem in root.findall(".//*"):
                     if ClrSysId in elem:
                         elem.remove(ClrSysId)
@@ -359,6 +398,13 @@ def writeFile(file,ccy,ccy1,valueDate,ccyCheck,cdtrDataChoice,dbtrDataChoice,cdt
                 for elem in root.findall(".//*"):
                     if cdtrMmbId1 in elem:
                         elem.remove(cdtrMmbId1)
+
+            if (chkCdtrClrSysId != 'on') and (chkCdtrMmbId != 'on'):
+                ClrSysId = element.find('.//doc:CdtrAgt/doc:FinInstnId/doc:ClrSysMmbId', ns)
+                for elem in root.findall(".//*"):
+                    if ClrSysId in elem:
+                        elem.remove(ClrSysId)
+
 
             if (chkCdtrOtherId == 'on'):
                 cdtrOtherId1 = element.find('.//doc:CdtrAgt/doc:FinInstnId/doc:Othr/doc:Id', ns)
@@ -394,6 +440,11 @@ def writeFile(file,ccy,ccy1,valueDate,ccyCheck,cdtrDataChoice,dbtrDataChoice,cdt
                     dbtrAgtCountBic = 0
                     dbtrBic1.text = str(BicData1[dbtrAgtCountBic])
                     dbtrAgtCountBic = dbtrAgtCountBic + 1
+            else:
+                dbtrBic1 = element.find('.//doc:DbtrAgt/doc:FinInstnId/doc:BICFI', ns)
+                for elem in root.findall(".//*"):
+                    if dbtrBic1 in elem:
+                        elem.remove(dbtrBic1)
 
             if (chkDbtrClrSysId == 'on'):
                 if radioDbtrCdPrtry == 1:
@@ -406,11 +457,26 @@ def writeFile(file,ccy,ccy1,valueDate,ccyCheck,cdtrDataChoice,dbtrDataChoice,cdt
                         dbtrAgtCountCd = 0
                         dbtrCd1.text = str(ClearingCodeData1[dbtrAgtCountCd])
                         dbtrAgtCountCd = dbtrAgtCountCd + 1
+                else:
+                    dbtrCd1 = element.find('.//doc:DbtrAgt/doc:FinInstnId/doc:ClrSysMmbId/doc:ClrSysId/doc:Cd', ns)
+                    for elem in root.findall(".//*"):
+                        if dbtrCd1 in elem:
+                            elem.remove(dbtrCd1)
 
-            if radioDbtrCdPrtry == 2:
-                dbtrPrtry1 = element.find('.//doc:DbtrAgt/doc:FinInstnId/doc:ClrSysMmbId/doc:ClrSysId/doc:Prtry',
-                                          ns)
-                dbtrPrtry1.text = "Prtry12345"
+                if radioDbtrCdPrtry == 2:
+                    dbtrPrtry1 = element.find('.//doc:DbtrAgt/doc:FinInstnId/doc:ClrSysMmbId/doc:ClrSysId/doc:Prtry',ns)
+                    dbtrPrtry1.text = "Prtry12345"
+                else:
+                    dbtrPrtry1 = element.find('.//doc:DbtrAgt/doc:FinInstnId/doc:ClrSysMmbId/doc:ClrSysId/doc:Prtry',ns)
+                    for elem in root.findall(".//*"):
+                        if dbtrPrtry1 in elem:
+                            elem.remove(dbtrPrtry1)
+
+            else:
+                ClrSysId = element.find('.//doc:DbtrAgt/doc:FinInstnId/doc:ClrSysMmbId/doc:ClrSysId', ns)
+                for elem in root.findall(".//*"):
+                    if ClrSysId in elem:
+                        elem.remove(ClrSysId)
 
             if (chkDbtrMmbId == 'on'):
                 dbtrMmbId1 = element.find('.//doc:DbtrAgt/doc:FinInstnId/doc:ClrSysMmbId/doc:MmbId', ns)
@@ -422,6 +488,17 @@ def writeFile(file,ccy,ccy1,valueDate,ccyCheck,cdtrDataChoice,dbtrDataChoice,cdt
                     dbtrAgtCountMmb = 0
                     dbtrMmbId1.text = str(RoutingNoData1[dbtrAgtCountMmb])
                     dbtrAgtCountMmb = dbtrAgtCountMmb + 1
+            else:
+                dbtrMmbId1 = element.find('.//doc:DbtrAgt/doc:FinInstnId/doc:ClrSysMmbId/doc:MmbId', ns)
+                for elem in root.findall(".//*"):
+                    if dbtrMmbId1 in elem:
+                        elem.remove(dbtrMmbId1)
+
+            if (chkDbtrClrSysId != 'on') and (chkDbtrMmbId != 'on'):
+                ClrSysId = element.find('.//doc:DbtrAgt/doc:FinInstnId/doc:ClrSysMmbId', ns)
+                for elem in root.findall(".//*"):
+                    if ClrSysId in elem:
+                        elem.remove(ClrSysId)
 
             if (chkDbtrOtherId == 'on'):
                 dbtrOtherId1 = element.find('.//doc:DbtrAgt/doc:FinInstnId/doc:Othr/doc:Id', ns)
@@ -433,6 +510,11 @@ def writeFile(file,ccy,ccy1,valueDate,ccyCheck,cdtrDataChoice,dbtrDataChoice,cdt
                     dbtrAgtCountOthr = 0
                     dbtrOtherId1.text = str(OtherIdData1[dbtrAgtCountOthr])
                     dbtrAgtCountOthr = dbtrAgtCountOthr + 1
+            else:
+                dbtrOtherId1 = element.find('.//doc:DbtrAgt/doc:FinInstnId/doc:Othr', ns)
+                for elem in root.findall(".//*"):
+                    if dbtrOtherId1 in elem:
+                        elem.remove(dbtrOtherId1)
 
         elif dbtrAgtDataChoice ==2:
             if (chkDbtrBic == 'on'):
@@ -457,13 +539,11 @@ def writeFile(file,ccy,ccy1,valueDate,ccyCheck,cdtrDataChoice,dbtrDataChoice,cdt
                             elem.remove(dbtrCd1)
 
                 if radioDbtrCdPrtry == 2:
-                    dbtrPrtry1 = element.find('.//doc:DbtrAgt/doc:FinInstnId/doc:ClrSysMmbId/doc:ClrSysId/doc:Prtry',
-                                              ns)
+                    dbtrPrtry1 = element.find('.//doc:DbtrAgt/doc:FinInstnId/doc:ClrSysMmbId/doc:ClrSysId/doc:Prtry',ns)
                     dbtrPrtry1.text = dbtrPrtry
 
                 else:
-                    dbtrPrtry1 = element.find('.//doc:DbtrAgt/doc:FinInstnId/doc:ClrSysMmbId/doc:ClrSysId/doc:Prtry',
-                                              ns)
+                    dbtrPrtry1 = element.find('.//doc:DbtrAgt/doc:FinInstnId/doc:ClrSysMmbId/doc:ClrSysId/doc:Prtry',ns)
                     for elem in root.findall(".//*"):
                         if dbtrPrtry1 in elem:
                             elem.remove(dbtrPrtry1)
@@ -483,6 +563,12 @@ def writeFile(file,ccy,ccy1,valueDate,ccyCheck,cdtrDataChoice,dbtrDataChoice,cdt
                 for elem in root.findall(".//*"):
                     if dbtrMmbId1 in elem:
                         elem.remove(dbtrMmbId1)
+
+            if (chkDbtrClrSysId != 'on') and (chkDbtrMmbId != 'on'):
+                ClrSysId = element.find('.//doc:DbtrAgt/doc:FinInstnId/doc:ClrSysMmbId', ns)
+                for elem in root.findall(".//*"):
+                    if ClrSysId in elem:
+                        elem.remove(ClrSysId)
 
             if (chkDbtrOtherId == 'on'):
                 dbtrOtherId1 = element.find('.//doc:DbtrAgt/doc:FinInstnId/doc:Othr/doc:Id', ns)

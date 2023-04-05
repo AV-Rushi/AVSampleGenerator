@@ -86,10 +86,25 @@
     background-color: white;
     color: blue;
   }
+
+  .loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 </style>
 
 <body>
-  <div class="container-fluid p-0">
+  <div class="container-fluid p-0 m-0">
     <form action="shortenurl1" method="post" id="sampleGenerationForm">
       <div class="row text-center m-0 p-0">
 
@@ -98,11 +113,12 @@
             style="background-color:rgb(245, 238, 227)">
             <div class="container-fluid">
               <a class="navbar-brand" href="#">
-                <img src="{{ url_for('static', filename='arthavedh.png') }}" class="w-50 h-50"> </a>
+                <img src="{{ url_for('static', filename='arthavedh.png') }}" class="w-75 h-75"> </a>
 
               <div class="collapse navbar-collapse text-start " id="navbarSupportedContent">
-                <ul class="navbar-nav mx-auto mb-2 mb-lg-0 fw-bold ">
-                  <h1 style="margin-left: -100px;">Sample Generator</h1>
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0  ">
+                  <h1 style="margin-left: -100px;
+font-size:50px; ">Sample Generator</h1>
                 </ul>
 
               </div>
@@ -554,7 +570,7 @@ myForm.addEventListener("submit", (event) => {
                       </div>
                       <div class="col-12 col-md-3"></div>
                       <div class="col-12 col-md-4 text-center">
-                        <label for="account_Lengthdbtr" class="col-form-label" style="margin-left:-45px;">Enter Account Length</label>
+                        <label for="account_Lengthdbtr" class="col-form-label" style="margin-left:-45px;">Enter AccountNo Length</label>
                       </div>
                       <div class="col-12 col-md-3 ">
                         <input type="number" id="account_Lengthdbtr" class="form-control ms-1" placeholder="--Enter--"
@@ -776,10 +792,37 @@ myForm.addEventListener("submit", (event) => {
           </div>
 
           <div class="col-12 text-center">
-            <button type="submit" class="btn btn-primary mt-5 mb-5 w-25" style="box-shadow: 2px 2px 4px black"
-            ;>Submit</button>
+            <button type="submit" class="btn btn-primary mt-5 mb-5 w-25" style="box-shadow: 2px 2px 4px black;" id="submit-btn" onclick="generateFile()"
+            >Submit</button>
+            <div id="loading" style="display:none;">
+    <img src="{{ url_for('static', filename='loading1.gif') }}">
+  <p>Please wait while your file is being generated...</p>
+</div>
           </div>
 
+     <script>
+function generateFile() {
+  // Hide the submit button
+  document.getElementById("submit-btn").style.display = "none";
+  // Show the loading animation
+  document.getElementById("loading").style.display = "block";
+
+  // Here you can write your code to generate the file.
+  // Once the file is generated, you can hide the loading animation and display a success message to the user.
+  setTimeout(function() {
+    // Hide the loading animation
+    document.getElementById("loading").style.display = "none";
+
+    // Display a success message to the user using an
+    alert("File generated successfully!");
+
+    // Show the submit button again
+    document.getElementById("submit-btn").style.display = "block";
+
+
+  }, 5000); // replace 5000 with the time it takes to generate the file
+}
+</script>
 <script>
   // JavaScript code to check if all required fields are filled out before submitting the form
 const form2 = document.querySelector('#myForm');
@@ -802,6 +845,8 @@ form2.addEventListener('submit', function(event) {
 });
 
 </script>
+
+
 
         </div>
       </div>

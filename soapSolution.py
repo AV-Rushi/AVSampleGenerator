@@ -61,7 +61,7 @@ def shortenurl1():
     ReadFunction.readFile(file,int(batchNo),int(txnNo),int(amtType),float(amount),ccy,ccy1)
     ReadFunction.writeFile(file,str(ccy),str(ccy1),valueDate,ccyCheck,int(cdtrDataChoice),int(dbtrDataChoice),int(cdtrAccountLength), int(dbtrAccountLength),chkCdtrBic,cdtrBic,chkCdtrClrSysId,int(radioCdtrCdPrtry),cdtrCd,cdtrPrtry,chkCdtrMmbId,cdtrMmbId,chkCdtrOtherId,cdtrOtherId,chkDbtrBic,dbtrBic,chkDbtrClrSysId,int(radioDbtrCdPrtry),dbtrCd,dbtrPrtry,chkDbtrMmbId,dbtrMmbId,chkDbtrOtherId,dbtrOtherId,int(cdtrAgtDataChoice),int(dbtrAgtDataChoice),cdtrAccountName,dbtrAccountName)
     os.remove("Input\Temp\SampleFile1.xml")
-    return "File Generated Successfully"
+    return render_template("index.html")
 
 @app.route('/configure', methods=['GET', 'POST'])
 def configure():

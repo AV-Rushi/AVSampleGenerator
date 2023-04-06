@@ -4,7 +4,7 @@ import xml.etree.ElementTree as ET
 from faker import Faker
 import uuid
 import datetime
-
+import logger
 
 def readFile(file,batchNo,txnNo,amtType,amount,ccy,ccy1):
     conn = sqlite3.connect('DataBase/SampleGenerator.db')  # Connect to the database

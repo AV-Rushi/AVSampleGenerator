@@ -2,6 +2,8 @@ from flask import Flask, render_template,request,session
 import ReadFunction
 import os
 import  sqlite3
+import logger
+
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 @app.route('/',methods=['GET'])
@@ -13,8 +15,8 @@ def index():
     tempName = cursor.fetchall()
     return render_template("index.html", config_url=config_url,tempName = tempName)
 
-@app.route('/shortenurl1', methods=['GET', 'POST'])
-def shortenurl1():
+@app.route('/samplegenerator', methods=['GET', 'POST'])
+def samplegenerator():
     selected_value = request.form['selectHK']
     session['selected_value'] = selected_value
 

@@ -143,39 +143,9 @@ font-size:50px; ">Sample Generator</h1>
               </div>
             </div>
 
-<script>
-  const form = document.querySelector('#sampleGenerationForm');
-  const dropdown = document.querySelector('#format');
 
-  form.addEventListener('submit', function(event) {
-    if (!dropdown.value) {
-      alert('Please select Format from the dropdown');
-      event.preventDefault();
-    }
-  });
-</script>
 
-<script>
-  const sample = document.querySelector('#sampleGenerationForm');
 
-  sample.addEventListener('submit', function(event) {
-  const requiredFields = sample.querySelectorAll('[required]');
-  let isFormValid = true;
-
-  for (const field of requiredFields) {
-    if (!field.value) {
-      isFormValid = false;
-      field.classList.add('error');
-    } else {
-      field.classList.remove('error');
-    }
-  }
-  if (!isFormValid) {
-    event.preventDefault();
-    alert('Please fill out all required fields!');
-  }
-});
-</script>
 
 
             <div class="col-auto">
@@ -244,11 +214,12 @@ font-size:50px; ">Sample Generator</h1>
             <div class="row g-3 align-items-center mt-3 text-start ">
               <div class="col-12 col-md-2"></div>
               <div class="col-12 col-md-4">
-                <label for="amount_entered" class="col-form-label fw-bold">Enter Amount</label>
+                <label for="amount_entered" class="col-form-label fw-bold">Enter Amount<sup
+                style="color: red;">*</sup></label>
               </div>
               <div class="col-12 col-md-3">
                 <input type="number" id="amount_entered" class="form-control ms-1" aria-describedby="passwordHelpInline"
-                  placeholder="--Enter Amount--" name="Amount" step="0.0000000001" />
+                  placeholder="--Enter Amount--" name="Amount" step="0.0000000001" required/>
               </div>
               </div>
 
@@ -291,7 +262,7 @@ myForm.addEventListener("submit", (event) => {
               <div class="col-12 col-md-2"></div>
               <div class="checkbox fw-bold col-auto text-center">
                 <label>
-                  <input type="checkbox" name="ccyCheck" class="checkme fs-2" checked>Currency of IntrBkSttlmAmt and
+                  <input type="checkbox" name="ccyCheck" class="checkme fs-2" checked> Currency of IntrBkSttlmAmt and
                   InstdAmt
                   are same ? 
                 </label>
@@ -455,11 +426,12 @@ myForm.addEventListener("submit", (event) => {
                     <div class="row g-3 ms-5 mt-3">
                       <div class="col-12 col-md-2"></div>
                        <div class="col-12 col-md-4">
-                        <label for="inputcountrycdtr" class="col-form-label text-end">Country Code</label>
+                        <label for="inputcountrycdtr" class="col-form-label text-end">Country Code<sup
+                          style="color: red;">*</sup></label>
                       </div>
                        <div class="col-12 col-md-3">
                         <div class="dropdown">
-                          <select id="inputcountrycdtr" class="form-select " name="CdtrCountry" style="margin-left: 70px;">
+                          <select id="inputcountrycdtr" class="form-select " name="CdtrCountry" style="margin-left: 70px;" required>
                             <option selected disabled>--Select--</option>
                             <option value="AU" >AUS</option>
                             <option value="CA" >CAN</option>
@@ -550,11 +522,12 @@ myForm.addEventListener("submit", (event) => {
                     <div class="row g-3 ms-5 mt-3">
                       <div class="col-12 col-md-2"></div>
                        <div class="col-12 col-md-5 text-center">
-                        <label for="inputcountryDbtr" class="col-form-label text-end" style="margin-left:-52px;">Country Code</label>
+                        <label for="inputcountryDbtr" class="col-form-label text-end" style="margin-left:-52px;">Country Code<sup
+                          style="color: red;">*</sup></label>
                       </div>
                       <div class="col-12 col-md-3">
                         <div class="dropdown">
-                          <select id="inputcountryDbtr" class="form-select" name="DbtrCountry">
+                          <select id="inputcountryDbtr" class="form-select" name="DbtrCountry"required>
                             <option selected disabled>--Select--</option>
                             <option value="AU" >AUS</option>
                             <option value="CA" >CAN</option>
@@ -793,7 +766,7 @@ myForm.addEventListener("submit", (event) => {
 
           <div class="col-12 text-center">
             <button type="submit" class="btn btn-primary mt-5 mb-5 w-25" style="box-shadow: 2px 2px 4px black;" id="submit-btn" onclick="generateFile()"
-            >Submit</button>
+            disabled>Submit</button>
             <div id="loading" style="display:none;">
     <img src="{{ url_for('static', filename='loading1.gif') }}">
   <p>Please wait while your file is being generated...</p>
@@ -823,28 +796,7 @@ function generateFile() {
   }, 5000); // replace 5000 with the time it takes to generate the file
 }
 </script>
-<script>
-  // JavaScript code to check if all required fields are filled out before submitting the form
-const form2 = document.querySelector('#myForm');
 
-form2.addEventListener('submit', function(event) {
-  const requiredFields = form2.querySelectorAll('[required]');
-  let isFormValid = true;
-
-  for (const field of requiredFields) {
-    if (!field.value) {
-      isFormValid = false;
-      break;
-    }
-  }
-
-  if (!isFormValid) {
-    event.preventDefault();
-    alert('Please fill out all required fields!');
-  }
-});
-
-</script>
 
 
 
@@ -855,6 +807,7 @@ form2.addEventListener('submit', function(event) {
 
    <script src="jquery.min.js"></script>
    <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
   <script type="text/javascript">
     function EnableDisableTextbox(chkDbtrBic2) {
       var txtPan = document.getElementById("txtDbtrBic");

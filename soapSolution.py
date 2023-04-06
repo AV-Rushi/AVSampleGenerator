@@ -69,7 +69,17 @@ def configure():
     tempNm = selected_value
     conn = sqlite3.connect('DataBase/SampleGenerator.db')
     cursor = conn.cursor()
-    cursor.execute('SELECT TemplateName,FileName,BatchTag,TransactionTag FROM template_association where TemplateName=?',(tempNm,))
+    formatname = request.form.get('formatname')
+    filename = request.form.get('filename')
+    batchelement = request.form.get('batchelement')
+    transactionelement = request.form.get('transactionelement')
+    template = ''
+    file=''
+    batchtag=''
+    txntag=''
+    cursor.execute(
+        'SELECT TemplateName,FileName,BatchTag,TransactionTag FROM template_association where TemplateName=?',
+        (tempNm,))
     conf = cursor.fetchall()
     for temp in conf:
         template = temp[0]
@@ -78,7 +88,43 @@ def configure():
         txntag = temp[3]
     cursor.execute('SELECT FieldName,Path FROM template_config where TemplateName=?', (tempNm,))
     data = cursor.fetchall()
-    return render_template("configure.html", data=data, template=template, file=file, batchtag=batchtag, txntag=txntag)
+    if template == 'Add_New_Format':
+        template = ''
+    conn.close()
+    if request.method == 'POST':
+        conn = sqlite3.connect('DataBase/SampleGenerator.db')
+        cursor = conn.cursor()
+        cursor.execute("UPDATE template_association SET FileName = ?, BatchTag = ? ,TransactionTag=? WHERE TemplateName = ?",(filename, batchelement, transactionelement, formatname,))
+        conn.commit()
+        checkbox_value = request.form.get('checkbox')
+        print(checkbox_value)
+        labels = request.form.getlist('labels[]')
+        print(labels)
+        if checkbox_value == 'unchecked':
+            labels = request.form.getlist('labels[]')
+            cursor.execute("UPDATE template_config SET Required='true' WHERE Required ='false'")
+            conn.commit()
+            for i in labels:
+                cursor.execute("UPDATE template_config SET Required='false' WHERE FieldName =?", (i,))
+                conn.commit()
+        conn.close()
+        conn = sqlite3.connect('DataBase/SampleGenerator.db')
+        cursor = conn.cursor()
+        labels = request.form.getlist('labels[]')
+        current_brnch_ids = request.form.getlist('current_brnch_ids[]')
+        new_brnch_ids = request.form.getlist('BrnchId[]')
+        for i in range(len(labels)):
+            label = labels[i]
+            current_brnch_id = current_brnch_ids[i]
+            new_brnch_id = new_brnch_ids[i]
+            query = "UPDATE template_config SET Path = ? WHERE FieldName = ? AND Path = ?"
+            cursor.execute(query, (new_brnch_id,label,current_brnch_id))
+            conn.commit()
+        query = "INSERT OR IGNORE INTO template_association (TemplateName, FileName, BatchTag,TransactionTag) VALUES (?, ?, ?, ?)"
+        cursor.execute(query, (formatname, filename, batchelement, transactionelement))
+        conn.commit()
+        conn.close()
+    return render_template("configure.html", data=data, template=template, file=file, batchtag=batchtag, txntag=txntag,selected_value=selected_value)
 if __name__== "__main__":
     app.run(debug=True,port='2024')
 

@@ -72,8 +72,6 @@ font-size:40px; ">CONFIGURATION</h1>
                 </div>
                 <div class="col-12 col-md-2"></div>
                 <div class="col-12 col-md-3"></div>
-
-
                 <div class="col-12 col-md-3 text-start mt-4">
                     <label for="fileName" class="col-form-label fw-bold">File Name</label>
                 </div>
@@ -82,8 +80,6 @@ font-size:40px; ">CONFIGURATION</h1>
                            placeholder="--Enter Value--" value="{{ file }}" name="filename"/>
                 </div>
                 <div class="col-12 col-md-2"></div>
-
-
                 <div class="row border border-black border-2 mt-5 py-5 text-center ms-2 mb-5 shadow" style="background-color: rgb(234, 234, 235); ">
                     <div class="col-12 col-md-1"></div>
                     <div class="col-12 col-md-10 text-center px-5">
@@ -98,9 +94,7 @@ font-size:40px; ">CONFIGURATION</h1>
                                 <input type="text" id="batchlevel" class="form-control ms-1 w-75"
                                        placeholder="--Enter Value--" value="{{ batchtag }}" name="batchelement"/>
                             </div>
-
                             <div class="col-12 col-md-2"></div>
-
                             <div class="col-12 col-md-3 text-start mt-3">
                                 <label for="transactionlevel" class=" fw-bold">Transaction Tag</label>
                             </div>
@@ -111,33 +105,56 @@ font-size:40px; ">CONFIGURATION</h1>
                                        placeholder="--Enter Value--" value="{{ txntag }}" name="transactionelement"/>
                             </div>
                             <div class="col-12 col-md-1"></div>
-
                         </div>
                     </div>
                     <div class="col-12 col-md-1"></div>
-
                     <div class="row  mx-3 mt-3 pt-3 px-3 ms-1 text-center" id="edit_section">
                         <div class="col-12 col-md-1"></div>
                         <div class="col-12 col-md-10 border shadow ">
                             <div class="row mt-5 text-start ms-5">
-                                {% for row in data %}
+                                  {% for row in data %}
                                 <div class="col-12 col-md-6">
                                     <div class="row">
-                                        <div class="col-12 col-md-1 mt-3">
-                                            <input class="form-check-input" type="checkbox" value="1"
-                                                   id="flexCheckChecked" checked>
+                                        <div class="col-12 col-md-1 mt-2">
+                                            <input class="form-check-input" type="checkbox" value="true"
+                                                id="flexCheckChecked{{ loop.index }}" name="flexCheckChecked{{ loop.index }}" checked data-label="{{ row[0] }}">
                                         </div>
-                                        <div class="col-12 col-md-4 mt-2">
-                                            <label for="BrnchId" class="col-form-label fw-bold">{{ row[0] }}</label>
+                                        <div class="col-12 col-md-4">
+                                            <label for="BrnchId[]" class="col-form-label fw-bold" id="lableforcheckbox">{{ row[0] }}</label>
+                                            <input type="hidden" name="labels[]" value="{{ row[0] }}">
                                         </div>
-                                        <div class="col-12 col-md-7 mt-2">
-                                            <input type="text" id="BrnchId" class="form-control shadow ms-1 w-75 "
-                                                   placeholder="--Enter Value--" name="filename" value="{{ row[1] }}"/>
+                                        <div class="col-12 col-md-7">
+                                            <input type="text" id="BrnchId[]" class="form-control shadow ms-1 w-75 mt-1"
+                                                placeholder="--Enter Value--" name="BrnchId[]" value="{{ row[1] }}" />
+                                            <input type = "hidden" name = "current_brnch_ids[]" value = "{{ row[1] }}">
                                         </div>
                                     </div>
                                 </div>
-                                {% endfor %}
-                                <div class="col-12 col-md-12 text-center mt-5 mb-3">
+                            {% endfor %}
+                             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                            <script>
+                            function checkCheckbox() {
+                                var labels = [];
+                                $("input[type=checkbox]").each(function() {
+                                    if (!this.checked) {
+                                        labels.push($(this).data("label"));
+                                    }
+
+                                });
+                                if (labels.length > 0) {
+                                    $.ajax({
+                                        url: '/configure',
+                                        type: 'POST',
+                                        data: {'checkbox': 'unchecked', 'labels': labels},
+                                        success: function(response) {
+                                            console.log(response);
+                                        }
+                                    });
+                                }
+                                return true;
+                            }
+                            </script>
+                                 <div class="col-12 col-md-12 text-center mt-5 mb-3">
                                     <button type="button" class="btn btn-primary w-25" id="btnEdit">Edit</button>
                                 </div>
                             </div>
@@ -189,8 +206,6 @@ font-size:40px; ">CONFIGURATION</h1>
                         container.appendChild(textbox2);
                         container.appendChild(removeButton);
                     });
-
-
                     </script>
 
                     <div class="row" id="container">
@@ -211,14 +226,10 @@ font-size:40px; ">CONFIGURATION</h1>
                             <button id="add-button" class=" btn btn-secondary rounded ">Add</button>
                         </div>
                     </div>
-
-
-
                 </div>
-
                 <div class="row">
                         <div class="col-12 col-md-6 text-end">
-                            <button type="submit" class="btn btn-primary mb-5 w-25" id="btnSubmit">Submit</button>
+                            <button type="submit" class="btn btn-primary mb-5 w-25" id="btn"  onclick="return checkCheckbox()">Submit</button>
                         </div>
                         <div class="col-12 col-md-6 text-start">
                             <button type="reset" class="btn btn-primary mb-5 w-25" id="btnReset">Reset</button>

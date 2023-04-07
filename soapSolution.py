@@ -60,6 +60,45 @@ def samplegenerator():
     cdtrAgtDataChoice= request.form.get('flexRadioDefaultCdtrAgt')
     dbtrAgtDataChoice= request.form.get('flexRadioDefaultDbtrAgt')
 
+    amt = request.form.get('Amount')
+    InstdAmt = request.form.get('ccy1')
+    IntrBkSttlm = request.form.get('ccy')
+    Cdradio = int(request.form.get('radioCdtrCdPrtry'))
+    Dbradio = int(request.form.get('radioDbtrCdPrtry'))
+    if Cdradio == 2:
+        CrdtrCd = request.form.get('cdtrPrtry')
+    else:
+        CrdtrCd = request.form.get('cdtrCd')
+    if Dbradio == 2:
+        chkDbtrCd = request.form.get('dbtrPrtry')
+    else:
+        chkDbtrCd = request.form.get('dbtrCd')
+    if InstdAmt and IntrBkSttlm:
+        amt_InstdAmt = amt + '|' + InstdAmt
+        amt_IntrBkSttlm = amt + '|' + IntrBkSttlm
+    else:
+        amt_InstdAmt = amt + '|' + IntrBkSttlm
+        amt_IntrBkSttlm = amt + '|' + IntrBkSttlm
+
+    tempvalues = {'CdtrAgt.Bic': request.form.get('cdtrBic'),
+                  'DbtrAgt.MmbId': request.form.get('dbtrMmbId'),
+                  'Ddtr.OtherId': request.form.get('dbtrOtherId'),
+                  'DbtrAgt.Bic': request.form.get('dbtrBic'),
+                  'CdtrAgt.MmbId': request.form.get('cdtrMmbId'),
+                  'Cdtr.OtherId': request.form.get('cdtrOtherId'),
+                  'NbOfMsgs': request.form.get('batchNo'),
+                  'GrpHdr.NbOfTxs': request.form.get('txnNo'),
+                  'InstdAmt': amt_InstdAmt,
+                  'IntrBkSttlmAmt': amt_IntrBkSttlm,
+                  'CdtrPrtry': CrdtrCd,
+                  'chkDbtrClrSysId': chkDbtrCd
+                  }
+    conn = sqlite3.connect('DataBase/SampleGenerator.db')
+    cursor = conn.cursor()
+    for fieldname, tempvalue in tempvalues.items():
+        cursor.execute("UPDATE template_config SET TempValue = ? WHERE FieldName = ?", (tempvalue, fieldname))
+        conn.commit()
+    conn.close()
     ReadFunction.readFile(file,int(batchNo),int(txnNo),int(amtType),float(amount),ccy,ccy1)
     ReadFunction.writeFile(file,str(ccy),str(ccy1),valueDate,ccyCheck,int(cdtrDataChoice),int(dbtrDataChoice),int(cdtrAccountLength), int(dbtrAccountLength),chkCdtrBic,cdtrBic,chkCdtrClrSysId,int(radioCdtrCdPrtry),cdtrCd,cdtrPrtry,chkCdtrMmbId,cdtrMmbId,chkCdtrOtherId,cdtrOtherId,chkDbtrBic,dbtrBic,chkDbtrClrSysId,int(radioDbtrCdPrtry),dbtrCd,dbtrPrtry,chkDbtrMmbId,dbtrMmbId,chkDbtrOtherId,dbtrOtherId,int(cdtrAgtDataChoice),int(dbtrAgtDataChoice),cdtrAccountName,dbtrAccountName)
     os.remove("Input\Temp\SampleFile1.xml")

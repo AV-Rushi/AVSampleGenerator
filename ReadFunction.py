@@ -4,7 +4,7 @@ import xml.etree.ElementTree as ET
 from faker import Faker
 import uuid
 import datetime
-import logger
+# import logger
 import os
 
 def readFile(file,batchNo,txnNo,amtType,amount,ccy,ccy1):

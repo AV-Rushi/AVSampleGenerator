@@ -64,20 +64,22 @@ font-size:40px; ">CONFIGURATION</h1>
             <div class="row justify-content-center px-5">
                 <div class="col-12 col-md-3"></div>
                 <div class="col-12 col-md-3 text-start mt-5">
-                    <label for="formatName" class="col-form-label fw-bold">Format Name</label>
+                    <label for="formatName" class="col-form-label fw-bold">Format Name<sup
+                style="color: red;">*</sup></label>
                 </div>
                 <div class="col-12 col-md-4 mt-5">
                     <input type="text" id="formatName" class="form-control ms-1 w-75"
-                           placeholder="--Enter Value--" value="{{ template }}" name="formatname"/>
+                           placeholder="--Enter Value--" value="{{ template }}" name="formatname" required/>
                 </div>
                 <div class="col-12 col-md-2"></div>
                 <div class="col-12 col-md-3"></div>
                 <div class="col-12 col-md-3 text-start mt-4">
-                    <label for="fileName" class="col-form-label fw-bold">File Name</label>
+                    <label for="fileName" class="col-form-label fw-bold">File Name<sup
+                style="color: red;">*</sup></label>
                 </div>
                 <div class="col-12 col-md-4 mt-4">
                     <input type="text" id="fileName" class="form-control ms-1 w-75"
-                           placeholder="--Enter Value--" value="{{ file }}" name="filename"/>
+                           placeholder="--Enter Value--" value="{{ file }}" name="filename" required/>
                 </div>
                 <div class="col-12 col-md-2"></div>
                 <div class="row border border-black border-2 mt-5 py-5 text-center ms-2 mb-5 shadow" style="background-color: rgb(234, 234, 235); ">

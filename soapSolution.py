@@ -2,7 +2,7 @@ from flask import Flask, render_template,request,session
 import ReadFunction
 import os
 import  sqlite3
-import logger
+# import logger
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'

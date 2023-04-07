@@ -4,7 +4,8 @@ import xml.etree.ElementTree as ET
 from faker import Faker
 import uuid
 import datetime
-# import logger
+import logger
+import os
 
 def readFile(file,batchNo,txnNo,amtType,amount,ccy,ccy1):
     conn = sqlite3.connect('DataBase/SampleGenerator.db')  # Connect to the database
@@ -113,6 +114,9 @@ def readFile(file,batchNo,txnNo,amtType,amount,ccy,ccy1):
     NbOfTxs = root.find(".//doc:NbOfTxs", ns)
     NbOfTxs.text = str(txnNo)
 
+    if not os.path.isdir("Input\Temp"):
+       os.makedirs("Input\Temp")
+       
     tree.write("Input\Temp\SampleFile1.xml", xml_declaration=True, encoding='utf-8')
     time.sleep(5)
     print("File 1 generated sucessfully..")

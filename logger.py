@@ -1,6 +1,6 @@
 import logging
 
-logging.basicConfig(filename="Logs\Logfile.log",
+logging.basicConfig(filename="Logfile.log",
                     format='%(asctime)s %(message)s',
                     filemode='w')
 # Creating an object

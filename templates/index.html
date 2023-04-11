@@ -764,6 +764,48 @@ myForm.addEventListener("submit", (event) => {
             </div>
           </div>
 
+
+          <script>
+
+    function enableDiv() {
+      document.getElementById("txtCdtrBic").style.display = "block";
+      document.getElementById("textbox").style.display = "block";
+      document.getElementById("textbox1").style.display = "block";
+      document.getElementById("cdtrMmbId1").style.display = "block";
+      document.getElementById("cdtrOtherId1").style.display = "block";
+      document.getElementById("cdtrAgentBox").style.pointerEvents = "auto";
+    }
+
+    function disableDiv() {
+      document.getElementById("txtCdtrBic").style.display = "none";
+      document.getElementById("textbox").style.display = "none";
+      document.getElementById("textbox1").style.display = "none";
+      document.getElementById("cdtrMmbId1").style.display = "none";
+      document.getElementById("cdtrOtherId1").style.display = "none";
+      document.getElementById("cdtrAgentBox").style.pointerEvents = "auto";
+    }
+
+
+    function enableDiv1() {
+      document.getElementById("txtDbtrBic").style.display = "block";
+      document.getElementById("textbox2").style.display = "block";
+      document.getElementById("textbox3").style.display = "block";
+      document.getElementById("dbtrMmbId2").style.display = "block";
+      document.getElementById("dbtrOtherId2").style.display = "block";
+      document.getElementById("cdtrAgentBox").style.pointerEvents = "auto";
+    }
+
+    function disableDiv1() {
+      document.getElementById("txtDbtrBic").style.display = "none";
+      document.getElementById("textbox2").style.display = "none";
+      document.getElementById("textbox3").style.display = "none";
+      document.getElementById("dbtrMmbId2").style.display = "none";
+      document.getElementById("dbtrOtherId2").style.display = "none";
+      document.getElementById("cdtrAgentBox").style.pointerEvents = "auto";
+    }
+
+          </script>
+
           <div class="col-12 text-center">
             <button type="submit" class="btn btn-primary mt-5 mb-5 w-25" style="box-shadow: 2px 2px 4px black;" id="submit-btn" onclick="generateFile()"
             disabled>Submit</button>
@@ -1072,44 +1114,218 @@ function generateFile() {
     });
 
 
-    function enableDiv() {
-      document.getElementById("txtCdtrBic").style.display = "block";
-      document.getElementById("textbox").style.display = "block";
-      document.getElementById("textbox1").style.display = "block";
-      document.getElementById("cdtrMmbId1").style.display = "block";
-      document.getElementById("cdtrOtherId1").style.display = "block";
-      document.getElementById("cdtrAgentBox").style.pointerEvents = "auto";
-    }
-
-    function disableDiv() {
-      document.getElementById("txtCdtrBic").style.display = "none";
-      document.getElementById("textbox").style.display = "none";
-      document.getElementById("textbox1").style.display = "none";
-      document.getElementById("cdtrMmbId1").style.display = "none";
-      document.getElementById("cdtrOtherId1").style.display = "none";
-      document.getElementById("cdtrAgentBox").style.pointerEvents = "auto";
-    }
+    //function to change currency boxs ulternately
+$(function () {
+    $(".checkme").click(function (event) {
+      var x = $(this).is(':checked');
+      if (x == true) {
+        $(this).parents(".checkbox-card").find('.passport-box').hide();
+        $(this).parents(".checkbox-card").find('.apply-box').show();
+      }
+      else {
+        $(this).parents(".checkbox-card").find('.passport-box').show();
+        $(this).parents(".checkbox-card").find('.apply-box').hide();
+      }
+    });
+  })
 
 
-    function enableDiv1() {
-      document.getElementById("txtDbtrBic").style.display = "block";
-      document.getElementById("textbox2").style.display = "block";
-      document.getElementById("textbox3").style.display = "block";
-      document.getElementById("dbtrMmbId2").style.display = "block";
-      document.getElementById("dbtrOtherId2").style.display = "block";
-      document.getElementById("cdtrAgentBox").style.pointerEvents = "auto";
-    }
+//function to hide and show textbox when checkbox is checked
+  function showHideTextbox() {
+  var box = document.getElementById("box");
+  if (checkbox.checked == true) {
+    box.style.display = "none";
+} else {
+    box.style.display = "block";
+}
+}
 
-    function disableDiv1() {
-      document.getElementById("txtDbtrBic").style.display = "none";
-      document.getElementById("textbox2").style.display = "none";
-      document.getElementById("textbox3").style.display = "none";
-      document.getElementById("dbtrMmbId2").style.display = "none";
-      document.getElementById("dbtrOtherId2").style.display = "none";
-      document.getElementById("cdtrAgentBox").style.pointerEvents = "auto";
-    }
+//function to hide and show textbox when checkbox is checked
+function showHideTextbox() {
+var chkClr = document.getElementById("chkClr");
+if (checkbox.checked == true) {
+    chkClr.style.display = "none";
+} else {
+chkClr.style.display = "block";
+}
+}
+
+
+// Get the radio button and textbox elements
+const firstradio = document.querySelector('#firstradio');
+const secondradio = document.querySelector('#secondradio');
+
+const textbox = document.querySelector('#textbox');
+const textbox1 = document.querySelector('#textbox1');
+// Add an event listener to the radio button
+firstradio.addEventListener('click', function() {
+// If the radio button is checked, enable the textbox
+if (firstradio.checked) {
+textbox.disabled = false;
+} else {
+// Otherwise, disable the textbox
+textbox.disabled = true;
+}
+});
+
+
+// Add an event listener to the radio off button
+secondradio.addEventListener('click', function() {
+// If the radio off button is checked, disable the textbox
+if (secondradio.checked) {
+textbox.disabled = true;
+} else {
+// Otherwise, enable the textbox
+textbox.disabled = false;
+}
+});
+
+
+// Add an event listener to the radio button
+secondradio.addEventListener('click', function() {
+// If the radio button is checked, enable the textbox
+if (secondradio.checked) {
+textbox1.disabled = false;
+} else {
+// Otherwise, disable the textbox
+textbox1.disabled = true;
+}
+});
+// Add an event listener to the radio off button
+firstradio.addEventListener('click', function() {
+// If the radio off button is checked, disable the textbox
+if (firstradio.checked) {
+textbox1.disabled = true;
+} else {
+// Otherwise, enable the textbox
+textbox1.disabled = false;
+}
+});
+
+// Get the radio button and textbox elements
+const thirdradio = document.querySelector('#thirdradio');
+const fourthradio= document.querySelector('#fourthradio');
+const textbox2 = document.querySelector('#textbox2');
+const textbox3 = document.querySelector('#textbox3');
+// Add an event listener to the radio button
+thirdradio.addEventListener('click', function() {
+// If the radio button is checked, enable the textbox
+if (thirdradio.checked) {
+textbox2.disabled = false;
+} else {
+// Otherwise, disable the textbox
+textbox2.disabled = true;
+}
+});
+
+// Add an event listener to the radio off button
+fourthradio.addEventListener('click', function() {
+// If the radio off button is checked, disable the textbox
+if (fourthradio.checked) {
+textbox2.disabled = true;
+} else {
+// Otherwise, enable the textbox
+textbox2.disabled = false;
+}
+});
+
+// Add an event listener to the radio button
+fourthradio.addEventListener('click', function() {
+// If the radio button is checked, enable the textbox
+if (fourthradio.checked) {
+textbox3.disabled = false;
+} else {
+// Otherwise, disable the textbox
+textbox3.disabled = true;
+}
+});
+// Add an event listener to the radio off button
+thirdradio.addEventListener('click', function() {
+// If the radio off button is checked, disable the textbox
+if (thirdradio.checked) {
+textbox3.disabled = true;
+} else {
+// Otherwise, enable the textbox
+textbox3.disabled = false;
+}
+});
+
+
+
+//disable submit button until the all mandatory feilds are not filled
+const nameInput = document.getElementById("format");
+const emailInput = document.getElementById("currency_type");
+const messageInput = document.getElementById("amount_entered");
+const submitButton = document.getElementById("submit-btn");
+function enableSubmitButton() {
+if (nameInput.value && emailInput.value && messageInput.value) {
+submitButton.disabled = false;
+} else {
+submitButton.disabled = true;
+}
+}
+nameInput.addEventListener("input", enableSubmitButton);
+emailInput.addEventListener("input", enableSubmitButton);
+messageInput.addEventListener("input", enableSubmitButton);
+
+
+
+//to make dropdown mandatory otherwisw it will give alert message
+const form = document.querySelector('#sampleGenerationForm');
+const dropdown = document.querySelector('#format');
+
+form.addEventListener('submit', function(event) {
+if (!dropdown.value) {
+alert('Please select Format from the dropdown');
+event.preventDefault();
+}
+});
+
+//when format is not selected then configure button is disable
+const formatinput = document.getElementById("format");
+const configbutton = document.getElementById("FormatId");
+function enableConfigButton() {
+if ( formatinput.value) {
+configbutton.disabled = false;
+} else {
+configbutton.disabled = true;
+}
+}
+formatinput.addEventListener("input", enableConfigButton);
+
+
+
+//disabled div enable using edit button and save edited data
+        const editButton = document.getElementById('btnEdit');
+        const saveButton = document.getElementById('btnSave');
+        const editableDiv = document.getElementById('edit_section');
+        let originalContent;
+
+        editButton.addEventListener('click', () => {
+          if (editableDiv.getAttribute('contenteditable') === 'false') {
+            // Enable editing
+            editableDiv.setAttribute('contenteditable', 'true');
+            originalContent = editableDiv.innerHTML;
+            saveButton.removeAttribute('disabled');
+          } else {
+            // Disable editing
+            editableDiv.setAttribute('contenteditable', 'false');
+            saveButton.setAttribute('disabled', '');
+          }
+        });
+
+        saveButton.addEventListener('click', () => {
+          // Save the edited content
+          const newContent = editableDiv.innerHTML;
+          // You can now do something with the newContent, like sending it to a server using an HTTP request
+          console.log('New content:', newContent);
+          // Disable editing and the Save button
+          editableDiv.setAttribute('contenteditable', 'false');
+          saveButton.setAttribute('disabled', '');
+        });
+
   </script>
-  </script>
+
 
   <script src="{{ url_for('static', filename='script.js') }}"></script>
   <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>

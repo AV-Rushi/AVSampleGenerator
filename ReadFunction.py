@@ -122,7 +122,7 @@ def readFile(file,batchNo,txnNo,amtType,amount,ccy,ccy1):
     print("File 1 generated sucessfully..")
 
 
-def writeFile(file,ccy,ccy1,valueDate,ccyCheck,cdtrDataChoice,dbtrDataChoice,cdtrAccountLength,dbtrAccountLength,chkCdtrBic,cdtrBic,chkCdtrClrSysId,radioCdtrCdPrtry,cdtrCd,cdtrPrtry,chkCdtrMmbId,cdtrMmbId,chkCdtrOtherId,cdtrOtherId,chkDbtrBic,dbtrBic,chkDbtrClrSysId,radioDbtrCdPrtry,dbtrCd,dbtrPrtry,chkDbtrMmbId,dbtrMmbId,chkDbtrOtherId,dbtrOtherId,cdtrAgtDataChoice,dbtrAgtDataChoice,cdtrAccountName,dbtrAccountName):
+def writeFile(file,ccy,ccy1,valueDate,ccyCheck,cdtrDataChoice,dbtrDataChoice,cdtrAccountLength,dbtrAccountLength,chkCdtrBic,cdtrBic,chkCdtrClrSysId,radioCdtrCdPrtry,cdtrCd,cdtrPrtry,chkCdtrMmbId,cdtrMmbId,chkCdtrOtherId,cdtrOtherId,chkDbtrBic,dbtrBic,chkDbtrClrSysId,radioDbtrCdPrtry,dbtrCd,dbtrPrtry,chkDbtrMmbId,dbtrMmbId,chkDbtrOtherId,dbtrOtherId,cdtrAgtDataChoice,dbtrAgtDataChoice,cdtrCountry,dbtrCountry):
     tree = ET.parse("Input\Temp\SampleFile1.xml")
     ns = dict([node for (_, node) in ET.iterparse("Input\Temp\SampleFile1.xml", events=['start-ns'])])
     nskeys_1 = list(ns.keys())
@@ -220,7 +220,7 @@ def writeFile(file,ccy,ccy1,valueDate,ccyCheck,cdtrDataChoice,dbtrDataChoice,cdt
                 cdtrCount = cdtrCount + 1
 
         elif cdtrDataChoice == 2:
-            Cdtrfake = Faker(f"en_{cdtrAccountName}")
+            Cdtrfake = Faker(f"en_{cdtrCountry}")
             name = Cdtrfake.name()
             account_no = fake.random_number(digits=cdtrAccountLength)
             cdtrAcct.text = str(account_no)
@@ -248,7 +248,7 @@ def writeFile(file,ccy,ccy1,valueDate,ccyCheck,cdtrDataChoice,dbtrDataChoice,cdt
                 dbtrCount = dbtrCount + 1
 
         elif dbtrDataChoice == 2:
-            Dbtrfake = Faker(f"en_{dbtrAccountName}")
+            Dbtrfake = Faker(f"en_{dbtrCountry}")
             name = Dbtrfake.name()
             account_no = fake.random_number(digits=dbtrAccountLength)
             Id1.text = str(account_no)

@@ -112,6 +112,8 @@ def configure():
     tempNm = selected_value
     conn = sqlite3.connect('DataBase/SampleGenerator.db')
     cursor = conn.cursor()
+    cursor.execute("SELECT Keys from config_keys")
+    keyList = cursor.fetchall()
     formatname = request.form.get('formatname')
     filename = request.form.get('filename')
     batchelement = request.form.get('batchelement')
@@ -165,7 +167,7 @@ def configure():
         cursor.execute(query, (formatname, filename, batchelement, transactionelement))
         conn.commit()
         conn.close()
-    return render_template("configure.html", data=data, template=template, file=file, batchtag=batchtag, txntag=txntag,selected_value=selected_value)
+    return render_template("configure.html", data=data, template=template, file=file, batchtag=batchtag, txntag=txntag,selected_value=selected_value,keyList=keyList)
 if __name__== "__main__":
     app.run(debug=True,port='2024')
 

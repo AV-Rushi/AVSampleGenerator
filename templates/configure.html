@@ -240,10 +240,10 @@ saveBtn.addEventListener("click", () => {
                         <div class="col-12 col-md-4 mt-5">
                              <div class="dropdown">
                     <select name="" class="form-select" id="my-dropdown" required>
-                      <option selected disabled>--Select Name--</option>
-                      <option >one</option>
-                      <option >Two</option>
-                      <option >Three</option>
+                      <option selected disabled>--Select Key--</option>
+                      {% for keys in keyList %}
+                            <option value="{{ keys[0] }}">{{ keys[0] }}</option>
+                  {% endfor %}
                     </select>
                   </div>
                         </div>

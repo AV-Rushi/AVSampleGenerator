@@ -290,9 +290,9 @@ myForm.addEventListener("submit", (event) => {
               </div>
 
 
-              <div class="passport-box row g-3 align-items-center mt-3 text-start " id="box" style="display: none;">
+              <div class="passport-box row g-3 align-items-center mt-3 text-start ms-1 " id="box" style="display: none;">
                 <div class="col-12 col-md-2"></div>
-                <div class="col-12 col-md-4 ms-1">
+                <div class="col-12 col-md-4 ">
                   <label for="IntrBkSttlmdAmtCny" class="col-form-label text-start fw-bold" id="int">IntrBkSttlmAmt</label>
                 </div>
                 <div class="col-12 col-md-3 ms-2">
@@ -310,26 +310,16 @@ myForm.addEventListener("submit", (event) => {
                   </div>
                 </div>
 
-                <script>
-                  const form1 = document.querySelector('#sampleGenerationForm');
-                  const currency = document.querySelector('#currency');
 
-                  form.addEventListener('submit', function(event) {
-                    if (!dropdown.value) {
-                      alert('Please select currency from the dropdown');
-                      event.preventDefault();
-                    }
-                  });
-                </script>
-                <br>
                 <div class="col-12 col-md-2"></div>
+                 <div class="col-12 col-md-2"></div>
 
                 <div class="col-12 col-md-4">
-            <label for="InstdAmtCny" class="col-form-label text-start fw-bold" style="margin-left:210px;">InstdAmt</label>
+            <label for="InstdAmtCny" class="col-form-label text-start fw-bold" >InstdAmt</label>
                 </div>
-                <div class="col-12 col-md-3 ms-1" >
+                <div class="col-12 col-md-3 ms-2" >
                   <div class="dropdown">
-                    <select name="ccy1" class="form-select" style="margin-left:215px;border-color: lightcoral;border-width: 2px;
+                    <select name="ccy1" class="form-select" style="border-color: lightcoral;border-width: 2px;
                      box-shadow: 2px 2px 4px black;" id="InstdAmtCny">
                       <option selected disabled>--Select Currency Type--</option>
                       <option value="HKD">HKD</option>
@@ -343,6 +333,18 @@ myForm.addEventListener("submit", (event) => {
                 </div>
               </div>
 
+
+              <script>
+                  const form1 = document.querySelector('#sampleGenerationForm');
+                  const currency = document.querySelector('#currency');
+
+                  form.addEventListener('submit', function(event) {
+                    if (!dropdown.value) {
+                      alert('Please select currency from the dropdown');
+                      event.preventDefault();
+                    }
+                  });
+                </script>
               <script>
                 $(function () {
                   $(".checkme").click(function (event) {
@@ -362,7 +364,7 @@ myForm.addEventListener("submit", (event) => {
               <div class="row g-3 align-items-center mt-1 text-start ">
                 <div class="col-12 col-md-2"></div>
                 <div class="col-12 col-md-4 ms-2">
-                  <label for="customedate" class="col-form-label fw-bold">Value Date<sup
+                  <label for="customedate" class="col-form-label text-start fw-bold">Value Date<sup
                     style="color: red;">*</sup></label>
                 </div>
                 <div class="col-12 col-md-3 ms-1">
@@ -381,7 +383,7 @@ myForm.addEventListener("submit", (event) => {
 
             <div class="row g-3 align-items-center mt-5 p-0 m-0">
               <div class="col-12 col-md-6 text-center">
-                <h5 class="pb-5" style="margin-left: -120px;">Creditor</h5>
+                <h5 class="pb-3" style="margin-left: -120px;">Creditor</h5>
 
                 <div class="row text-center ms-4 m-0 p-0">
 
@@ -414,8 +416,6 @@ myForm.addEventListener("submit", (event) => {
                   </div>
 
 
-
-
                   <div class="form-check">
                     <label class="form-check-label ms-2 mt-3" for="flexRadioDefault2">
                       <input class="form-check-input" type="radio" value='2' name="flexRadioDefaultCdtr"
@@ -423,15 +423,52 @@ myForm.addEventListener("submit", (event) => {
                       Use Data From Dummy data
                     </label>
 
-                    <div class="row g-3 ms-5 mt-3">
+
+<!--                     <div class="row g-3  mt-3">-->
+<!--                      <div class="col-12 col-md-2"></div>-->
+<!--                       <div class="col-12 col-md-5 text-center">-->
+<!--                        <label for="inputcountryDbtr" class="col-form-label text-center" >Country Code<sup-->
+<!--                          style="color: red;">*</sup></label>-->
+<!--                      </div>-->
+<!--                      <div class="col-12 col-md-3">-->
+<!--                        <div class="dropdown">-->
+<!--                          <select id="inputcountryDbtr" class="form-select" name="DbtrCountry"required>-->
+<!--                            <option selected disabled>&#45;&#45;Select&#45;&#45;</option>-->
+<!--                            <option value="AU" >AUS</option>-->
+<!--                            <option value="CA" >CAN</option>-->
+<!--                            <option value="GB" >GBR</option>-->
+<!--                            <option value="IE" >IRL</option>-->
+<!--                            <option value="IN" >IND</option>-->
+<!--                            <option value="NZ" >NZL</option>-->
+<!--                            <option value="PH" >PHL</option>-->
+<!--                            <option value="TH" >THA</option>-->
+<!--                            <option value="US" >USA</option>-->
+<!--                          </select>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                      <div class="col-12 col-md-3"></div>-->
+<!--                      <div class="col-12 col-md-4 text-center">-->
+<!--                        <label for="account_Lengthdbtr" class="col-form-label" >Enter AccountNo Length</label>-->
+<!--                      </div>-->
+<!--                      <div class="col-12 col-md-3 ">-->
+<!--                        <input type="number" id="account_Lengthdbtr" class="form-control ms-1" placeholder="&#45;&#45;Enter&#45;&#45;"-->
+<!--                          name="dbtrAccountLength" value="0" />-->
+<!--                      </div>-->
+
+<!--                    </div><!-->
+
+
+
+
+                    <div class="row g-3 mt-3" id="countryAndAccount">
                       <div class="col-12 col-md-2"></div>
-                       <div class="col-12 col-md-4">
+                       <div class="col-12 col-md-5 text-center">
                         <label for="inputcountrycdtr" class="col-form-label text-end">Country Code<sup
                           style="color: red;">*</sup></label>
                       </div>
                        <div class="col-12 col-md-3">
                         <div class="dropdown">
-                          <select id="inputcountrycdtr" class="form-select " name="CdtrCountry" style="margin-left: 70px;" required>
+                          <select id="inputcountrycdtr" class="form-select " name="CdtrCountry"  required>
                             <option selected disabled>--Select--</option>
                             <option value="AU" >AUS</option>
                             <option value="CA" >CAN</option>
@@ -445,16 +482,15 @@ myForm.addEventListener("submit", (event) => {
                           </select>
                         </div>
                       </div>
-                      <div class="col-12 col-md-4"></div>
-                      <div class="col-12 col-md-5 text-start " style="margin-left: -60px;">
-                        <label for="account_Lengthcdtr" class="col-form-label">Enter AccountNo Length</label>
+                      <div class="col-12 col-md-3"></div>
+                      <div class="col-12 col-md-3 ms-1 ">
+                        <label for="account_Lengthcdtr" class="col-form-label" >Enter AccountNo Length</label>
                       </div>
+                      <div class="col-12 col-md-1"></div>
                       <div class="col-12 col-md-3">
                         <input type="number" id="account_Lengthcdtr" class="form-control" placeholder="--Enter--"
                           name="cdtrAccountLength" value="0" />
                       </div>
-
-
                     </div>
                   </div>
                 </div>
@@ -463,7 +499,7 @@ myForm.addEventListener("submit", (event) => {
 
 
               <div class="col-12 col-md-6 text-center">
-                <h5 class="pb-5" style="margin-left: -120px;">Debitor</h5>
+                <h5 class="pb-3" style="margin-left: -120px;">Debitor</h5>
                 <div class="row text-start ms-4">
                   <div class="form-check text-center">
                     <label class="form-check-label " for="flexRadioDefault1">
@@ -519,10 +555,10 @@ myForm.addEventListener("submit", (event) => {
 
                       Use Data From Dummy Data
                     </label>
-                    <div class="row g-3 ms-5 mt-3">
+                    <div class="row g-3  mt-3">
                       <div class="col-12 col-md-2"></div>
                        <div class="col-12 col-md-5 text-center">
-                        <label for="inputcountryDbtr" class="col-form-label text-end" style="margin-left:-52px;">Country Code<sup
+                        <label for="inputcountryDbtr" class="col-form-label text-center" >Country Code<sup
                           style="color: red;">*</sup></label>
                       </div>
                       <div class="col-12 col-md-3">
@@ -542,11 +578,12 @@ myForm.addEventListener("submit", (event) => {
                         </div>
                       </div>
                       <div class="col-12 col-md-3"></div>
-                      <div class="col-12 col-md-4 text-center">
-                        <label for="account_Lengthdbtr" class="col-form-label" style="margin-left:-45px;">Enter AccountNo Length</label>
+                      <div class="col-12 col-md-3 ms-1">
+                        <label for="account_Lengthdbtr" class="col-form-label" >Enter AccountNo Length</label>
                       </div>
+                      <div class="col-12 col-md-1"></div>
                       <div class="col-12 col-md-3 ">
-                        <input type="number" id="account_Lengthdbtr" class="form-control ms-1" placeholder="--Enter--"
+                        <input type="number" id="account_Lengthdbtr" class="form-control" placeholder="--Enter--"
                           name="dbtrAccountLength" value="0" />
                       </div>
 
@@ -561,7 +598,7 @@ myForm.addEventListener("submit", (event) => {
           <div class="row g-3 align-items-center mt-3 ">
             <div class="col-12 col-md-2"></div>
             <div class="col-12 col-md-5 text-start">
-              <h5 class="pb-5">Creditor Agent</h5>
+              <h5 class="pb-3 pt-5">Creditor Agent</h5>
 
               <div class="col-12 col-md-5 ms-1">
                 <div class="form-check text-start">
@@ -617,8 +654,8 @@ myForm.addEventListener("submit", (event) => {
                     <input type="text" name="cdtrCd" id="textbox" style="display: none;">
                   </div>
 
-
-                  <div class="col-12 col-md-6 text-center" style="margin-left:40px">
+                  <div class="col-12 col-md-3"></div>
+                  <div class="col-12 col-md-3 text-start mb-3">
                     <label for="chkCdtrPrtry" class="fw-bold">
                       <input type="radio" name="radioCdtrCdPrtry" value="2" id="secondradio"
                         onclick="EnableDisableTextbox99(this)" />
@@ -664,7 +701,7 @@ myForm.addEventListener("submit", (event) => {
 
             <div class="col-12 col-md-1"></div>
             <div class="col-12 col-md-4 text-start">
-              <h5 class="pb-5">Debitor Agent</h5>
+              <h5 class="pb-3 pt-5">Debitor Agent</h5>
 
 
               <div class="col-auto ms-1">
@@ -714,12 +751,12 @@ myForm.addEventListener("submit", (event) => {
                         onclick="EnableDisableTextbox8(this)" checked /> Cd
                     </label>
                   </div>
-                  <div class="col-12 col-md-6">
+                  <div class="col-12 col-md-6 text-end">
                     <input type="text" name="dbtrCd" id="textbox2" class="border border-dark" style="display: none;">
                   </div>
 
-
-                  <div class="col-12 col-md-6 text-center" style="margin-left:40px">
+                  <div class="col-12 col-md-3"></div>
+                  <div class= "col-12 col-md-3 text-start mb-3">
                     <label for="fourthradio" class="fw-bold">
                       <input type="radio" name="radioDbtrCdPrtry" value="2" id="fourthradio"
                         onclick="EnableDisableTextbox9(this)" />
@@ -829,7 +866,7 @@ function generateFile() {
     document.getElementById("loading").style.display = "none";
 
     // Display a success message to the user using an
-    alert("File generated successfully!");
+    alert("File generation is in progress!");
 
     // Show the submit button again
     document.getElementById("submit-btn").style.display = "block";
@@ -838,9 +875,6 @@ function generateFile() {
   }, 5000); // replace 5000 with the time it takes to generate the file
 }
 </script>
-
-
-
 
         </div>
       </div>

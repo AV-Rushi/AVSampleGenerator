@@ -172,7 +172,6 @@ const saveBtn = document.getElementById("btnSave");
 
 editBtn.addEventListener("click", () => {
   myDiv.querySelectorAll("input").forEach(input => input.disabled = false); // Enable all input elements inside the div
-  editBtn.disabled = true; // Disable the edit button
   saveBtn.disabled = false; // Enable the save button
 });
 
@@ -305,7 +304,7 @@ saveBtn.addEventListener("click", () => {
                             <button type="submit" class="btn btn-primary mb-5 w-25" id="">Submit</button>
                         </div>
                         <div class="col-12 col-md-6 text-start">
-                            <button type="reset" class=" btn-primary mb-5 w-25" id="btnReset">Reset</button>
+                            <button type="reset" class="btn btn-primary mb-5 w-25" id="btnReset">Reset</button>
                         </div>
                 </div>
         </div>

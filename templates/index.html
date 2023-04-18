@@ -120,7 +120,6 @@
                   <h1 style="margin-left: -100px;
 font-size:50px; ">Sample Generator</h1>
                 </ul>
-
               </div>
             </div>
           </nav>
@@ -132,7 +131,7 @@ font-size:50px; ">Sample Generator</h1>
             </div>
             <div class="col-12 col-md-3">
               <div class="dropdown ">
-                <select name="selectHK" class="form-select " id="format" required>
+                <select name="selectHK" class="form-select " id="format" style="margin-left:-4px;" required >
                   <option value="">--Select Format Type--</option>
                   {% for temp in tempName %}
                   <option value="{{ temp[0] }}">{{ temp[0] }}</option>
@@ -262,7 +261,7 @@ myForm.addEventListener("submit", (event) => {
               <div class="col-12 col-md-2"></div>
               <div class="checkbox fw-bold col-auto text-center">
                 <label>
-                  <input type="checkbox" name="ccyCheck" class="checkme fs-2" checked> Currency of IntrBkSttlmAmt and
+                  <input type="checkbox" name="ccyCheck" class="checkme fw-bold" checked> Currency of IntrBkSttlmAmt and
                   InstdAmt
                   are same ? 
                 </label>
@@ -274,9 +273,9 @@ myForm.addEventListener("submit", (event) => {
                   <label for="currency_type" class="col-form-label text-start fw-bold">Currency<sup
                     style="color: red;">*</sup></label>
                 </div>
-                <div class="col-12 col-md-3 ms-1">
+                <div class="col-12 col-md-3 ">
                   <div class="dropdown">
-                    <select name="ccy" class="form-select required" id="currency_type" required>
+                    <select name="ccy" class="form-select ms-2" id="currency_type" required>
                       <option selected disabled>--Select Currency Type--</option>
                       <option value="HKD">HKD</option>
                       <option value="CNY">CNY</option>
@@ -290,14 +289,14 @@ myForm.addEventListener("submit", (event) => {
               </div>
 
 
-              <div class="passport-box row g-3 align-items-center mt-3 text-start ms-1 " id="box" style="display: none;">
+              <div class="passport-box row g-3 align-items-center mt-3 text-start " id="box" style="display: none;">
                 <div class="col-12 col-md-2"></div>
                 <div class="col-12 col-md-4 ">
-                  <label for="IntrBkSttlmdAmtCny" class="col-form-label text-start fw-bold" id="int">IntrBkSttlmAmt</label>
+                  <label for="IntrBkSttlmdAmtCny" class="col-form-label text-start fw-bold ms-2" id="int">IntrBkSttlmAmt</label>
                 </div>
-                <div class="col-12 col-md-3 ms-2">
+                <div class="col-12 col-md-3 ">
                   <div class="dropdown">
-                    <select name="ccy" class="form-select" style="border-color: lightcoral;border-width: 2px;
+                    <select name="ccy" class="form-select ms-3" style="border-color: lightcoral;border-width: 2px;
                      box-shadow: 2px 2px 4px black;" id="IntrBkSttlmdAmtCny">
                       <option selected disabled>--Select Currency Type--</option>
                       <option value="HKD">HKD</option>
@@ -315,11 +314,11 @@ myForm.addEventListener("submit", (event) => {
                  <div class="col-12 col-md-2"></div>
 
                 <div class="col-12 col-md-4">
-            <label for="InstdAmtCny" class="col-form-label text-start fw-bold" >InstdAmt</label>
+            <label for="InstdAmtCny" class="col-form-label text-start fw-bold ms-2" >InstdAmt</label>
                 </div>
-                <div class="col-12 col-md-3 ms-2" >
+                <div class="col-12 col-md-3 " >
                   <div class="dropdown">
-                    <select name="ccy1" class="form-select" style="border-color: lightcoral;border-width: 2px;
+                    <select name="ccy1" class="form-select ms-3" style="border-color: lightcoral;border-width: 2px;
                      box-shadow: 2px 2px 4px black;" id="InstdAmtCny">
                       <option selected disabled>--Select Currency Type--</option>
                       <option value="HKD">HKD</option>
@@ -363,12 +362,12 @@ myForm.addEventListener("submit", (event) => {
 
               <div class="row g-3 align-items-center mt-1 text-start ">
                 <div class="col-12 col-md-2"></div>
-                <div class="col-12 col-md-4 ms-2">
-                  <label for="customedate" class="col-form-label text-start fw-bold">Value Date<sup
+                <div class="col-12 col-md-4 ">
+                  <label for="customedate" class="col-form-label text-start fw-bold ms-2">Value Date<sup
                     style="color: red;">*</sup></label>
                 </div>
-                <div class="col-12 col-md-3 ms-1">
-                  <input type="date" name="valueDate" id="customedate" class="form-control "
+                <div class="col-12 col-md-3 ">
+                  <input type="date" name="valueDate" id="customedate" class="form-control ms-3"
                     onchange="handleDateChange()" required />
                   <script>
                     function handleDateChange() {
@@ -381,17 +380,17 @@ myForm.addEventListener("submit", (event) => {
 
 
 
-            <div class="row g-3 align-items-center mt-5 p-0 m-0">
+            <div class="row g-3  mt-5 p-0 m-0">
               <div class="col-12 col-md-6 text-center">
-                <h5 class="pb-3" style="margin-left: -120px;">Creditor</h5>
+                <h5 class="pb-5" style="margin-left: -120px;">Creditor</h5>
 
                 <div class="row text-center ms-4 m-0 p-0">
 
-                  <div class="form-check checkbox-card">
+                  <div class="col-12 col-md-12 form-check ">
                     <label class="form-check-label" for="flexRadioDefault1">
                       <input class="form-check-input" type="radio" value="1" name="flexRadioDefaultCdtr" id="dataExList"
+                             onchange="hideDiv()"
                         checked />
-
                       Use Data From Existing List
                     </label>
 
@@ -416,13 +415,14 @@ myForm.addEventListener("submit", (event) => {
                   </div>
 
 
-                  <div class="form-check">
+                  <div class="col-12 col-md-12 form-check">
                     <label class="form-check-label ms-2 mt-3" for="flexRadioDefault2">
                       <input class="form-check-input" type="radio" value='2' name="flexRadioDefaultCdtr"
-                        id="dataFaker" />
+                        id="dataFaker" onchange="showDiv()" />
                       Use Data From Dummy data
                     </label>
 
+</div>
 
 <!--                     <div class="row g-3  mt-3">-->
 <!--                      <div class="col-12 col-md-2"></div>-->
@@ -457,18 +457,32 @@ myForm.addEventListener("submit", (event) => {
 
 <!--                    </div><!-->
 
+<script>
+  function showDiv() {
+document.getElementById('inputcountrycdtr').style.display = 'block';
+document.getElementById('countrylable').style.display = 'block';
+document.getElementById('account_Lengthcdtr').style.display = 'block';
+document.getElementById('acclable').style.display = 'block';
+}
+
+function hideDiv() {
+document.getElementById('inputcountrycdtr').style.display = 'none';
+document.getElementById('countrylable').style.display = 'none';
+document.getElementById('account_Lengthcdtr').style.display = 'none';
+document.getElementById('acclable').style.display = 'none';
+}
+
+</script>
 
 
-
-                    <div class="row g-3 mt-3" id="countryAndAccount">
-                      <div class="col-12 col-md-2"></div>
-                       <div class="col-12 col-md-5 text-center">
-                        <label for="inputcountrycdtr" class="col-form-label text-end">Country Code<sup
+                      <div class="col-12 col-md-3"></div>
+                       <div class="col-12 col-md-4 text-center mt-3">
+                        <label for="inputcountrycdtr" class="col-form-label " style="margin-left:-15px; display:none;" id="countrylable">Country Code<sup
                           style="color: red;">*</sup></label>
                       </div>
-                       <div class="col-12 col-md-3">
+                       <div class="col-12 col-md-3 mt-3 ">
                         <div class="dropdown">
-                          <select id="inputcountrycdtr" class="form-select " name="CdtrCountry"  required>
+                          <select id="inputcountrycdtr" class="form-select " name="CdtrCountry"  style="display:none;" required>
                             <option selected disabled>--Select--</option>
                             <option value="AU" >AUS</option>
                             <option value="CA" >CAN</option>
@@ -482,31 +496,31 @@ myForm.addEventListener("submit", (event) => {
                           </select>
                         </div>
                       </div>
-                      <div class="col-12 col-md-3"></div>
-                      <div class="col-12 col-md-3 ms-1 ">
-                        <label for="account_Lengthcdtr" class="col-form-label" >Enter AccountNo Length</label>
+                      <div class="col-12 col-md-2"></div>
+                   <div class="col-12 col-md-3"></div>
+                      <div class="col-12 col-md-4 text-center mt-3 ">
+                        <label for="account_Lengthcdtr" class="col-form-label" style="display:none;" id="acclable" >Enter AccountNo Length</label>
                       </div>
-                      <div class="col-12 col-md-1"></div>
-                      <div class="col-12 col-md-3">
+                      <div class="col-12 col-md-3 mt-3">
                         <input type="number" id="account_Lengthcdtr" class="form-control" placeholder="--Enter--"
-                          name="cdtrAccountLength" value="0" />
+                          name="cdtrAccountLength" value="0" style="display:none;" />
                       </div>
-                    </div>
-                  </div>
+
+
                 </div>
               </div><!--End of creditor section-->
 
+<div class="col-12 col-md-1"></div>
 
-
-              <div class="col-12 col-md-6 text-center">
-                <h5 class="pb-3" style="margin-left: -120px;">Debitor</h5>
-                <div class="row text-start ms-4">
-                  <div class="form-check text-center">
+              <div class="col-12 col-md-5 text-start">
+                <h5 class="pb-5">Debitor</h5>
+                <div class="row text-start m-0 p-0">
+                  <div class="col-12 col-md-12 form-check ">
                     <label class="form-check-label " for="flexRadioDefault1">
                       <input class="form-check-input" type="radio" value='1' name="flexRadioDefaultDbtr"
-                        id="dataExtlist" checked />
+                        id="dataExtlist" onchange="hideDiv1()" checked />
 
-                      Use Data From Existing List
+                       Use Data From Existing List
                     </label>
 
                     <!-- <div class="row g-3 align-items-center text-start ms-4 mt-1">
@@ -548,22 +562,42 @@ myForm.addEventListener("submit", (event) => {
                   </div>
 
 
-                  <div class="form-check text-center">
-                    <label class="form-check-label ms-2 mt-3" for="datafakers">
+                  <div class="col-12 col-md-12 form-check">
+                    <label class="form-check-label text-start mt-3" for="datafakers">
                       <input class="form-check-input" type="radio" value='2' name="flexRadioDefaultDbtr"
-                        id="dataFakers" />
+                        id="dataFakers" onchange="showDiv1()" />
 
-                      Use Data From Dummy Data
+                       Use Data From Dummy Data
                     </label>
-                    <div class="row g-3  mt-3">
-                      <div class="col-12 col-md-2"></div>
-                       <div class="col-12 col-md-5 text-center">
-                        <label for="inputcountryDbtr" class="col-form-label text-center" >Country Code<sup
+                  </div>
+                  <script>
+                    function showDiv1() {
+                  document.getElementById('inputcountryDbtr').style.display = 'block';
+                  document.getElementById('countrylable1').style.display = 'block';
+                  document.getElementById('account_Lengthdbtr').style.display = 'block';
+                  document.getElementById('acclable1').style.display = 'block';
+                  }
+
+                  function hideDiv1() {
+                  document.getElementById('inputcountryDbtr').style.display = 'none';
+                  document.getElementById('countrylable1').style.display = 'none';
+                  document.getElementById('account_Lengthdbtr').style.display = 'none';
+                  document.getElementById('acclable1').style.display = 'none';
+                  }
+
+                  </script>
+
+
+
+
+
+                       <div class="col-12 col-md-4 text-center mt-3">
+                        <label for="inputcountryDbtr" class="col-form-label" style="margin-left:-15px; display:none;" id="countrylable1" >Country Code<sup
                           style="color: red;">*</sup></label>
                       </div>
-                      <div class="col-12 col-md-3">
+                      <div class="col-12 col-md-3 mt-3">
                         <div class="dropdown">
-                          <select id="inputcountryDbtr" class="form-select" name="DbtrCountry"required>
+                          <select id="inputcountryDbtr" class="form-select" name="DbtrCountry" style="display:none;" required>
                             <option selected disabled>--Select--</option>
                             <option value="AU" >AUS</option>
                             <option value="CA" >CAN</option>
@@ -577,18 +611,18 @@ myForm.addEventListener("submit", (event) => {
                           </select>
                         </div>
                       </div>
+                      <div class="col-12 col-md-2"></div>
                       <div class="col-12 col-md-3"></div>
-                      <div class="col-12 col-md-3 ms-1">
-                        <label for="account_Lengthdbtr" class="col-form-label" >Enter AccountNo Length</label>
-                      </div>
-                      <div class="col-12 col-md-1"></div>
-                      <div class="col-12 col-md-3 ">
-                        <input type="number" id="account_Lengthdbtr" class="form-control" placeholder="--Enter--"
-                          name="dbtrAccountLength" value="0" />
+                      <div class="col-12 col-md-4 text-center mt-3 ">
+                        <label for="account_Lengthdbtr" class="col-form-label" style="display:none;" id="acclable1" >Enter AccountNo Length</label>
                       </div>
 
-                    </div><!--End of debitor country-->
-                  </div>
+                      <div class="col-12 col-md-3 mt-3">
+                        <input type="number" id="account_Lengthdbtr" class="form-control" placeholder="--Enter--"
+                          name="dbtrAccountLength" value="0" style="display:none;"/>
+                      </div>
+
+                    <!--End of debitor country-->
                 </div>
               </div>
             </div>
@@ -598,7 +632,7 @@ myForm.addEventListener("submit", (event) => {
           <div class="row g-3 align-items-center mt-3 ">
             <div class="col-12 col-md-2"></div>
             <div class="col-12 col-md-5 text-start">
-              <h5 class="pb-3 pt-5">Creditor Agent</h5>
+              <h5 class="pb-5 pt-1">Creditor Agent</h5>
 
               <div class="col-12 col-md-5 ms-1">
                 <div class="form-check text-start">
@@ -699,9 +733,9 @@ myForm.addEventListener("submit", (event) => {
             </div><!--End of creditor section-->
 
 
-            <div class="col-12 col-md-1"></div>
+
             <div class="col-12 col-md-4 text-start">
-              <h5 class="pb-3 pt-5">Debitor Agent</h5>
+              <h5 class="pb-5 pt-1">Debitor Agent</h5>
 
 
               <div class="col-auto ms-1">

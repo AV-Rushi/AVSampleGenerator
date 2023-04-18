@@ -40,7 +40,7 @@
 
 <body>
 <div class=" container-fluid">
-    <form action="configure" method="post">
+    <form action="configure" id="myform" method="post">
         <div class="row border text-center" id="configform"
              style="background-color:rgb(229, 229, 232);box-shadow: 2px 2px 4px;">
             <div class="col-12 p-0" style="background-color:rgb(245, 238, 227)">
@@ -107,10 +107,10 @@ font-size:40px; ">CONFIGURATION</h1>
                     <div class="row mt-3 pt-3 ms-1 text-center" id="edit_section" >
 
                         <div class="col-12 col-md-12 border shadow ms-2 " id="editdiv" disabled>
-                            <div class="row mt-5 text-start mb-5">
-                                  {% for row in data %}
+                               <div class="row mt-5 text-start mb-5" id="mydiv">
+                                       {% for row in data %}
                                         <div class="col-12 col-md-1 mt-2 text-center">
-                                            <input class="form-check-input" type="checkbox" value="true"
+                                            <input class="form-check-input" type="checkbox"  value="true"
                                                 id="flexCheckChecked{{ loop.index }}" name="flexCheckChecked{{ loop.index }}" checked data-label="{{ row[0] }}" disabled>
                                         </div>
                                         <div class="col-12 col-md-2">
@@ -118,7 +118,7 @@ font-size:40px; ">CONFIGURATION</h1>
                                             <input type="hidden" name="labels[]" value="{{ row[0] }}">
                                         </div>
                                         <div class="col-12 col-md-9">
-                                            <input type="text" id="BrnchId[]" class="form-control border border-dark ms-1 w-100 mt-1 border-bottom"
+                                            <input type="text" id="BrnchId[]" class="form-control shadow ms-1 w-100 mt-1 border-bottom"
                                                 placeholder="--Enter Value--" name="BrnchId[]" value="{{ row[1] }}" disabled/>
                                             <input type = "hidden" name = "current_brnch_ids[]" value = "{{ row[1] }}">
                                         </div>
@@ -137,25 +137,29 @@ font-size:40px; ">CONFIGURATION</h1>
                                     $.ajax({
                                         url: '/configure',
                                         type: 'POST',
-                                        data: {'checkbox': 'unchecked', 'labels': labels},
+                                        data: {'checkbox': 'unchecked',
+                                                'labels': labels,
+                                                'save': 'clicked',
+                                                },
                                         success: function(response) {
                                             console.log(response);
                                         }
                                     });
                                 }
+                                var saveButton = document.getElementById("btn");
+                                saveButton.value = "clicked";
+                                saveButton.disabled = false;
                                 return true;
                             }
                             </script>
-
-
                             </div>
- <div class="row mt-5 text-start mb-5" id="new">
-
-                                                            </div>
+                         <div class="row mt-5 text-start mb-5" id="new">
+                          </div>
                         </div>
                          <div class="col-12 col-md-12 text-center mt-5 mb-3">
                                     <button type="button" class="btn btn-primary w-25 mx-4" id="btnEdit">Edit</button>
-                                     <button type="button" class="btn btn-primary w-25" id="btnSave" disabled>Save</button>
+<!--                                     <button type="button" class="btn btn-primary w-25" id="btnSave" disabled>Save</button>-->
+                                  <button type="submit" class="btn btn-primary w-25" id="btn" name="save" onclick="return checkCheckbox()">Save</button>
 
                                 </div>
                     </div>
@@ -183,50 +187,50 @@ saveBtn.addEventListener("click", () => {
 
       </script>
 
-                <script>
-	 function addItem() {
-  // Get the values of the checkbox, dropdown, and input box
-  const checkbox = document.getElementById("checkbox");
-  const dropdownValue = document.getElementById("my-dropdown").value;
-  const inputValue = document.getElementById("my-input").value;
+<!--                <script>-->
+<!--	 function addItem() {-->
+<!--  // Get the values of the checkbox, dropdown, and input box-->
+<!--  const checkbox = document.getElementById("checkbox");-->
+<!--  const dropdownValue = document.getElementById("my-dropdown").value;-->
+<!--  const inputValue = document.getElementById("my-input").value;-->
 
-  // Create a new element with the selected values
-  const newElement = document.createElement("div");
-  const newCheckbox = document.createElement("input");
-  newCheckbox.type = "checkbox";
-  newCheckbox.checked = checkbox.checked;
-  newElement.appendChild(newCheckbox);
-  newElement.innerHTML += `${dropdownValue} <input type="text" value="${inputValue}" disabled>`;
+<!--  // Create a new element with the selected values-->
+<!--  const newElement = document.createElement("div");-->
+<!--  const newCheckbox = document.createElement("input");-->
+<!--  newCheckbox.type = "checkbox";-->
+<!--  newCheckbox.checked = checkbox.checked;-->
+<!--  newElement.appendChild(newCheckbox);-->
+<!--  newElement.innerHTML += `${dropdownValue} <input type="text" value="${inputValue}" disabled>`;-->
 
-  // Append the new element to the pre-created div element
-  const container = document.getElementById("new");
-  container.appendChild(newElement);
+<!--  // Append the new element to the pre-created div element-->
+<!--  const container = document.getElementById("new");-->
+<!--  container.appendChild(newElement);-->
 
-  // Reset the checkbox, dropdown, and input box
-  checkbox.checked = false;
-  document.getElementById("dropdown").selectedIndex = 0;
-  document.getElementById("inputBox").value = "";
-}
+<!--  // Reset the checkbox, dropdown, and input box-->
+<!--  checkbox.checked = false;-->
+<!--  document.getElementById("dropdown").selectedIndex = 0;-->
+<!--  document.getElementById("inputBox").value = "";-->
+<!--}-->
 
 
 
-<!--function addItem() {-->
-<!--        // Get the values from the dropdown and input box-->
-<!--        var dropdownValue = document.getElementById("my-dropdown").value;-->
-<!--        var inputValue = document.getElementById("my-input").value;-->
+<!--&lt;!&ndash;function addItem() {&ndash;&gt;-->
+<!--&lt;!&ndash;        // Get the values from the dropdown and input box&ndash;&gt;-->
+<!--&lt;!&ndash;        var dropdownValue = document.getElementById("my-dropdown").value;&ndash;&gt;-->
+<!--&lt;!&ndash;        var inputValue = document.getElementById("my-input").value;&ndash;&gt;-->
 
-<!--        // Create a new element to hold the added item-->
-<!--        var newItem = document.createElement("div");-->
-<!--        newItem.innerHTML = dropdownValue + " - " + inputValue;-->
+<!--&lt;!&ndash;        // Create a new element to hold the added item&ndash;&gt;-->
+<!--&lt;!&ndash;        var newItem = document.createElement("div");&ndash;&gt;-->
+<!--&lt;!&ndash;        newItem.innerHTML = dropdownValue + " - " + inputValue;&ndash;&gt;-->
 
-<!--        // Add the new element to the items container-->
-<!--        document.getElementById("new").appendChild(newItem);-->
+<!--&lt;!&ndash;        // Add the new element to the items container&ndash;&gt;-->
+<!--&lt;!&ndash;        document.getElementById("new").appendChild(newItem);&ndash;&gt;-->
 
-<!--        // Reset the dropdown and input box values-->
-<!--        document.getElementById("my-dropdown").value = "Option 1";-->
-<!--        document.getElementById("my-input").value = "";-->
-<!--    }-->
-    </script>
+<!--&lt;!&ndash;        // Reset the dropdown and input box values&ndash;&gt;-->
+<!--&lt;!&ndash;        document.getElementById("my-dropdown").value = "Option 1";&ndash;&gt;-->
+<!--&lt;!&ndash;        document.getElementById("my-input").value = "";&ndash;&gt;-->
+<!--&lt;!&ndash;    }&ndash;&gt;-->
+<!--    </script>-->
 
 
                     <div class="row" id="container">
@@ -239,7 +243,7 @@ saveBtn.addEventListener("click", () => {
                         </div>
                         <div class="col-12 col-md-4 mt-5">
                              <div class="dropdown">
-                    <select name="" class="form-select" id="my-dropdown" required>
+                    <select name="newfieldname" class="form-select" id="my-dropdown" required>
                       <option selected disabled>--Select Key--</option>
                       {% for keys in keyList %}
                             <option value="{{ keys[0] }}">{{ keys[0] }}</option>
@@ -251,21 +255,60 @@ saveBtn.addEventListener("click", () => {
                             <label for="my-input" class="fw-bold">value :</label>
                         </div>
                         <div class="col-12 col-md-4 mt-5">
-                             <input type="text" class="shadow py-1 rounded w-100 text-start" id="my-input">
+                             <input type="text" class="shadow py-1 rounded w-100 text-start" name="newpath" id="my-input">
                         </div>
-
-                        <div class="col-12 col-md-1 mt-5 text-start ">
-                            <button id="add-btn" class=" btn-secondary rounded " onclick="addItem()">Add</button>
+                          <div class="col-12 col-md-1 mt-5 text-start ">
+                            <script>
+                        function setButtonValue() {
+                            var addButton = document.getElementById("add-btn");
+                            var buttonValue = addButton.value;
+                            document.getElementById("button-value").value = buttonValue;
+                             $.ajax({
+                            url: "{{ url_for('addValues') }}",
+                            type: "POST",
+                            data: $("#myform").serialize() + "&buttonValue=addvalue",
+                            success: function(response) {
+                                      console.log(response);
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                console.log(errorThrown);
+                            }
+                        });
+                        }
+                            </script>
+                            <button type="submit" id="add-btn" class="btn-secondary rounded" name="addButton" value="addvalue" onclick="setButtonValue()">Add</button>
+                            <input type="hidden" name="buttonValue" id="button-value">
                         </div>
+                        <script>
+                                $(document).ready(function() {
+                                  $('#myform').submit(function(event) {
+                                    event.preventDefault();
+                                    var formData = $(this).serialize();
+                                    $.ajax({
+                                      url: '/configure',
+                                      method: 'POST',
+                                      data: formData,
+                                       success: function(response) {
+                                       $('#mydiv').load(document.URL +  ' #mydiv');
+                                       alert('.....Successful....!');
+                                      },
+                                      error: function(error) {
+                                        alert('There was an error.');
+                                      }
+                                    });
+                                  });
+                                });
+                          </script>
                     </div>
                 <div class="row mt-5">
                         <div class="col-12 col-md-6 text-end">
-                            <button type="submit" class="btn btn-primary mb-5 w-25" id="btn"  onclick="return checkCheckbox()">Submit</button>
+                            <button type="submit" class="btn btn-primary mb-5 w-25" id="">Submit</button>
                         </div>
                         <div class="col-12 col-md-6 text-start">
-                            <button type="reset" class="btn btn-primary mb-5 w-25" id="btnReset">Reset</button>
+                            <button type="reset" class=" btn-primary mb-5 w-25" id="btnReset">Reset</button>
                         </div>
                 </div>
+        </div>
         </div>
     </form>
 </div>

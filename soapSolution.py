@@ -101,33 +101,55 @@ def configure():
         cursor = conn.cursor()
         cursor.execute("UPDATE template_association SET FileName = ?, BatchTag = ? ,TransactionTag=? WHERE TemplateName = ?",(filename, batchelement, transactionelement, formatname,))
         conn.commit()
-        checkbox_value = request.form.get('checkbox')
-        labels = request.form.getlist('labels[]')
-        if checkbox_value == 'unchecked':
+        save=request.form.get('save')
+        if save=='clicked':
+            checkbox_value = request.form.get('checkbox')
             labels = request.form.getlist('labels[]')
-            cursor.execute("UPDATE template_config SET Required='true' WHERE Required ='false'")
-            conn.commit()
-            for i in labels:
-                cursor.execute("UPDATE template_config SET Required='false' WHERE FieldName =?", (i,))
+            if checkbox_value == 'unchecked':
+                labels = request.form.getlist('labels[]')
+                cursor.execute("UPDATE template_config SET Required='true' WHERE Required ='false'")
                 conn.commit()
-        conn.close()
+                for i in labels:
+                    cursor.execute("UPDATE template_config SET Required='false' WHERE FieldName =?", (i,))
+                    conn.commit()
+            else:
+                cursor.execute("UPDATE template_config SET Required='true' WHERE Required ='false'")
+                conn.commit()
+            conn.close()
         conn = sqlite3.connect('DataBase/SampleGenerator.db')
         cursor = conn.cursor()
-        labels = request.form.getlist('labels[]')
-        current_brnch_ids = request.form.getlist('current_brnch_ids[]')
-        new_brnch_ids = request.form.getlist('BrnchId[]')
-        for i in range(len(labels)):
-            label = labels[i]
-            current_brnch_id = current_brnch_ids[i]
-            new_brnch_id = new_brnch_ids[i]
-            query = "UPDATE template_config SET Path = ? WHERE FieldName = ? AND Path = ?"
-            cursor.execute(query, (new_brnch_id,label,current_brnch_id))
+        if request.method == 'POST':
+            labels = request.form.getlist('labels[]')
+            current_brnch_ids = request.form.getlist('current_brnch_ids[]')
+            new_brnch_ids = request.form.getlist('BrnchId[]')
+            if len(labels) == len(current_brnch_ids) == len(new_brnch_ids)and len(labels) > 0:
+                for i in range(len(labels)):
+                    label = labels[i]
+                    current_brnch_id = current_brnch_ids[i]
+                    new_brnch_id = new_brnch_ids[i]
+                    query = "UPDATE template_config SET Path = ? WHERE FieldName = ? AND Path = ?"
+                    cursor.execute(query, (new_brnch_id,label,current_brnch_id))
+                    conn.commit()
+            query = "INSERT OR IGNORE INTO template_association (TemplateName, FileName, BatchTag,TransactionTag) VALUES (?, ?, ?, ?)"
+            cursor.execute(query, (formatname, filename, batchelement, transactionelement))
             conn.commit()
-        query = "INSERT OR IGNORE INTO template_association (TemplateName, FileName, BatchTag,TransactionTag) VALUES (?, ?, ?, ?)"
-        cursor.execute(query, (formatname, filename, batchelement, transactionelement))
-        conn.commit()
-        conn.close()
+            conn.close()
     return render_template("configure.html", data=data, template=template, file=file, batchtag=batchtag, txntag=txntag,selected_value=selected_value,keyList=keyList)
+
+@app.route('/add', methods=['GET', 'POST'])
+def addValues():
+    formatname = request.form.get('formatname')
+    conn = sqlite3.connect('DataBase/SampleGenerator.db')
+    cursor = conn.cursor()
+    if request.method == 'POST':
+        require='true'
+        name = request.form.get('newfieldname')
+        value = request.form.get('newpath')
+        query1 = "INSERT INTO template_config (TemplateName,FieldName,Path,Required) VALUES (?, ?,?,?)"
+        cursor.execute(query1, (formatname, name, value, require))
+        conn.commit()
+    return render_template("configure.html")
+
 if __name__== "__main__":
     app.run(debug=True,port='2024')
 

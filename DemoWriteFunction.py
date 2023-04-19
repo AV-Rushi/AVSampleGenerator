@@ -243,7 +243,7 @@ def writeFile(file,batchNo,txnNo,amtType,amount, ccy, ccy1, valueDate,ccyCheck,c
             elif key == "DebtorClrSysId_Cd":
                 dbtrCd1 = root.findall(f".//{pathValue}", ns)
                 if dbtrAgtDataChoice == 1:
-                    if (chkCdtrClrSysId == 'on'):
+                    if (chkDbtrClrSysId == 'on'):
                         if radioDbtrCdPrtry == 1:
                             Cdtr_DbtrAgtExistingData.AgentClrSysId_Cd(AgtCount,dbtrCd1)
 
@@ -256,7 +256,7 @@ def writeFile(file,batchNo,txnNo,amtType,amount, ccy, ccy1, valueDate,ccyCheck,c
                         RemoveCode.removeTag1(root, delElement)
 
                 elif dbtrAgtDataChoice == 2:
-                    if (chkCdtrClrSysId == 'on'):
+                    if (chkDbtrClrSysId == 'on'):
                         if radioDbtrCdPrtry == 1:
                             for dbtr_Cd in dbtrCd1:
                                 dbtr_Cd.text = str(dbtrCd)
@@ -271,7 +271,7 @@ def writeFile(file,batchNo,txnNo,amtType,amount, ccy, ccy1, valueDate,ccyCheck,c
             elif key == "DebtorClrSysId_Prtry":
                 dbtrPrtry1 = root.findall(f".//{pathValue}", ns)
                 if dbtrAgtDataChoice == 1:
-                    if (chkCdtrClrSysId == 'on'):
+                    if (chkDbtrClrSysId == 'on'):
                         if radioDbtrCdPrtry == 2:
                             Cdtr_DbtrAgtExistingData.AgentClrSysId_Prtry(AgtCount,dbtrPrtry1)
 
@@ -283,7 +283,7 @@ def writeFile(file,batchNo,txnNo,amtType,amount, ccy, ccy1, valueDate,ccyCheck,c
                         RemoveCode.removeTag1(root, delElement)
 
                 elif dbtrAgtDataChoice == 2:
-                    if (chkCdtrClrSysId == 'on'):
+                    if (chkDbtrClrSysId == 'on'):
                         if radioDbtrCdPrtry == 2:
                             for dbtr_Prtry in dbtrPrtry1:
                                 dbtr_Prtry.text = str(dbtrPrtry)

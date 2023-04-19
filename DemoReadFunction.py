@@ -57,9 +57,8 @@ def readFile(file, batchNo, txnNo):
 
     tree.write("Input\Temp\SampleFileDaynamic.xml", xml_declaration=True, encoding='utf-8')
     time.sleep(5)
-    print("File 1 generated sucessfully..")
 
 
-# readFile('HKFPS_PACS003',5, 4)
+readFile('HKFPS_PACS003',5, 4)
 # readFile('RTP_PACS008',5, 4, 1, 35684, 'HKD', None)
 # readFile('Demo',3, 5, 1, 35684, 'HKD', None)

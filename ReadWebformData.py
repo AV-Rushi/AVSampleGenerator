@@ -1,8 +1,8 @@
 from flask import Flask, render_template,request,session
-import ReadFunction
 import os
-import  sqlite3
-import DemoReadFunction
+import sqlite3
+from DemoReadFunction import readFile
+from DemoWriteFunction import writeFile
 # import logger
 
 app = Flask(__name__)
@@ -61,10 +61,11 @@ def samplegenerator():
     cdtrAgtDataChoice= request.form.get('flexRadioDefaultCdtrAgt')
     dbtrAgtDataChoice= request.form.get('flexRadioDefaultDbtrAgt')
 
-    ReadFunction.readFile(file,int(batchNo),int(txnNo),int(amtType),float(amount),ccy,ccy1)
-    ReadFunction.writeFile(file,str(ccy),str(ccy1),valueDate,ccyCheck,int(cdtrDataChoice),int(dbtrDataChoice),int(cdtrAccountLength), int(dbtrAccountLength),chkCdtrBic,cdtrBic,chkCdtrClrSysId,int(radioCdtrCdPrtry),cdtrCd,cdtrPrtry,chkCdtrMmbId,cdtrMmbId,chkCdtrOtherId,cdtrOtherId,chkDbtrBic,dbtrBic,chkDbtrClrSysId,int(radioDbtrCdPrtry),dbtrCd,dbtrPrtry,chkDbtrMmbId,dbtrMmbId,chkDbtrOtherId,dbtrOtherId,int(cdtrAgtDataChoice),int(dbtrAgtDataChoice),cdtrCountry,dbtrCountry)
-    # os.remove("Input\Temp\SampleFile1.xml")
-    return render_template("index.html")
+    readFile(file,int(batchNo),int(txnNo))
+    writeFile(file,int(batchNo),int(txnNo),int(amtType),float(amount), ccy, ccy1, valueDate,ccyCheck,int(cdtrDataChoice),int(dbtrDataChoice),int(cdtrAccountLength),int(dbtrAccountLength),chkCdtrBic,cdtrBic,chkCdtrClrSysId,int(radioCdtrCdPrtry),cdtrCd,cdtrPrtry,chkCdtrMmbId,cdtrMmbId,chkCdtrOtherId,cdtrOtherId,chkDbtrBic,dbtrBic,chkDbtrClrSysId,int(radioDbtrCdPrtry),dbtrCd,dbtrPrtry,chkDbtrMmbId,dbtrMmbId,chkDbtrOtherId,dbtrOtherId,int(cdtrAgtDataChoice),int(dbtrAgtDataChoice),cdtrCountry,dbtrCountry)
+    os.remove("Input\Temp\SampleFileDaynamic.xml")
+    return ("File Generated !!")
+
 
 @app.route('/configure', methods=['GET', 'POST'])
 def configure():
@@ -91,7 +92,7 @@ def configure():
         file = temp[1]
         batchtag = temp[2]
         txntag = temp[3]
-    cursor.execute('SELECT FieldName,Path FROM template_config where TemplateName=?', (tempNm,))
+    cursor.execute('SELECT Key,Path FROM template_config where TemplateName=?', (tempNm,))
     data = cursor.fetchall()
     if template == 'Add_New_Format':
         template = ''
@@ -111,11 +112,12 @@ def configure():
                 conn.commit()
                 for i in labels:
                     cursor.execute("UPDATE template_config SET Required='false' WHERE FieldName =?", (i,))
-                    conn.commit()
-            else:
-                cursor.execute("UPDATE template_config SET Required='true' WHERE Required ='false'")
                 conn.commit()
             conn.close()
+
+            # else:
+            #     cursor.execute("UPDATE template_config SET Required='true' WHERE Required ='false'")
+            #     conn.commit()
         conn = sqlite3.connect('DataBase/SampleGenerator.db')
         cursor = conn.cursor()
         if request.method == 'POST':
@@ -130,10 +132,12 @@ def configure():
                     query = "UPDATE template_config SET Path = ? WHERE FieldName = ? AND Path = ?"
                     cursor.execute(query, (new_brnch_id,label,current_brnch_id))
                     conn.commit()
-            query = "INSERT OR IGNORE INTO template_association (TemplateName, FileName, BatchTag,TransactionTag) VALUES (?, ?, ?, ?)"
-            cursor.execute(query, (formatname, filename, batchelement, transactionelement))
-            conn.commit()
-            conn.close()
+        if request.method=='POST':
+            if 'btnsubmit' in request.form:
+                query = "INSERT OR IGNORE INTO template_association (TemplateName, FileName, BatchTag,TransactionTag) VALUES (?, ?, ?, ?)"
+                cursor.execute(query, (formatname, filename, batchelement, transactionelement))
+                conn.commit()
+                conn.close()
     return render_template("configure.html", data=data, template=template, file=file, batchtag=batchtag, txntag=txntag,selected_value=selected_value,keyList=keyList)
 
 @app.route('/add', methods=['GET', 'POST'])
@@ -151,6 +155,7 @@ def addValues():
     return render_template("configure.html")
 
 if __name__== "__main__":
-    app.run(debug=True,port='2024')
+    app.run(debug=True,port='5522')
+
 
 

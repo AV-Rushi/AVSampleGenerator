@@ -424,7 +424,7 @@ def writeFile(file,ccy,ccy1,valueDate,ccyCheck,cdtrDataChoice,dbtrDataChoice,cdt
             cur.execute('SELECT Bic FROM bank_details')
             BicData = cur.fetchall()
             BicData1 = [temp[0] for temp in BicData]
-            cur.execute('SELECT ClearingCode FROM bank_details')
+            cur.execute('SELECT ClearingSysId_Cd FROM bank_details')
             ClearingCodeData = cur.fetchall()
             ClearingCodeData1 = [temp[0] for temp in ClearingCodeData]
             cur.execute('SELECT RoutingNo FROM bank_details')

@@ -25,11 +25,6 @@ def writeFile(file,batchNo,txnNo,amtType,amount, ccy, ccy1, valueDate,ccyCheck,c
     cur = conn.cursor()  # Create a cursor object
     cur.execute('SELECT Key,Path FROM template_config where TemplateName=?', (file,))
     ConfigData = cur.fetchall()
-    ConfigFieldList = [x[0] for x in ConfigData]
-    # print(ConfigFieldList)
-    ConfigPathList = [x[1] for x in ConfigData]
-    # print(ConfigPathList)
-    # print(ConfigData)
     cur.execute('SELECT Key,Path FROM template_config where TemplateName==?', (file,))
     mandataryData = cur.fetchall()
     MandatoryFields.mandatoryFieldsValue(ns,root,batchNo,txnNo,mandataryData,valueDate)
@@ -97,16 +92,14 @@ def writeFile(file,batchNo,txnNo,amtType,amount, ccy, ccy1, valueDate,ccyCheck,c
                     if (chkCdtrBic == 'on'):
                         Cdtr_DbtrAgtExistingData.AgentBic(AgtCount,cdtrAgtBic1)
                     else:
-                        delElement = root.find(f".//{pathValue}", ns)
-                        RemoveCode.removeTag(root,delElement)
+                        RemoveCode.removeTag1(root,cdtrAgtBic1)
 
                 elif cdtrAgtDataChoice == 2:
                     if (chkCdtrBic == 'on'):
                         for Bic1 in cdtrAgtBic1:
                             Bic1.text = str(cdtrBic)
                     else:
-                        delElement = root.find(f".//{pathValue}", ns)
-                        RemoveCode.removeTag(root, delElement)
+                        RemoveCode.removeTag1(root, cdtrAgtBic1)
 
             elif key == "DebtorAgentBic":
                 dbtrAgtBic1 = root.findall(f".//{pathValue}", ns)
@@ -115,8 +108,7 @@ def writeFile(file,batchNo,txnNo,amtType,amount, ccy, ccy1, valueDate,ccyCheck,c
                             # Cdtr_DbtrAgtExistingData.DbtrAgentBic(dbtrAgtCountBic,dbtrAgtBic1)
                             Cdtr_DbtrAgtExistingData.AgentBic(AgtCount, dbtrAgtBic1)
                         else:
-                            delElement = root.find(f".//{pathValue}", ns)
-                            RemoveCode.removeTag(root, delElement)
+                            RemoveCode.removeTag1(root,dbtrAgtBic1)
 
 
                 elif dbtrAgtDataChoice == 2:
@@ -124,8 +116,7 @@ def writeFile(file,batchNo,txnNo,amtType,amount, ccy, ccy1, valueDate,ccyCheck,c
                             for Bic1 in dbtrAgtBic1:
                                 Bic1.text = str(dbtrBic)
                         else:
-                            delElement = root.find(f".//{pathValue}", ns)
-                            RemoveCode.removeTag(root, delElement)
+                            RemoveCode.removeTag1(root,dbtrAgtBic1)
 
             elif key == "CreditorAgentMemberId":
                 cdtrAgtMmbId1 = root.findall(f".//{pathValue}", ns)
@@ -133,16 +124,14 @@ def writeFile(file,batchNo,txnNo,amtType,amount, ccy, ccy1, valueDate,ccyCheck,c
                         if (chkCdtrMmbId == 'on'):
                             Cdtr_DbtrAgtExistingData.AgentMmbId(AgtCount,cdtrAgtMmbId1)
                         else:
-                            delElement = root.find(f".//{pathValue}", ns)
-                            RemoveCode.removeTag(root, delElement)
+                            RemoveCode.removeTag1(root,cdtrAgtMmbId1)
 
                 elif cdtrAgtDataChoice == 2:
                         if (chkCdtrMmbId == 'on'):
                             for MmbId1 in cdtrAgtMmbId1:
                                 MmbId1.text = str(cdtrMmbId)
                         else:
-                            delElement = root.find(f".//{pathValue}", ns)
-                            RemoveCode.removeTag(root, delElement)
+                            RemoveCode.removeTag1(root,cdtrAgtMmbId1)
 
 
             elif key == "DebtorAgentMemberId":
@@ -151,15 +140,14 @@ def writeFile(file,batchNo,txnNo,amtType,amount, ccy, ccy1, valueDate,ccyCheck,c
                         if (chkDbtrMmbId == 'on'):
                             Cdtr_DbtrAgtExistingData.AgentMmbId(AgtCount,dbtrAgtMmbId1)
                         else:
-                            delElement = root.find(f".//{pathValue}", ns)
-                            RemoveCode.removeTag(root, delElement)
+                            RemoveCode.removeTag1(root,dbtrAgtMmbId1)
+
                 elif dbtrAgtDataChoice == 2:
                         if (chkDbtrMmbId == 'on'):
                             for MmbId1 in dbtrAgtMmbId1:
                                 MmbId1.text = str(dbtrMmbId)
                         else:
-                            delElement = root.find(f".//{pathValue}", ns)
-                            RemoveCode.removeTag(root, delElement)
+                            RemoveCode.removeTag1(root,dbtrAgtMmbId1)
 
             elif key == "CreditorAgentOtherId":
                 cdtrAgtOthrId1 = root.findall(f".//{pathValue}", ns)
@@ -168,8 +156,8 @@ def writeFile(file,batchNo,txnNo,amtType,amount, ccy, ccy1, valueDate,ccyCheck,c
                         Cdtr_DbtrAgtExistingData.AgentOthrId(AgtCount,cdtrAgtOthrId1)
                     else:
                         pathValue1 = "/".join(pathValue.split("/")[:-1])
-                        delElement = root.find(f".//{pathValue1}", ns)
-                        RemoveCode.removeTag(root, delElement)
+                        delElement = root.findall(f".//{pathValue1}", ns)
+                        RemoveCode.removeTag1(root, delElement)
 
                 elif cdtrAgtDataChoice == 2:
                     if (chkCdtrOtherId == 'on'):
@@ -177,8 +165,8 @@ def writeFile(file,batchNo,txnNo,amtType,amount, ccy, ccy1, valueDate,ccyCheck,c
                             OthrId1.text = str(cdtrOtherId)
                     else:
                         pathValue1 = "/".join(pathValue.split("/")[:-1])
-                        delElement = root.find(f".//{pathValue1}", ns)
-                        RemoveCode.removeTag(root, delElement)
+                        delElement = root.findall(f".//{pathValue1}", ns)
+                        RemoveCode.removeTag1(root, delElement)
 
             elif key == "DebtorAgentOtherId":
                 dbtrAgtOthrId1 = root.findall(f".//{pathValue}", ns)
@@ -187,8 +175,8 @@ def writeFile(file,batchNo,txnNo,amtType,amount, ccy, ccy1, valueDate,ccyCheck,c
                         Cdtr_DbtrAgtExistingData.AgentOthrId(AgtCount,dbtrAgtOthrId1)
                     else:
                         pathValue1 = "/".join(pathValue.split("/")[:-1])
-                        delElement = root.find(f".//{pathValue1}", ns)
-                        RemoveCode.removeTag(root, delElement)
+                        delElement = root.findall(f".//{pathValue1}", ns)
+                        RemoveCode.removeTag1(root, delElement)
 
                 elif dbtrAgtDataChoice == 2:
                     if (chkDbtrOtherId == 'on'):
@@ -196,8 +184,8 @@ def writeFile(file,batchNo,txnNo,amtType,amount, ccy, ccy1, valueDate,ccyCheck,c
                             OthrId1.text = str(dbtrOtherId)
                     else:
                         pathValue1 = "/".join(pathValue.split("/")[:-1])
-                        delElement = root.find(f".//{pathValue1}", ns)
-                        RemoveCode.removeTag(root, delElement)
+                        delElement = root.findall(f".//{pathValue1}", ns)
+                        RemoveCode.removeTag1(root, delElement)
 
             elif key == "CreditorClrSysId_Cd":
                 cdtrCd1 = root.findall(f".//{pathValue}", ns)
@@ -207,14 +195,13 @@ def writeFile(file,batchNo,txnNo,amtType,amount, ccy, ccy1, valueDate,ccyCheck,c
                             Cdtr_DbtrAgtExistingData.AgentClrSysId_Cd(AgtCount,cdtrCd1)
 
                         else:
-                            delElement = root.find(f".//{pathValue}", ns)
-                            RemoveCode.removeTag(root, delElement)
+                            RemoveCode.removeTag1(root, cdtrCd1)
 
 
                     else:
                         pathValue1 = "/".join(pathValue.split("/")[:-1])
-                        delElement = root.find(f".//{pathValue1}", ns)
-                        RemoveCode.removeTag(root, delElement)
+                        delElement = root.findall(f".//{pathValue1}", ns)
+                        RemoveCode.removeTag1(root, delElement)
 
                 elif cdtrAgtDataChoice == 2:
                     if (chkCdtrClrSysId == 'on'):
@@ -222,12 +209,11 @@ def writeFile(file,batchNo,txnNo,amtType,amount, ccy, ccy1, valueDate,ccyCheck,c
                             for cdtr_Cd in cdtrCd1:
                                 cdtr_Cd.text = str(cdtrCd)
                         else:
-                            delElement = root.find(f".//{pathValue}", ns)
-                            RemoveCode.removeTag(root, delElement)
+                            RemoveCode.removeTag1(root, cdtrCd1)
                     else:
                         pathValue1 = "/".join(pathValue.split("/")[:-1])
-                        delElement = root.find(f".//{pathValue1}", ns)
-                        RemoveCode.removeTag(root, delElement)
+                        delElement = root.findall(f".//{pathValue1}", ns)
+                        RemoveCode.removeTag1(root, delElement)
 
             elif key == "CreditorClrSysId_Prtry":
                 cdtrPrtry1 = root.findall(f".//{pathValue}", ns)
@@ -236,12 +222,11 @@ def writeFile(file,batchNo,txnNo,amtType,amount, ccy, ccy1, valueDate,ccyCheck,c
                         if radioCdtrCdPrtry == 2:
                             Cdtr_DbtrAgtExistingData.AgentClrSysId_Prtry(AgtCount,cdtrPrtry1)
                         else:
-                            delElement = root.find(f".//{pathValue}", ns)
-                            RemoveCode.removeTag(root, delElement)
+                            RemoveCode.removeTag1(root, cdtrPrtry1)
                     else:
                         pathValue1 = "/".join(pathValue.split("/")[:-1])
-                        delElement = root.find(f".//{pathValue1}", ns)
-                        RemoveCode.removeTag(root, delElement)
+                        delElement = root.findall(f".//{pathValue1}", ns)
+                        RemoveCode.removeTag1(root, delElement)
 
                 elif cdtrAgtDataChoice == 2:
                     if (chkCdtrClrSysId == 'on'):
@@ -249,12 +234,11 @@ def writeFile(file,batchNo,txnNo,amtType,amount, ccy, ccy1, valueDate,ccyCheck,c
                             for cdtr_Prtry in cdtrPrtry1:
                                 cdtr_Prtry.text = str(cdtrPrtry)
                         else:
-                            delElement = root.find(f".//{pathValue}", ns)
-                            RemoveCode.removeTag(root, delElement)
+                            RemoveCode.removeTag1(root, cdtrPrtry1)
                     else:
                         pathValue1 = "/".join(pathValue.split("/")[:-1])
-                        delElement = root.find(f".//{pathValue1}", ns)
-                        RemoveCode.removeTag(root, delElement)
+                        delElement = root.findall(f".//{pathValue1}", ns)
+                        RemoveCode.removeTag1(root, delElement)
 
             elif key == "DebtorClrSysId_Cd":
                 dbtrCd1 = root.findall(f".//{pathValue}", ns)
@@ -262,14 +246,14 @@ def writeFile(file,batchNo,txnNo,amtType,amount, ccy, ccy1, valueDate,ccyCheck,c
                     if (chkCdtrClrSysId == 'on'):
                         if radioDbtrCdPrtry == 1:
                             Cdtr_DbtrAgtExistingData.AgentClrSysId_Cd(AgtCount,dbtrCd1)
+
                         else:
-                            delElement = root.find(f".//{pathValue}", ns)
-                            RemoveCode.removeTag(root, delElement)
+                            RemoveCode.removeTag1(root, dbtrCd1)
 
                     else:
                         pathValue1 = "/".join(pathValue.split("/")[:-1])
-                        delElement = root.find(f".//{pathValue1}", ns)
-                        RemoveCode.removeTag(root, delElement)
+                        delElement = root.findall(f".//{pathValue1}", ns)
+                        RemoveCode.removeTag1(root, delElement)
 
                 elif dbtrAgtDataChoice == 2:
                     if (chkCdtrClrSysId == 'on'):
@@ -277,13 +261,12 @@ def writeFile(file,batchNo,txnNo,amtType,amount, ccy, ccy1, valueDate,ccyCheck,c
                             for dbtr_Cd in dbtrCd1:
                                 dbtr_Cd.text = str(dbtrCd)
                         else:
-                            delElement = root.find(f".//{pathValue}", ns)
-                            RemoveCode.removeTag(root, delElement)
+                            RemoveCode.removeTag1(root, dbtrCd1)
 
                     else:
                         pathValue1 = "/".join(pathValue.split("/")[:-1])
-                        delElement = root.find(f".//{pathValue1}", ns)
-                        RemoveCode.removeTag(root, delElement)
+                        delElement = root.findall(f".//{pathValue1}", ns)
+                        RemoveCode.removeTag1(root, delElement)
 
             elif key == "DebtorClrSysId_Prtry":
                 dbtrPrtry1 = root.findall(f".//{pathValue}", ns)
@@ -291,14 +274,13 @@ def writeFile(file,batchNo,txnNo,amtType,amount, ccy, ccy1, valueDate,ccyCheck,c
                     if (chkCdtrClrSysId == 'on'):
                         if radioDbtrCdPrtry == 2:
                             Cdtr_DbtrAgtExistingData.AgentClrSysId_Prtry(AgtCount,dbtrPrtry1)
+
                         else:
-                            delElement = root.find(f".//{pathValue}", ns)
-                            RemoveCode.removeTag(root, delElement)
+                            RemoveCode.removeTag1(root, dbtrPrtry1)
                     else:
                         pathValue1 = "/".join(pathValue.split("/")[:-1])
-                        delElement = root.find(f".//{pathValue1}", ns)
-                        RemoveCode.removeTag(root, delElement)
-
+                        delElement = root.findall(f".//{pathValue1}", ns)
+                        RemoveCode.removeTag1(root, delElement)
 
                 elif dbtrAgtDataChoice == 2:
                     if (chkCdtrClrSysId == 'on'):
@@ -306,24 +288,36 @@ def writeFile(file,batchNo,txnNo,amtType,amount, ccy, ccy1, valueDate,ccyCheck,c
                             for dbtr_Prtry in dbtrPrtry1:
                                 dbtr_Prtry.text = str(dbtrPrtry)
                         else:
-                            delElement = root.find(f".//{pathValue}", ns)
-                            RemoveCode.removeTag(root, delElement)
+                            RemoveCode.removeTag1(root, dbtrPrtry1)
                     else:
                         pathValue1 = "/".join(pathValue.split("/")[:-1])
-                        delElement = root.find(f".//{pathValue1}", ns)
-                        RemoveCode.removeTag(root, delElement)
+                        delElement = root.findall(f".//{pathValue1}", ns)
+                        RemoveCode.removeTag1(root, delElement)
 
             if (chkDbtrClrSysId != 'on') and (chkDbtrMmbId != 'on'):
-                ClrSysId2 = root.find(f'.//doc:DbtrAgt/doc:FinInstnId/doc:ClrSysMmbId', ns)
+                ClrSysId2 = root.find('.//doc:DbtrAgt/doc:FinInstnId/doc:ClrSysMmbId', ns)
                 for elem in root.findall(".//*"):
                     if ClrSysId2 in elem:
                         elem.remove(ClrSysId2)
 
             if (chkCdtrClrSysId != 'on') and (chkCdtrMmbId != 'on'):
-                ClrSysId2 = root.find(f'.//doc:CdtrAgt/doc:FinInstnId/doc:ClrSysMmbId', ns)
+                ClrSysId2 = root.find('.//doc:CdtrAgt/doc:FinInstnId/doc:ClrSysMmbId', ns)
                 for elem in root.findall(".//*"):
                     if ClrSysId2 in elem:
                         elem.remove(ClrSysId2)
+            if (chkCdtrBic != 'on') and (chkCdtrClrSysId != 'on') and (chkCdtrMmbId != 'on') and (chkCdtrOtherId != 'on'):
+                cdtrSection = root.find('.//doc:CdtrAgt', ns)
+                for elem in root.findall(".//*"):
+                    if cdtrSection in elem:
+                        elem.remove(cdtrSection)
+
+            if (chkDbtrBic != 'on') and (chkDbtrClrSysId != 'on') and (chkDbtrMmbId != 'on') and (
+                    chkDbtrOtherId != 'on'):
+                dbtrSection = root.find('.//doc:DbtrAgt', ns)
+                for elem in root.findall(".//*"):
+                    if dbtrSection in elem:
+                        elem.remove(dbtrSection)
+
 
             elif key == "CreditorAccountNo":
                 cdtrAccNo1 = root.findall(f".//{pathValue}", ns)
@@ -371,8 +365,5 @@ def writeFile(file,batchNo,txnNo,amtType,amount, ccy, ccy1, valueDate,ccyCheck,c
     uid = uuid.uuid4().hex[:15].upper()  # Generate UUID
 
     f_date = (now.strftime("%y%m%d%H%M%S"))
-    tree.write(f"Output\Output_{f_date}.xml", xml_declaration=True, encoding='utf-8')
-    # tree.write(f"Output\{file}_{f_date}.xml", xml_declaration=True, encoding='utf-8')
-    # print("File 2 generated sucessfully..")
-
-# writeFile(3, 5, 'BHD', None, 'off', 2, 56748, '2023-07-05',1,'on',2,'on','on','on','on','on','on',2,1,2,2)
+    tree.write(f"Output\{file}_{f_date}.xml", xml_declaration=True, encoding='utf-8')
+    # tree.write("Output\SampleFileDaynamicMain2.xml", xml_declaration=True, encoding='utf-8')

@@ -1,10 +1,6 @@
 import sqlite3
 import time
 import xml.etree.ElementTree as ET
-from faker import Faker
-import uuid
-import datetime
-
 
 def readFile(file, batchNo, txnNo):
     conn = sqlite3.connect('DataBase/SampleGenerator.db')  # Connect to the database
@@ -57,8 +53,3 @@ def readFile(file, batchNo, txnNo):
 
     tree.write("Input\Temp\SampleFileDaynamic.xml", xml_declaration=True, encoding='utf-8')
     time.sleep(5)
-
-
-readFile('HKFPS_PACS003',5, 4)
-# readFile('RTP_PACS008',5, 4, 1, 35684, 'HKD', None)
-# readFile('Demo',3, 5, 1, 35684, 'HKD', None)

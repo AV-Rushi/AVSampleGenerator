@@ -2,7 +2,7 @@ import sqlite3
 from faker import Faker
 fake = Faker()
 
-conn = sqlite3.connect('DataBase/SampleGenerator.db')  # Connect to the database
+conn = sqlite3.connect('../DataBase/SampleGenerator.db')  # Connect to the database
 cur = conn.cursor()  # Create a cursor object
 
 cur.execute('SELECT AccountNumber,AccountName FROM account_info')

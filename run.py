@@ -1,20 +1,19 @@
 import webbrowser
 import subprocess
 import time
-# import GetPath
-# from GetPath import current_path
-# import os
+import os
 
-#Get current path
-# c_path = current_path()
-# print("aaaa",c_path)
+# Get current path
+c_path =os.getcwd()
+
 #go to src folder
-# time.sleep(5)
-# os.chdir(f'{c_path}/src')
-# print("Current working directory ",os.getcwd())
+os.chdir(f'{c_path}/src')
+
+#time.sleep(5)
+
 # Start the Flask application
 subprocess.Popen(['python', 'ReadWebformData.py'])
+time.sleep(5)
 
-time.sleep(10)
 # Open the web browser
-webbrowser.open('http://127.0.0.1:5522')
+webbrowser.open('http://127.0.0.1:5523')

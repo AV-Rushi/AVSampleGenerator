@@ -1,13 +1,18 @@
 import sqlite3
 import time
+import os
 import xml.etree.ElementTree as ET
 
 def readFile(file, batchNo, txnNo):
-    conn = sqlite3.connect('DataBase/SampleGenerator.db')  # Connect to the database
+    # os.getcwd()
+    # os.chdir(f'..')
+    conn = sqlite3.connect('../DataBase/SampleGenerator.db')  # Connect to the database
     cur = conn.cursor()  # Create a cursor object
     cur.execute('SELECT FileName FROM template_association where TemplateName=?', (file,))
     FileName = cur.fetchone()
-    file1 = (f"Input\Sample_Template\{FileName[0]}")
+
+
+    file1 = (f"..\Input\Sample_Template\{FileName[0]}")
     tree = ET.parse(file1)
 
     ns = dict([node for (_, node) in ET.iterparse(file1, events=['start-ns'])])
@@ -51,5 +56,5 @@ def readFile(file, batchNo, txnNo):
                 elem.remove(batchElement)
         print("Batch Removed")
 
-    tree.write("Input\Temp\SampleFileDaynamic.xml", xml_declaration=True, encoding='utf-8')
+    tree.write(f"..\Input\Temp\SampleFileDaynamic.xml", xml_declaration=True, encoding='utf-8')
     time.sleep(5)

@@ -1,6 +1,6 @@
 import sqlite3
 
-conn = sqlite3.connect('DataBase/SampleGenerator.db')  # Connect to the database
+conn = sqlite3.connect('../DataBase/SampleGenerator.db')  # Connect to the database
 cur = conn.cursor()  # Create a cursor object
 
 cur.execute('SELECT Bic FROM bank_details')

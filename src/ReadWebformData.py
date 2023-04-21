@@ -10,7 +10,7 @@ app.secret_key = 'your_secret_key'
 @app.route('/',methods=['GET'])
 def index():
     config_url = '/configure'
-    conn = sqlite3.connect('DataBase/SampleGenerator.db')
+    conn = sqlite3.connect('../DataBase/SampleGenerator.db')
     cursor = conn.cursor()
     cursor.execute("SELECT TemplateName from template_association")
     tempName = cursor.fetchall()
@@ -63,7 +63,7 @@ def samplegenerator():
 
     readFile(file,int(batchNo),int(txnNo))
     writeFile(file,int(batchNo),int(txnNo),int(amtType),float(amount), ccy, ccy1, valueDate,ccyCheck,int(cdtrDataChoice),int(dbtrDataChoice),int(cdtrAccountLength),int(dbtrAccountLength),chkCdtrBic,cdtrBic,chkCdtrClrSysId,int(radioCdtrCdPrtry),cdtrCd,cdtrPrtry,chkCdtrMmbId,cdtrMmbId,chkCdtrOtherId,cdtrOtherId,chkDbtrBic,dbtrBic,chkDbtrClrSysId,int(radioDbtrCdPrtry),dbtrCd,dbtrPrtry,chkDbtrMmbId,dbtrMmbId,chkDbtrOtherId,dbtrOtherId,int(cdtrAgtDataChoice),int(dbtrAgtDataChoice),cdtrCountry,dbtrCountry)
-    os.remove("Input\Temp\SampleFileDaynamic.xml")
+    os.remove("../Input/Temp/SampleFileDaynamic.xml")
     return ("File Generated !!")
 
 
@@ -71,7 +71,7 @@ def samplegenerator():
 def configure():
     selected_value = request.args.get('selected_value', None)
     tempNm = selected_value
-    conn = sqlite3.connect('DataBase/SampleGenerator.db')
+    conn = sqlite3.connect('../DataBase/SampleGenerator.db')
     cursor = conn.cursor()
     cursor.execute("SELECT Keys from config_keys")
     keyList = cursor.fetchall()
@@ -98,7 +98,7 @@ def configure():
         template = ''
     conn.close()
     if request.method == 'POST':
-        conn = sqlite3.connect('DataBase/SampleGenerator.db')
+        conn = sqlite3.connect('../DataBase/SampleGenerator.db')
         cursor = conn.cursor()
         cursor.execute("UPDATE template_association SET FileName = ?, BatchTag = ? ,TransactionTag=? WHERE TemplateName = ?",(filename, batchelement, transactionelement, formatname,))
         conn.commit()
@@ -118,7 +118,7 @@ def configure():
             # else:
             #     cursor.execute("UPDATE template_config SET Required='true' WHERE Required ='false'")
             #     conn.commit()
-        conn = sqlite3.connect('DataBase/SampleGenerator.db')
+        conn = sqlite3.connect('../DataBase/SampleGenerator.db')
         cursor = conn.cursor()
         if request.method == 'POST':
             labels = request.form.getlist('labels[]')
@@ -143,7 +143,7 @@ def configure():
 @app.route('/add', methods=['GET', 'POST'])
 def addValues():
     formatname = request.form.get('formatname')
-    conn = sqlite3.connect('DataBase/SampleGenerator.db')
+    conn = sqlite3.connect('../DataBase/SampleGenerator.db')
     cursor = conn.cursor()
     if request.method == 'POST':
         require='true'
@@ -155,7 +155,7 @@ def addValues():
     return render_template("configure.html")
 
 if __name__== "__main__":
-    app.run(debug=True,port='5522')
+    app.run(debug=True,port='5523')
 
 
 

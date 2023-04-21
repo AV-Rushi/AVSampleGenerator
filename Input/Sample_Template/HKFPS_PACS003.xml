@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fps:FpsMsg xmlns:fps="urn:hkicl:fps:xsd:fps.envelope.01" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:hkicl:fps:xsd:fps.envelope.01 fps.envelope.01.xsd">
+  <fps:BtchInf>
+    <fps:BtchId>FPSPD3I6201414100</fps:BtchId>
+    <fps:FlSeqNo>1</fps:FlSeqNo>
+    <fps:NbOfFls>1</fps:NbOfFls>
+  </fps:BtchInf>
+  <fps:NbOfMsgs>1</fps:NbOfMsgs>
+  <fps:FpsPylds>
+<fps:BizData>
+      <ah:AppHdr xmlns:ah="urn:iso:std:iso:20022:tech:xsd:head.001.001.01">
+        <ah:Fr>
+          <ah:FIId>
+            <ah:FinInstnId>
+              <ah:ClrSysMmbId>
+                <ah:MmbId>ICL</ah:MmbId>
+              </ah:ClrSysMmbId>
+            </ah:FinInstnId>
+          </ah:FIId>
+        </ah:Fr>
+        <ah:To>
+          <ah:FIId>
+            <ah:FinInstnId>
+              <ah:ClrSysMmbId>
+                <ah:MmbId>049</ah:MmbId>
+              </ah:ClrSysMmbId>
+            </ah:FinInstnId>
+          </ah:FIId>
+        </ah:To>
+        <ah:BizMsgIdr>MICL26565413261447168</ah:BizMsgIdr>
+        <ah:MsgDefIdr>pacs.003.001.07</ah:MsgDefIdr>
+        <ah:BizSvc>PAYD03</ah:BizSvc>
+        <ah:CreDt>2023-04-03T17:00:36.586Z</ah:CreDt>
+      </ah:AppHdr>
+      <doc:Document xmlns:doc="urn:iso:std:iso:20022:tech:xsd:pacs.003.001.07">
+        <doc:FIToFICstmrDrctDbt>
+          <doc:GrpHdr>
+            <doc:MsgId>MICL26565413265147168</doc:MsgId>
+            <doc:CreDtTm>2023-04-03T01:00:36.563</doc:CreDtTm>
+            <doc:NbOfTxs>1</doc:NbOfTxs>
+            <doc:SttlmInf>
+              <doc:SttlmMtd>CLRG</doc:SttlmMtd>
+              <doc:ClrSys>
+                <doc:Prtry>FPS</doc:Prtry>
+              </doc:ClrSys>
+            </doc:SttlmInf>
+          </doc:GrpHdr>
+          <doc:DrctDbtTxInf>
+            <doc:PmtId>
+              <doc:EndToEndId>265463265146543</doc:EndToEndId>
+              <doc:TxId>APX20223654544214869</doc:TxId>
+              <doc:ClrSysRef>FRN2665456514689</doc:ClrSysRef>
+            </doc:PmtId>
+            <doc:PmtTpInf>
+              <doc:CtgyPurp>
+                <doc:Prtry>DDOTHS</doc:Prtry>
+              </doc:CtgyPurp>
+            </doc:PmtTpInf>
+            <doc:IntrBkSttlmAmt Ccy="HKD">59.0</doc:IntrBkSttlmAmt>
+            <doc:IntrBkSttlmDt>2023-04-03</doc:IntrBkSttlmDt>
+            <doc:InstdAmt Ccy="HKD">123456789.12</doc:InstdAmt>
+            <doc:ChrgBr>SLEV</doc:ChrgBr>
+            <doc:Cdtr>
+              <doc:Nm>TXX HX  CXXXX GXX C</doc:Nm>
+            </doc:Cdtr>
+            <doc:CdtrAcct>
+              <doc:Id>
+                <doc:Othr>
+                  <doc:Id>002220999999</doc:Id>
+                  <doc:SchmeNm>
+                    <doc:Prtry>BBAN</doc:Prtry>
+                  </doc:SchmeNm>
+                </doc:Othr>
+              </doc:Id>
+            </doc:CdtrAcct>
+            <doc:CdtrAgt>
+              <doc:FinInstnId>
+                <doc:BICFI>str1234</doc:BICFI>
+                <doc:ClrSysMmbId>
+                  <doc:ClrSysId>
+						<doc:Cd>GBDSC</doc:Cd>
+						<doc:Prtry>BBAN</doc:Prtry>
+				  </doc:ClrSysId>
+                  <doc:MmbId>004</doc:MmbId>
+                </doc:ClrSysMmbId>
+                <doc:Othr>
+					<doc:Id>12345678</doc:Id>
+				</doc:Othr>
+              </doc:FinInstnId>
+            </doc:CdtrAgt>
+            <doc:Dbtr>
+              <doc:Nm>HX MXXXX U AXX CXX L</doc:Nm>
+            </doc:Dbtr>
+            <doc:DbtrAcct>
+              <doc:Id>
+                <doc:Othr>
+                  <doc:Id>750242999999</doc:Id>
+                  <doc:SchmeNm>
+                    <doc:Prtry>BBAN</doc:Prtry>
+                  </doc:SchmeNm>
+                </doc:Othr>
+              </doc:Id>
+            </doc:DbtrAcct>
+            <doc:DbtrAgt>
+              <doc:FinInstnId>
+                <doc:BICFI>str1234</doc:BICFI>
+                <doc:ClrSysMmbId>
+				  <doc:ClrSysId>
+						<doc:Cd>GBDSC</doc:Cd>
+						<doc:Prtry>BBAN</doc:Prtry>
+				  </doc:ClrSysId>
+                  <doc:MmbId>049</doc:MmbId>
+                </doc:ClrSysMmbId>
+                <doc:Othr>
+					<doc:Id>12345678</doc:Id>
+				</doc:Othr>
+              </doc:FinInstnId>
+            </doc:DbtrAgt>
+            <doc:Purp>
+              <doc:Cd>OTHR</doc:Cd>
+            </doc:Purp>
+          </doc:DrctDbtTxInf>
+        </doc:FIToFICstmrDrctDbt>
+      </doc:Document>
+    </fps:BizData>
+  </fps:FpsPylds>
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#" xmlns:fps="urn:hkicl:fps:xsd:fps.envelope.01" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<SignedInfo>
+  <CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+  <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+  <Reference URI="">
+    <Transforms>
+      <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+      <Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+    </Transforms>
+    <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+    <DigestValue>Pch2HPEwA+5sTi1/Tolpl672CwSI9RqLN2t1hCFXQmc=</DigestValue>
+  </Reference>
+</SignedInfo>
+    <SignatureValue>w2NTINi/cA4QB7ubx4OAo4FqXrQQvTSEfikkuMNxFzPno4oIhx3PeEcc0yj4csLs5PhzeGKIQRm3eDH0bZmIQ+bp1Hid7SE48kj2a1nllvlIf8tNz28BTXg8eFkrgDEfIaIDRH9MsBdYMFZZaPsukZAFIXIZaa448GrLYt0lD09ZCPcI/PZaWH1lh+f5p3YBgbk2qolYLlx0k4/Fjp8kGgiMm+yQw6Iq6s35C5hYQ3tqTeQDG5qE24d/s52CSwmMH0gAUgc+wyQiiyYl/0/hcnqf6nxE7/DHCzpkUEuYY7kpGUD2fzuUuKn7FBfRJwVkQtyhkCM3TDzwxctUSoly/A==</SignatureValue><KeyInfo><X509Data><X509Certificate>MIIFnTCCBIWgAwIBAgIUBo7L5EzQvWNPN1QrKwWsXLvYnoQwDQYJKoZIhvcNAQELBQAwdjELMAkGA1UEBhMCSEsxEjAQBgNVBAgTCUhvbmcgS29uZzESMBAGA1UEBxMJSG9uZyBLb25nMRYwFAYDVQQKEw1Ib25na29uZyBQb3N0MScwJQYDVQQDEx5Ib25na29uZyBQb3N0IGUtQ2VydCBDQSAyIC0gMTcwHhcNMjIwMzE0MDQyMDA2WhcNMjQwMzE0MDQyMDA2WjCB5zELMAkGA1UEBhMCSEsxLjAsBgNVBAoTJUhvbmdrb25nIFBvc3QgZS1DZXJ0IChPcmdhbmlzYXRpb25hbCkxEzARBgNVBAsTCjAwMDI3NjQ2NTMxITAfBgNVBAsTGDE4NzUxNTY0MDAwMTIyMTYwMDUwMDM4OTEtMCsGA1UECxMkSE9ORyBLT05HIElOVEVSQkFOSyBDTEVBUklORyBMSU1JVEVEMSswKQYJKoZIhvcNAQkBFhxtYXZlcmljay55ay50YW1AaGtpY2wuY29tLmhrMRQwEgYDVQQDEwtUQU0gWXVpIEtpbjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMcyxdh4/MQDg5U1nSgA1R5EC+M7QP2pRidIEuXzOx4oDME/NXCdnr/rsvKJX+Dcm3cXFXfs4EJrqCKi/lzNZ0h7bAfp19XIdrbOKlOqRAEDvRiQow6mz6qezVjgfiAlivQYSjo9RvmpOCx9a9bYy8gLC88SvCmk3QAnHEQv+n6DZt78hoW4pPZwkTKVi2iQOjXcTeyTfninuOWqbvXXsXOVE7/bD1fcbShuOjDvNzMX4CDoadcTrx1cxW5g0bFUY0bz/3u2BqdDdYb5s3pANYNUwdUgVo2c35SAeVc0lukas1M+zo6dT2hYZl9Q6rOBL4bLBcGN+rR0r7pea6Eps/MCAwEAAaOCAa8wggGrMDcGA1UdIAQwMC4wLAYKKwYBBAH9HgEBLzAeMBwGCCsGAQUFBwIBFhB3d3cuZUNlcnQuZ292LmhrMFoGA1UdEQRTMFGkMTAvMS0wKwYDVQQLDCTpppnmuK/pioDooYzlkIzmpa3ntZDnrpfmnInpmZDlhazlj7iBHG1hdmVyaWNrLnlrLnRhbUBoa2ljbC5jb20uaGswCQYDVR0TBAIwADAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMIGWBgNVHSMEgY4wgYuhc6RxMG8xCzAJBgNVBAYTAkhLMRIwEAYDVQQIEwlIb25nIEtvbmcxEjAQBgNVBAcTCUhvbmcgS29uZzEWMBQGA1UEChMNSG9uZ2tvbmcgUG9zdDEgMB4GA1UEAxMXSG9uZ2tvbmcgUG9zdCBSb290IENBIDKCFCkAfXiY4cDwx+JMAM9K6zEx6k6sMEEGA1UdHwQ6MDgwNqA0oDKGMGh0dHA6Ly9jcmwxLmVDZXJ0Lmdvdi5oay9jcmwvZUNlcnRDQTItMTdDUkwyLmNybDANBgkqhkiG9w0BAQsFAAOCAQEAhCiP7P3nUH9wTM89JWZljqY3ZeYlZkslB6z0bRr8KGEERDNeH9tI44P2Ca9j4+tj0CRmi9ELOmTgnUeW/W+Opd3+BKWikdGysgPjp7FvSw8Js3y0vNCEiAfPMi5iBvfdLlBcA2k8LK6/KDuFRBxgfCLc+B4jdgBYodZI/ysJOqvg6pGdWtzow+dw0Hg6n/nRVBuz8EI4UuI4wzYXFuwBEOiQorADCQa3wG3uQeXP5EH3pf6ge0NWWfwUcKOrqlq4kp9wNBVXdl1XWRaUt9ICKzkYXiMdZz2y8CHZN31ASA/Ew6y9OKpzsOqyd9xTidY1a93wtg7yPL/hymLxxKb2SA==</X509Certificate><X509IssuerSerial><X509IssuerName>CN=Hongkong Post e-Cert CA 2 - 17, O=Hongkong Post, L=Hong Kong, ST=Hong Kong, C=HK</X509IssuerName><X509SerialNumber>37438411923663357605284103298876381476106575492</X509SerialNumber></X509IssuerSerial></X509Data></KeyInfo></Signature></fps:FpsMsg>

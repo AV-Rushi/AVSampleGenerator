@@ -138,7 +138,7 @@ def samplegenerator():
     s1 = writeFile(file,int(batchNo),int(txnNo),int(amtType),float(amount), ccy, ccy1, valueDate,ccyCheck,int(cdtrDataChoice),int(dbtrDataChoice),int(cdtrAccountLength),int(dbtrAccountLength),chkCdtrBic,cdtrBic,chkCdtrClrSysId,int(radioCdtrCdPrtry),cdtrCd,cdtrPrtry,chkCdtrMmbId,cdtrMmbId,chkCdtrOtherId,cdtrOtherId,chkDbtrBic,dbtrBic,chkDbtrClrSysId,int(radioDbtrCdPrtry),dbtrCd,dbtrPrtry,chkDbtrMmbId,dbtrMmbId,chkDbtrOtherId,dbtrOtherId,int(cdtrAgtDataChoice),int(dbtrAgtDataChoice),cdtrCountry,dbtrCountry)
     os.remove("../Input/Temp/SampleFileDaynamic.xml")
 
-    file_path = (f"C:/Users/User/AV/AVSampleGenerator1/Output/{s1}")
+    file_path = (f"../Output/{s1}")
     return send_file(file_path, as_attachment=True)
 
 @app.route('/configure', methods=['GET', 'POST'])

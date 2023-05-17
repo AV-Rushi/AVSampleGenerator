@@ -28,7 +28,7 @@ def writeFile(file,batchNo,txnNo,amtType,amount, ccy, ccy1, valueDate,ccyCheck,c
 
     conn = sqlite3.connect('../DataBase/SampleGenerator.db')  # Connect to the database
     cur = conn.cursor()  # Create a cursor object
-    cur.execute('SELECT Key,Path,RegEx_Pattern FROM template_config where TemplateName=?', (file,))
+    cur.execute('SELECT Key,Path FROM template_config where TemplateName=?', (file,))
     ConfigData = cur.fetchall()
     cur.execute('SELECT Key,Path,RegEx_Pattern FROM template_config where TemplateName==?', (file,))
     mandataryData = cur.fetchall()
@@ -368,6 +368,6 @@ def writeFile(file,batchNo,txnNo,amtType,amount, ccy, ccy1, valueDate,ccyCheck,c
 
     f_date = (now.strftime("%y%m%d%H%M%S"))
     s1 = (f"{file}_{f_date}.xml")
-    # tree.write(f"..\Output\{file}_{f_date}.xml", xml_declaration=True, encoding='utf-8')
-    tree.write(f"C:/Users/User/AV/AVSampleGenerator1/Output/{s1}", xml_declaration=True, encoding='utf-8')
+    tree.write(f"..\Output\{file}_{f_date}.xml", xml_declaration=True, encoding='utf-8')
+   # tree.write(f"C:/Users/User/AV/AVSampleGenerator1/Output/{s1}", xml_declaration=True, encoding='utf-8')
     return s1

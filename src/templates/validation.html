@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+                  <style>
+                    .failed-validation {
+                    border-color: red;
+                    color: red;
+                }
+
+                </style>
+</head>
+<body>
+<div class=" container-fluid"  style="box-shadow: 2px 2px 4px; background-image: url(static/avdarkbackground.png); background-size: 100% 100%;
+      background-attachment: fixed;" >
+    <form action="validation" id="myformvalidate" method="post" >
+        <div class="row border text-center " id="configform">
+            <div class="col-12 p-0" style="background-color:rgb(245, 238, 227)">
+                <nav class="navbar navbar-expand-lg bg-body-tertiary  p-0 m-0 border-bottom border-dark border-3"
+                     style="background-color:rgb(245, 238, 227)">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" href="#">
+                            <img src="{{ url_for('static', filename='arthavedh.png') }}" class="w-50 h-50"> </a>
+
+                        <div class="collapse navbar-collapse text-start " id="navbarSupportedContent">
+                            <ul class="navbar-nav mx-auto mb-2 mb-lg-0  ">
+                                <h1 style="margin-left: -100px;
+font-size:40px; ">ID Configuration</h1>
+                            </ul>
+
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <div class="row mt-3 pt-5  " id="edit_section">
+<div></div>
+            <div class="col-12 col-md-12  border border-white border-2 rounded bg-light py-5 "
+                 style="box-shadow:2px 2px 4px black; opacity:0.9" id="editdiv1" >
+                <div class="row mt-5 text-start mb-3" id="mydiv1">
+                                      {% for rows in idtype %}
+                                            {% if rows[0] %}
+
+                                     <div class="col-12 col-md-2">
+                                            <label for="path[]" class="col-form-label fw-bold" id="labelid">{{ rows[0] }}</label>
+                                            <input type="hidden" name="labels[]" value="{{rows[0] }}">
+                                        </div>
+                                        <div class="col-12 col-md-5">
+                                            <input type="text" id="path[]" class="form-control"
+                                                 name="path[]" value="{{rows[1]}}">
+                                        </div>
+
+                                   <div class="col-12 col-md-5">
+                                       <input type="text" class="form-control" name="Validate[]" id="Validate[]"  value="">
+                                   </div>
+
+                                    {% endif %}
+                                    {% endfor %}
+                                    </div>
+
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+function validatebutton() {
+    event.preventDefault();
+    var valButton = document.getElementById("btnval");
+    valButton.value = "Validate";
+    valButton.disabled = false;
+    $.ajax({
+        url: '/validation',
+        type: 'POST',
+        data: $('#myformvalidate').serialize() + '&Validate=Validate',
+        success: function(response) {
+            if (response.status == "success") {
+                alert('Validation successful!');
+            } else {
+                alert('Validation failed: ' + response.message);
+                // add class to failed textboxes
+                var failedTextboxes = response.failedTextboxes;
+                failedTextboxes.forEach(function(id) {
+                    $("#" + id.replace(/\s/g, '')).addClass("failed-validation");
+                });
+            }
+        },
+        error: function(xhr, status, error) {
+            alert('Validation failed: ' + xhr.responseText);
+        }
+    });
+    return false;
+}
+</script>
+<!--                              <script>-->
+<!--                                    function validatebutton() {-->
+<!--                                        event.preventDefault();-->
+<!--                                        var valButton = document.getElementById("btnval");-->
+<!--                                        valButton.value = "Validate";-->
+<!--                                        valButton.disabled = false;-->
+<!--                                        $.ajax({-->
+<!--                                            url: '/validation',-->
+<!--                                            type: 'POST',-->
+<!--                                            data: $('#myformvalidate').serialize() + '&Validate=Validate',-->
+<!--                                            success: function(response) {-->
+<!--                                                if (response.status == "success") {-->
+<!--                                                    alert('Validation successful!');-->
+<!--                                                } else {-->
+<!--                                                    alert('Validation failed: ' + response.message);-->
+<!--                                                }-->
+<!--                                            },-->
+<!--                                            error: function(xhr, status, error) {-->
+<!--                                                alert('Validation failed: ' + xhr.responseText);-->
+<!--                                            }-->
+<!--                                        });-->
+<!--                                        return false;-->
+<!--                                    }-->
+<!--                                </script>-->
+
+<!--<script>-->
+<!--function validatebutton() {-->
+<!--  event.preventDefault();-->
+<!--  var valButton = document.getElementById("btnval");-->
+<!--  valButton.value = "Validate";-->
+<!--  valButton.disabled = false;-->
+
+<!--  // iterate over all elements with class "validate-input"-->
+<!--  $(".validate-input").each(function() {-->
+<!--    var inputVal = $(this).val();-->
+<!--    var pattern = $(this).attr("pattern");-->
+<!--    if (inputVal.match(pattern) === null) {-->
+<!--      // validation failed, show error message and prevent form submission-->
+<!--      alert('Validation failed for input ' + $(this).attr("name") + ': ' + $(this).attr("title"));-->
+<!--      event.preventDefault();-->
+<!--      return false;-->
+<!--    }-->
+<!--  });-->
+
+<!--  // all inputs are valid, submit the form-->
+<!--  $.ajax({-->
+<!--    url: '/validation',-->
+<!--    type: 'POST',-->
+<!--    data: $('#myform').serialize() + '&Validate=Validate',-->
+<!--    success: function(response) {-->
+<!--      if (response.status == "success") {-->
+<!--        alert('Validation successful!');-->
+<!--      } else {-->
+<!--        alert('Validation failed: ' + response.message);-->
+<!--      }-->
+<!--    },-->
+<!--    error: function(xhr, status, error) {-->
+<!--      alert('Validation failed: ' + xhr.responseText);-->
+<!--    }-->
+<!--  });-->
+<!--  return false;-->
+<!--}-->
+<!--</script>-->
+
+                        <div class="col-12 col-md-12 text-center">
+<!--                            <button class="btn btn-info fw-bold fs-6 px-5" style="box-shadow:2px 2px 4px black">Validate</button>-->
+                            <input type="submit" name="Validate" id="btnval" class="btn btn-primary text-start" value="Validate" onclick="validatebutton()">
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="row py-5 border border-dark" style="box-shadow:2px 2px 4px black" id="container">
+
+            <div class="col-12 col-md-1 text-center mt-5 text-white ">
+                <label for="my-dropdown" class="fw-bold">Name :</label>
+            </div>
+            <div class="col-12 col-md-4 mt-5">
+                <div class="dropdown">
+                    <select name="newfieldname" class="form-select border border-dark border-2 shadow" id="my-dropdown" required>
+                        <option selected disabled>--Select Key--</option>
+                        {% for keys in keyList %}
+                        <option value="{{ keys[0] }}">{{ keys[0] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="col-12 col-md-1 text-center mt-5 text-white ">
+                <label for="my-input" class="fw-bold">value :</label>
+            </div>
+            <div class="col-12 col-md-4 mt-5">
+                <input type="text" class="shadow py-1 rounded w-100 text-start" name="newpath" id="my-input">
+            </div>
+           <div class="col-12 col-md-1 mt-5 text-start ">
+
+         <script>
+                        function setButtonValue() {
+                            var addButton1 = document.getElementById("add-btn1");
+                            var buttonValue = addButton1.value;
+                            document.getElementById("button-value").value = buttonValue;
+                             $.ajax({
+                            url: "{{ url_for('addvalidation') }}",
+                            type: "POST",
+                            data: $("#myformvalidate").serialize() + "&buttonValue=addvalue",
+                            success: function(response) {
+                                      console.log(response);
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                console.log(errorThrown);
+                            }
+                        });
+                        }
+                            </script>
+                         <script>
+                              $(document).ready(function() {
+                                $('#add-btn1').click(function(event) {
+                                  event.preventDefault();
+                                  var form = $('#myformvalidate');
+                                  var url = form.attr('action');
+                                  var formData = form.serialize();
+                                  $.post(url, formData, function(response) {
+                                    $('#mydiv1').load(' #mydiv1 > *');
+                                    });
+                                });
+                              });
+                            </script>
+                            <button type="button" id="add-btn1" class="btn-secondary rounded" name="addButton1" value="addvalue" onclick="setButtonValue()">AddValue</button>
+                            <input type="hidden" name="buttonValue" id="button-value">
+                        </div>
+                    </div>
+                </div>
+    </form>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+</body>
+</html>

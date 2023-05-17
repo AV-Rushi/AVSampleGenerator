@@ -367,5 +367,7 @@ def writeFile(file,batchNo,txnNo,amtType,amount, ccy, ccy1, valueDate,ccyCheck,c
     uid = uuid.uuid4().hex[:15].upper()  # Generate UUID
 
     f_date = (now.strftime("%y%m%d%H%M%S"))
-    tree.write(f"..\Output\{file}_{f_date}.xml", xml_declaration=True, encoding='utf-8')
-     #tree.write(f"..\Output\SampleFileDaynamicMain2.xml", xml_declaration=True, encoding='utf-8')
+    s1 = (f"{file}_{f_date}.xml")
+    # tree.write(f"..\Output\{file}_{f_date}.xml", xml_declaration=True, encoding='utf-8')
+    tree.write(f"C:/Users/User/AV/AVSampleGenerator1/Output/{s1}", xml_declaration=True, encoding='utf-8')
+    return s1

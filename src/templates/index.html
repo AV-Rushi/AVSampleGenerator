@@ -4,7 +4,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AV Sample Generator</title>
+  <title>Sample Generator</title>
+  <link rel="shortcut icon" type="image/x-icon" href="static/arthavedh.ico">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
 </head>
@@ -15,7 +16,7 @@
   }
 
   #format,
-  #no_of_batches,f
+  #no_of_batches,
   #no_of_transaction,
   #amount_entered,
   #customedate,
@@ -101,6 +102,14 @@
   100% { transform: rotate(360deg); }
 }
 
+.checkbox-custom input[type="checkbox"] {
+
+    border: 2px solid #ccc;
+    }
+
+    .checkbox-custom input[type="checkbox"]:checked {
+    background-color: #007bff;
+  }
 </style>
 
 <body>
@@ -108,9 +117,10 @@
     <form action="samplegenerator" method="post" id="sampleGenerationForm">
       <div class="row text-center m-0 p-0">
 
-        <div class="col-12 col-md-12 border p-0 " style="background-color:rgb(229, 229, 232); box-shadow: 2px 2px 4px;">
-          <nav class="navbar navbar-expand-lg bg-body-tertiary  p-0 m-0 border-bottom border-dark border-3"
-            style="background-color:rgb(245, 238, 227)">
+        <div class="col-12 col-md-12 border p-0 " style="box-shadow: 2px 2px 4px; background-image: url(static/avdarkbackground.png); background-size: 100% 100%;
+      background-attachment: fixed;">
+          <nav class="navbar navbar-expand-lg p-0 m-0 border-bottom border-dark border-3 bg-light"
+            style="opacity:0.9">
             <div class="container-fluid">
               <a class="navbar-brand" href="#">
                 <img src="{{ url_for('static', filename='arthavedh.png') }}" class="w-75 h-75"> </a>
@@ -126,12 +136,12 @@ font-size:50px; ">AV Sample Generator</h1>
           <div class="row g-3 text-start mt-4">
             <div class="col-12 col-md-2"></div>
             <div class="col-12 col-md-4">
-              <label for="format" class="col-form-label text-start fw-bold">Format <sup
+              <label for="format" class="col-form-label text-start fw-bold text-white">Format <sup
                 style="color: red;">*</sup></label>
             </div>
             <div class="col-12 col-md-3">
               <div class="dropdown ">
-                <select name="selectHK" class="form-select " id="format" style="margin-left:-4px;" required >
+                <select name="templateName" class="form-select " id="format" style="margin-left:-4px;" required >
                   <option value="">--Select Format Type--</option>
                   {% for temp in tempName %}
                   <option value="{{ temp[0] }}">{{ temp[0] }}</option>
@@ -143,34 +153,25 @@ font-size:50px; ">AV Sample Generator</h1>
             </div>
 
 
+<!--              <script>-->
+<!--                  const selectValue = document.getElementById('format');-->
+<!--                  const destinationLink = document.getElementById('FormatId');-->
 
-
-
-
-            <div class="col-auto">
-              <a href="{{ config_url }}" onclick="sendValue()" type="button" class="btn btn-primary" id="FormatId" style="box-shadow: 2px 2px 4px black;">Configure</a>
-<!--                  <a href="#" id="destination-link" type="button">Click</a>-->
-            </div>
-
-              <script>
-                  const selectValue = document.getElementById('format');
-                  const destinationLink = document.getElementById('FormatId');
-
-                  destinationLink.addEventListener('click', (event) => {
-                      event.preventDefault();
-                      const selectedValue = selectValue.value;
-                      const url = `/configure?selected_value=${selectedValue}`;
-                      window.location.href = url;
-                  });
-              </script>
+<!--                  destinationLink.addEventListener('click', (event) => {-->
+<!--                      event.preventDefault();-->
+<!--                      const selectedValue = selectValue.value;-->
+<!--                      const url = `/configure?selected_value=${selectedValue}`;-->
+<!--                      window.location.href = url;-->
+<!--                  });-->
+<!--              </script>-->
             <div class="row g-3 mt-3 text-start ">
               <div class="col-12 col-md-2"></div>
               <div class="col-12 col-md-4">
-                <label for="no_of_batches" class="col-form-label text-start fw-bold ">No of Batches</label>
+                <label for="no_of_batches" class="col-form-label text-start fw-bold text-white">No of Batches</label>
               </div>
               <div class="col-12 col-md-3">
                 <input type="number" id="no_of_batches" class="form-control ms-1" aria-describedby="passwordHelpInline"
-                  placeholder="--Enter Value--" name="batchNo" value="0" />
+                  placeholder="--Enter Value--" name="noOfBatch" value="0" />
               </div>
             </div>
             <!--End of Batches-->
@@ -178,11 +179,11 @@ font-size:50px; ">AV Sample Generator</h1>
             <div class="row g-3 mt-3 text-start ">
               <div class="col-12 col-md-2"></div>
               <div class="col-12 col-md-4">
-                <label for="no_of_transaction" class="col-form-label fw-bold">No of Transactions</label>
+                <label for="no_of_transaction" class="col-form-label fw-bold text-white">No of Transactions</label>
               </div>
               <div class="col-12 col-md-3">
                 <input type="number" id="no_of_transaction" class="form-control ms-1"
-                  aria-describedby="passwordHelpInline" placeholder="--Enter Value--" name="txnNo" value="0" />
+                  aria-describedby="passwordHelpInline" placeholder="--Enter Value--" name="noOfTxn" value="0" />
               </div>
             </div>
             <!--End of Transactions-->
@@ -190,35 +191,35 @@ font-size:50px; ">AV Sample Generator</h1>
             <div class="row g-3 mt-3 text-start ">
               <div class="col-12 col-md-2"></div>
               <div class="col-12 col-md-4">
-                <label class="col-form-label fw-bold">Amount</label>
+                <label class="col-form-label fw-bold text-white">amount</label>
               </div>
               <div class="col-auto ms-1">
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="flexRadioDefault1" value="1" id="AmtPerTxn"
+                  <input class="form-check-input" type="radio" name="amtTypeRadio" value="1" id="AmtPerTxn"
                     checked />
-                  <label class="form-check-label">
-                    Amount Per Transaction
+                  <label class="form-check-label text-white">
+                    amount Per Transaction
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="flexRadioDefault1" value="2" id="totalFileAmt" />
-                  <label class="form-check-label">
-                    Total Amount of File
+                  <input class="form-check-input" type="radio" name="amtTypeRadio" value="2" id="totalFileAmt" />
+                  <label class="form-check-label text-white">
+                    Total amount of File
                   </label>
                 </div>
               </div>
             </div>
-            <!--End of Amount Radio-->
+            <!--End of amount Radio-->
 
             <div class="row g-3 align-items-center mt-3 text-start ">
               <div class="col-12 col-md-2"></div>
               <div class="col-12 col-md-4">
-                <label for="amount_entered" class="col-form-label fw-bold">Enter Amount<sup
+                <label for="amount_entered" class="col-form-label fw-bold text-white">Enter amount<sup
                 style="color: red;">*</sup></label>
               </div>
               <div class="col-12 col-md-3">
                 <input type="number" id="amount_entered" class="form-control ms-1" aria-describedby="passwordHelpInline"
-                  placeholder="--Enter Amount--" name="Amount" step="0.0000000001" required/>
+                  placeholder="--Enter amount--" name="amount" step="0.0000000001" required/>
               </div>
               </div>
 
@@ -254,14 +255,14 @@ myForm.addEventListener("submit", (event) => {
 
 </script>
 
-  <!--End of Enter Amount-->
+  <!--End of Enter amount-->
 
 
             <div class="checkbox-card row mt-4">
               <div class="col-12 col-md-2"></div>
-              <div class="checkbox fw-bold col-auto text-center">
+              <div class="checkbox fw-bold col-auto text-center text-white">
                 <label>
-                  <input type="checkbox" name="ccyCheck" class="checkme fw-bold" checked> Currency of IntrBkSttlmAmt and
+                  <input type="checkbox" name="ccyCheck" class="checkme fw-bold " checked> Currency of IntrBkSttlmAmt and
                   InstdAmt
                   are same ? 
                 </label>
@@ -270,12 +271,12 @@ myForm.addEventListener("submit", (event) => {
               <div class="apply-box row g-3 align-items-center mt-4 text-start " id="txtPanNumber">
                 <div class="col-12 col-md-2"></div>
                 <div class="col-12 col-md-4 ms-2">
-                  <label for="currency_type" class="col-form-label text-start fw-bold">Currency<sup
+                  <label for="currency_type" class="col-form-label text-start fw-bold text-white">Currency<sup
                     style="color: red;">*</sup></label>
                 </div>
                 <div class="col-12 col-md-3 ">
                   <div class="dropdown">
-                    <select name="ccy" class="form-select ms-2" id="currency_type" required>
+                    <select name="intrBkSttlmAmt" class="form-select ms-2" id="currency_type" required>
                       <option selected disabled>--Select Currency Type--</option>
                       <option value="HKD">HKD</option>
                       <option value="CNY">CNY</option>
@@ -292,11 +293,11 @@ myForm.addEventListener("submit", (event) => {
               <div class="passport-box row g-3 align-items-center mt-3 text-start " id="box" style="display: none;">
                 <div class="col-12 col-md-2"></div>
                 <div class="col-12 col-md-4 ">
-                  <label for="IntrBkSttlmdAmtCny" class="col-form-label text-start fw-bold ms-2" id="int">IntrBkSttlmAmt</label>
+                  <label for="IntrBkSttlmdAmtCny" class="col-form-label text-start fw-bold ms-2 text-white" id="int">IntrBkSttlmAmt</label>
                 </div>
                 <div class="col-12 col-md-3 ">
                   <div class="dropdown">
-                    <select name="ccy" class="form-select ms-3" style="border-color: lightcoral;border-width: 2px;
+                    <select name="intrBkSttlmAmt" class="form-select ms-3" style="border-color: lightcoral;border-width: 2px;
                      box-shadow: 2px 2px 4px black;" id="IntrBkSttlmdAmtCny">
                       <option selected disabled>--Select Currency Type--</option>
                       <option value="HKD">HKD</option>
@@ -314,11 +315,11 @@ myForm.addEventListener("submit", (event) => {
                  <div class="col-12 col-md-2"></div>
 
                 <div class="col-12 col-md-4">
-            <label for="InstdAmtCny" class="col-form-label text-start fw-bold ms-2" >InstdAmt</label>
+            <label for="InstdAmtCny" class="col-form-label text-start fw-bold ms-2 text-white" >InstdAmt</label>
                 </div>
                 <div class="col-12 col-md-3 " >
                   <div class="dropdown">
-                    <select name="ccy1" class="form-select ms-3" style="border-color: lightcoral;border-width: 2px;
+                    <select name="instdAmt" class="form-select ms-3" style="border-color: lightcoral;border-width: 2px;
                      box-shadow: 2px 2px 4px black;" id="InstdAmtCny">
                       <option selected disabled>--Select Currency Type--</option>
                       <option value="HKD">HKD</option>
@@ -333,17 +334,17 @@ myForm.addEventListener("submit", (event) => {
               </div>
 
 
-              <script>
-                  const form1 = document.querySelector('#sampleGenerationForm');
-                  const currency = document.querySelector('#currency');
+<!--              <script>-->
+<!--                  const form1 = document.querySelector('#sampleGenerationForm');-->
+<!--                  const currency = document.querySelector('#currency');-->
 
-                  form.addEventListener('submit', function(event) {
-                    if (!dropdown.value) {
-                      alert('Please select currency from the dropdown');
-                      event.preventDefault();
-                    }
-                  });
-                </script>
+<!--                  form.addEventListener('submit', function(event) {-->
+<!--                    if (!dropdown.value) {-->
+<!--                      alert('Please select currency from the dropdown');-->
+<!--                      event.preventDefault();-->
+<!--                    }-->
+<!--                  });-->
+<!--                </script>-->
               <script>
                 $(function () {
                   $(".checkme").click(function (event) {
@@ -363,7 +364,7 @@ myForm.addEventListener("submit", (event) => {
               <div class="row g-3 align-items-center mt-1 text-start ">
                 <div class="col-12 col-md-2"></div>
                 <div class="col-12 col-md-4 ">
-                  <label for="customedate" class="col-form-label text-start fw-bold ms-2">Value Date<sup
+                  <label for="customedate" class="col-form-label text-start fw-bold ms-2 text-white">Value Date<sup
                     style="color: red;">*</sup></label>
                 </div>
                 <div class="col-12 col-md-3 ">
@@ -382,13 +383,13 @@ myForm.addEventListener("submit", (event) => {
 
             <div class="row g-3  mt-5 p-0 m-0">
               <div class="col-12 col-md-6 text-center">
-                <h5 class="pb-5" style="margin-left: -120px;">Creditor</h5>
+                <h5 class="pb-5 text-white" style="margin-left: -120px;">Creditor</h5>
 
                 <div class="row text-center ms-4 m-0 p-0">
 
                   <div class="col-12 col-md-12 form-check ">
-                    <label class="form-check-label" for="flexRadioDefault1">
-                      <input class="form-check-input" type="radio" value="1" name="flexRadioDefaultCdtr" id="dataExList"
+                    <label class="form-check-label text-white" for="amtTypeRadio">
+                      <input class="form-check-input " type="radio" value="1" name="cdtrDataRadio" id="dataExList"
                              onchange="hideDiv()"
                         checked />
                       Use Data From Existing List
@@ -397,11 +398,11 @@ myForm.addEventListener("submit", (event) => {
                     <!-- <div class="row g-3 ms-4 mt-2 mb-2">
                       <div class="col-12 col-md-2"></div>
                       <div class="col-12 col-md-5">
-                        <label for="inputccy" class="col-form-label text-end">CCY</label>
+                        <label for="inputccy" class="col-form-label text-end">intrBkSttlmAmt</label>
                       </div>
                       <div class="col-12 col-md-3">
                         <div class="dropdown">
-                          <select id="inputccy" class="form-select" name="ccy">
+                          <select id="inputccy" class="form-select" name="intrBkSttlmAmt">
                             <option selected disabled>--Select--</option>
                             <option>one</option>
                             <option>Two</option>
@@ -416,8 +417,8 @@ myForm.addEventListener("submit", (event) => {
 
 
                   <div class="col-12 col-md-12 form-check">
-                    <label class="form-check-label ms-2 mt-3" for="flexRadioDefault2">
-                      <input class="form-check-input" type="radio" value='2' name="flexRadioDefaultCdtr"
+                    <label class="form-check-label ms-2 mt-3 text-white" for="flexRadioDefault2">
+                      <input class="form-check-input " type="radio" value='2' name="cdtrDataRadio"
                         id="dataFaker" onchange="showDiv()" />
                       Use Data From Dummy data
                     </label>
@@ -432,7 +433,7 @@ myForm.addEventListener("submit", (event) => {
 <!--                      </div>-->
 <!--                      <div class="col-12 col-md-3">-->
 <!--                        <div class="dropdown">-->
-<!--                          <select id="inputcountryDbtr" class="form-select" name="DbtrCountry"required>-->
+<!--                          <select id="inputcountryDbtr" class="form-select" name="dbtrCountry"required>-->
 <!--                            <option selected disabled>&#45;&#45;Select&#45;&#45;</option>-->
 <!--                            <option value="AU" >AUS</option>-->
 <!--                            <option value="CA" >CAN</option>-->
@@ -477,12 +478,12 @@ document.getElementById('acclable').style.display = 'none';
 
                       <div class="col-12 col-md-3"></div>
                        <div class="col-12 col-md-4 text-center mt-3">
-                        <label for="inputcountrycdtr" class="col-form-label " style="margin-left:-15px; display:none;" id="countrylable">Country Code<sup
+                        <label for="inputcountrycdtr" class="col-form-label text-white" style="margin-left:-15px; display:none;" id="countrylable">Country Code<sup
                           style="color: red;">*</sup></label>
                       </div>
                        <div class="col-12 col-md-3 mt-3 ">
                         <div class="dropdown">
-                          <select id="inputcountrycdtr" class="form-select " name="CdtrCountry"  style="display:none;" required>
+                          <select id="inputcountrycdtr" class="form-select " name="cdtrCountry"  style="display:none;" required>
                             <option selected disabled>--Select--</option>
                             <option value="AU" >AUS</option>
                             <option value="CA" >CAN</option>
@@ -513,11 +514,11 @@ document.getElementById('acclable').style.display = 'none';
 <div class="col-12 col-md-1"></div>
 
               <div class="col-12 col-md-5 text-start">
-                <h5 class="pb-5">Debtor</h5>
+                <h5 class="pb-5 text-white">Debtor</h5>
                 <div class="row text-start m-0 p-0">
                   <div class="col-12 col-md-12 form-check ">
-                    <label class="form-check-label " for="flexRadioDefault1">
-                      <input class="form-check-input" type="radio" value='1' name="flexRadioDefaultDbtr"
+                    <label class="form-check-label text-white" for="amtTypeRadio">
+                      <input class="form-check-input" type="radio" value='1' name="dbtrDataRadio"
                         id="dataExtlist" onchange="hideDiv1()" checked />
 
                        Use Data From Existing List
@@ -544,11 +545,11 @@ document.getElementById('acclable').style.display = 'none';
                     <!-- <div class="row g-3 ms-5 mt-3 " id="ccyid">
                       <div class="col-12 col-md-2"></div>
                       <div class="col-12 col-md-5 text-center">
-                        <label for="inputCCY" class="col-form-label text-end">CCY</label>
+                        <label for="inputCCY" class="col-form-label text-end">intrBkSttlmAmt</label>
                       </div>
                       <div class="col-12 col-md-3">
                         <div class="dropdown">
-                          <select id="inputCCY" class="form-select" name="ccy">
+                          <select id="inputCCY" class="form-select" name="intrBkSttlmAmt">
                             <option selected disabled>--Select--</option>
                             <option>one</option>
                             <option>Two</option>
@@ -563,8 +564,8 @@ document.getElementById('acclable').style.display = 'none';
 
 
                   <div class="col-12 col-md-12 form-check">
-                    <label class="form-check-label text-start mt-3" for="datafakers">
-                      <input class="form-check-input" type="radio" value='2' name="flexRadioDefaultDbtr"
+                    <label class="form-check-label text-start mt-3 text-white" for="datafakers">
+                      <input class="form-check-input " type="radio" value='2' name="dbtrDataRadio"
                         id="dataFakers" onchange="showDiv1()" />
 
                        Use Data From Dummy Data
@@ -592,12 +593,12 @@ document.getElementById('acclable').style.display = 'none';
 
 
                        <div class="col-12 col-md-4 text-start mt-3">
-                        <label for="inputcountryDbtr" class="col-form-label" style=" display:none;" id="countrylable1" >Country Code<sup
+                        <label for="inputcountryDbtr" class="col-form-label text-white" style=" display:none;" id="countrylable1" >Country Code<sup
                           style="color: red;">*</sup></label>
                       </div>
                       <div class="col-12 col-md-3 mt-3">
                         <div class="dropdown">
-                          <select id="inputcountryDbtr" class="form-select" name="DbtrCountry" style="display:none;" required>
+                          <select id="inputcountryDbtr" class="form-select" name="dbtrCountry" style="display:none;" required>
                             <option selected disabled> --Select-- </option>
                             <option value="AU" >AUS</option>
                             <option value="CA" >CAN</option>
@@ -614,7 +615,7 @@ document.getElementById('acclable').style.display = 'none';
                       <div class="col-12 col-md-1"></div>
                       <div class="col-12 col-md-3"></div>
                       <div class="col-12 col-md-4 text-start mt-3 ">
-                        <label for="account_Lengthdbtr" class="col-form-label" style="display:none;" id="acclable1" >Enter AccountNo Length</label>
+                        <label for="account_Lengthdbtr" class="col-form-label text-white" style="display:none;" id="acclable1" >Enter AccountNo Length</label>
                       </div>
 
                       <div class="col-12 col-md-3 mt-3">
@@ -632,19 +633,19 @@ document.getElementById('acclable').style.display = 'none';
           <div class="row g-3 align-items-center mt-3 ">
             <div class="col-12 col-md-2"></div>
             <div class="col-12 col-md-5 text-start">
-              <h5 class="pb-5 pt-1">Creditor Agent</h5>
+              <h5 class="pb-5 pt-1 text-white">Creditor Agent</h5>
 
               <div class="col-12 col-md-5 ms-1">
                 <div class="form-check text-start">
-                  <label class="form-check-label " for="ExtList">
-                    <input class="form-check-input " type="radio" name="flexRadioDefaultCdtrAgt" value="1" id="ExtList"
+                  <label class="form-check-label text-white " for="ExtList">
+                    <input class="form-check-input " type="radio" name="CdtrAgtRadio" value="1" id="ExtList"
                       onchange="disableDiv()" checked />
                     Use from existing list
                   </label>
                 </div>
                 <div class="form-check text-start mb-3">
-                  <label class="form-check-label mt-3 " for="Manually">
-                    <input class="form-check-input " type="radio" name="flexRadioDefaultCdtrAgt" value="2" id="Manually"
+                  <label class="form-check-label mt-3 text-white" for="Manually">
+                    <input class="form-check-input text-white" type="radio" name="CdtrAgtRadio" value="2" id="Manually"
                       onchange="enableDiv()" />
                     Enter manually
                   </label>
@@ -654,13 +655,13 @@ document.getElementById('acclable').style.display = 'none';
 
               <div class="row">
                 <div class="col-12 col-md-5 text-start">
-                  <label for="chkCdtrBic1" class="fw-bold">
-                    <input type="checkbox" name="chkCdtrBic" id="chkCdtrBic1" onclick="EnableDisableTextbox6(this)" />
+                  <label for="chkCdtrBic1" class="fw-bold text-white">
+                    <input type="checkbox" style="color:blue;" name="chkCdtrAgtBic" id="chkCdtrBic1" onclick="EnableDisableTextbox6(this)" />
                     BIC
                   </label>
                 </div>
                 <div class="col-12 col-md-7 ">
-                  <input type="text" name="cdtrBic" id="txtCdtrBic" disabled="disabled" class="border border-dark"
+                  <input type="text" name="cdtrAgtBIC" id="txtCdtrBic" disabled="disabled" class="border border-white opacity-1"
                     style="display: none;">
                 </div>
               </div>
@@ -670,8 +671,8 @@ document.getElementById('acclable').style.display = 'none';
 
               <div class=" checkbox-card mt-3">
                 <div class="checkbox text-start">
-                  <label for="chkCdtrClrSysId1" class="fw-bold ">
-                    <input type="checkbox" name="chkCdtrClrSysId" id="chkCdtrClrSysId1"
+                  <label for="chkCdtrClrSysId1" class="fw-bold text-white ">
+                    <input type="checkbox" name="chkCdtrAgtClrSysId" id="chkCdtrClrSysId1"
                       class="checkme border border-dark "> ClrSysId
                   </label>
                 </div>
@@ -680,52 +681,52 @@ document.getElementById('acclable').style.display = 'none';
                   <div class="col-12 col-md-3"></div>
                   <div class="col-12 col-md-3 text-start mb-3">
                     <label for="chkCdtrCd" class="fw-bold">
-                      <input type="radio" name="radioCdtrCdPrtry" value="1" id="firstradio"
-                        onclick="EnableDisableTextbox8(this)" checked /> Cd
+                      <input type="radio" name="CdtrAgtCdPrtryRadio" value="1" id="firstradio"
+                        onclick="EnableDisableTextbox8(this)" checked class="text-white" /> Cd
                     </label>
                   </div>
                   <div class="col-12 col-md-6">
-                    <input type="text" name="cdtrCd" id="textbox" style="display: none;">
+                    <input type="text" name="cdtrAgtCd" id="textbox" style="display: none;">
                   </div>
 
                   <div class="col-12 col-md-3"></div>
                   <div class="col-12 col-md-3 text-start mb-3">
-                    <label for="chkCdtrPrtry" class="fw-bold">
-                      <input type="radio" name="radioCdtrCdPrtry" value="2" id="secondradio"
+                    <label for="chkCdtrPrtry" class="fw-bold text-white">
+                      <input type="radio" name="CdtrAgtCdPrtryRadio" value="2" id="secondradio"
                         onclick="EnableDisableTextbox99(this)" />
                       Prtry
                     </label>
                   </div>
                   <div class="col-12 col-md-6">
-                    <input type="text" name="cdtrPrtry" id="textbox1" disabled="disabled" style="display: none;">
+                    <input type="text" name="cdtrAgtPrtry" id="textbox1" disabled="disabled" style="display: none;">
                   </div>
                 </div>
               </div>
 
               <div class="row mt-3">
                 <div class="col-12 col-md-5 text-start">
-                  <label for="chkCdtrMmbId1" class="fw-bold">
-                    <input type="checkbox" name="chkCdtrMmbId" id="chkCdtrMmbId1"
+                  <label for="chkCdtrMmbId1" class="fw-bold text-white">
+                    <input type="checkbox" name="chkCdtrAgtMmbId" id="chkCdtrMmbId1"
                       onclick="EnableDisableTextbox10(this)" />
                     MmbId
                   </label>
                 </div>
                 <div class="col-12 col-md-7 ">
-                  <input type="text" name="cdtrMmbId" id="cdtrMmbId1" disabled="disabled" class="border border-dark"
+                  <input type="text" name="cdtrAgtMmbId" id="cdtrMmbId1" disabled="disabled" class="border border-white opacity-1"
                     style="display: none;">
                 </div>
               </div>
 
               <div class="row mt-3">
                 <div class="col-12 col-md-5 text-start">
-                  <label for="chkCdtrOth" class="fw-bold">
-                    <input type="checkbox" name="chkCdtrOtherId" id="chkCdtrOth"
+                  <label for="chkCdtrOth" class="fw-bold text-white">
+                    <input type="checkbox" name="chkCdtrAgtOtherId" id="chkCdtrOth"
                       onclick="EnableDisableTextbox11(this)" />
                     OtherId
                   </label>
                 </div>
                 <div class="col-12 col-md-7 ">
-                  <input type="text" name="cdtrOtherId" id="cdtrOtherId1" disabled="disabled" class="border border-dark"
+                  <input type="text" name="cdtrAgtOtherId" id="cdtrOtherId1" disabled="disabled" class="border border-white opacity-1"
                     style="display: none;">
                 </div>
               </div>
@@ -735,20 +736,20 @@ document.getElementById('acclable').style.display = 'none';
 
 
             <div class="col-12 col-md-4 text-start">
-              <h5 class="pb-5 pt-1">Debtor Agent</h5>
+              <h5 class="pb-5 pt-1 text-white">Debtor Agent</h5>
 
 
               <div class="col-auto ms-1">
                 <div class="form-check text-start">
-                  <label class="form-check-label " for="ExtList">
-                    <input class="form-check-input " type="radio" name="flexRadioDefaultDbtrAgt" value="1" id="ExtList"
+                  <label class="form-check-label text-white " for="ExtList">
+                    <input class="form-check-input  " type="radio" name="DbtrAgtRadio" value="1" id="ExtList"
                       onchange="disableDiv1()" checked />
                     Use from existing list
                   </label>
                 </div>
                 <div class="form-check text-start mb-3">
-                  <label class="form-check-label mt-3 " for="Manually">
-                    <input class="form-check-input " type="radio" name="flexRadioDefaultDbtrAgt" value="2" id="Manually"
+                  <label class="form-check-label mt-3 text-white " for="Manually">
+                    <input class="form-check-input " type="radio" name="DbtrAgtRadio" value="2" id="Manually"
                       onchange="enableDiv1()" />
                     Enter manually
                   </label>
@@ -757,14 +758,14 @@ document.getElementById('acclable').style.display = 'none';
 
 
               <div class="row">
-                <div class="col-12 col-md-5 text-start">
+                <div class="col-12 col-md-5 text-start text-white">
                   <label for="chkDbtrBic2" class="fw-bold">
-                    <input type="checkbox" name="chkDbtrBic" id="chkDbtrBic2" onclick="EnableDisableTextbox(this)" />
+                    <input type="checkbox" name="chkDbtrAgtBic" id="chkDbtrBic2" onclick="EnableDisableTextbox(this)" />
                     BIC
                   </label>
                 </div>
                 <div class="col-12 col-md-7 ">
-                  <input type="text" name="dbtrBic" id="txtDbtrBic" disabled="disabled" class="border border-dark"
+                  <input type="text" name="dbtrAgtBic" id="txtDbtrBic" disabled="disabled" class="border border-white opacity-1"
                     style="display: none;">
                 </div>
               </div>
@@ -772,33 +773,33 @@ document.getElementById('acclable').style.display = 'none';
 
               <div class=" checkbox-card mt-3">
                 <div class="checkbox text-start">
-                  <label for="chkDbtrClrSysId2" class="fw-bold">
-                    <input type="checkbox" name="chkDbtrClrSysId" id="chkDbtrClrSysId2" class="checkme "> ClrSysId
+                  <label for="chkDbtrClrSysId2" class="fw-bold text-white">
+                    <input type="checkbox" name="chkDbtrAgtClrSysId" id="chkDbtrClrSysId2" class="checkme "> ClrSysId
                   </label>
                 </div>
 
                 <div class="apply-box row mt-3" id="box" style="display: none;">
                   <div class="col-12 col-md-3"></div>
                   <div class="col-12 col-md-3 text-start mb-3">
-                    <label for="thirdradio" class="fw-bold">
-                      <input type="radio" name="radioDbtrCdPrtry" value="1" id="thirdradio"
+                    <label for="thirdradio" class="fw-bold text-white">
+                      <input type="radio" name="DbtrAgtCdPrtryRadio" value="1" id="thirdradio"
                         onclick="EnableDisableTextbox8(this)" checked /> Cd
                     </label>
                   </div>
                   <div class="col-12 col-md-6 text-end">
-                    <input type="text" name="dbtrCd" id="textbox2" class="border border-dark" style="display: none;">
+                    <input type="text" name="dbtrAgtCd" id="textbox2" class="border border-dark" style="display: none;">
                   </div>
 
                   <div class="col-12 col-md-3"></div>
                   <div class= "col-12 col-md-3 text-start mb-3">
-                    <label for="fourthradio" class="fw-bold">
-                      <input type="radio" name="radioDbtrCdPrtry" value="2" id="fourthradio"
+                    <label for="fourthradio" class="fw-bold text-white">
+                      <input type="radio" name="DbtrAgtCdPrtryRadio" value="2" id="fourthradio"
                         onclick="EnableDisableTextbox9(this)" />
                       Prtry
                     </label>
                   </div>
                   <div class="col-12 col-md-6">
-                    <input type="text" name="dbtrPrtry" id="textbox3" disabled="disabled" class="border border-dark"
+                    <input type="text" name="dbtrAgtPrtry" id="textbox3" disabled="disabled" class="border border-white opacity-1"
                       style="display: none;">
                   </div>
                 </div>
@@ -808,27 +809,27 @@ document.getElementById('acclable').style.display = 'none';
 
               <div class="row mt-3">
                 <div class="col-12 col-md-5 text-start">
-                  <label for="chkDbtrMmbId2" class="fw-bold">
-                    <input type="checkbox" name='chkDbtrMmbId' id="chkDbtrMmbId2"
+                  <label for="chkDbtrMmbId2" class="fw-bold text-white">
+                    <input type="checkbox" name='chkDbtrAgtMmbId' id="chkDbtrMmbId2"
                       onclick="EnableDisableTextbox4(this)" /> MmbId
                   </label>
                 </div>
                 <div class="col-12 col-md-7 ">
-                  <input type="text" name="dbtrMmbId" id="dbtrMmbId2" disabled="disabled" class="border border-dark"
+                  <input type="text" name="dbtrAgtMmbId" id="dbtrMmbId2" disabled="disabled" class="border border-white opacity-1"
                     style="display: none;">
                 </div>
               </div>
 
               <div class="row mt-3">
                 <div class="col-12 col-md-5 text-start">
-                  <label for="chkDbtrOth" class="fw-bold">
-                    <input type="checkbox" name='chkDbtrOtherId' id="chkDbtrOth"
+                  <label for="chkDbtrOth" class="fw-bold text-white">
+                    <input type="checkbox" name='chkDbtrAgtOtherId' id="chkDbtrOth"
                       onclick="EnableDisableTextbox5(this)" />
                     OtherId
                   </label>
                 </div>
                 <div class="col-12 col-md-7 ">
-                  <input type="text" name="dbtrOtherId" id="dbtrOtherId2" disabled="disabled"
+                  <input type="text" name="dbtrAgtOtherId" id="dbtrOtherId2" disabled="disabled"
                     class="border border-dark " style="display: none;">
                 </div>
               </div>
@@ -882,34 +883,46 @@ document.getElementById('acclable').style.display = 'none';
             >Submit</button>
             <div id="loading" style="display:none;">
     <img src="{{ url_for('static', filename='loading1.gif') }}">
-  <p>Please wait while your file is being generated...</p>
+  <p class="text-white">Please wait while your file is being generated...</p>
 </div>
           </div>
 
      <script>
 function generateFile() {
-  // Hide the submit button
+   Hide the submit button
   document.getElementById("submit-btn").style.display = "none";
-  // Show the loading animation
-  document.getElementById("loading").style.display = "block";
+   Show the loading animation
+  document.getElementById("loading1").style.display = "block";
 
-  // Here you can write your code to generate the file.
-  // Once the file is generated, you can hide the loading animation and display a success message to the user.
+  Here you can write your code to generate the file.
+   Once the file is generated, you can hide the loading animation and display a success message to the user.
   setTimeout(function() {
-    // Hide the loading animation
+     Hide the loading animation
     document.getElementById("loading").style.display = "none";
 
-    // Display a success message to the user using an
-    //alert("File generation is in progress!");
+    Display a success message to the user using an
+    alert("File generation is in progress!");
 
-    // Show the submit button again
-    //document.getElementById("submit-btn").style.display = "block";
+ Show the submit button again
+    document.getElementById("submit-btn").style.display = "block";
 
 
   }, 5000); // replace 5000 with the time it takes to generate the file
 }
 </script>
 
+<!--<script>-->
+<!--          document.getElementById("sampleGenerationForm").addEventListener("submit", function(event) {-->
+<!--   Prevent the form from submitting normally-->
+<!--  event.preventDefault();-->
+
+<!--   Submit the form data to the server-->
+<!--   ...code to submit form data...-->
+
+<!--   Reset the form-->
+<!--  document.getElementById("sampleGenerationForm").reset();-->
+<!--});-->
+<!--</script>-->
         </div>
       </div>
     </form>
@@ -1337,60 +1350,6 @@ emailInput.addEventListener("input", enableSubmitButton);
 messageInput.addEventListener("input", enableSubmitButton);
 
 
-
-//to make dropdown mandatory otherwisw it will give alert message
-const form = document.querySelector('#sampleGenerationForm');
-const dropdown = document.querySelector('#format');
-
-form.addEventListener('submit', function(event) {
-if (!dropdown.value) {
-alert('Please select Format from the dropdown');
-event.preventDefault();
-}
-});
-
-//when format is not selected then configure button is disable
-const formatinput = document.getElementById("format");
-const configbutton = document.getElementById("FormatId");
-function enableConfigButton() {
-if ( formatinput.value) {
-configbutton.disabled = false;
-} else {
-configbutton.disabled = true;
-}
-}
-formatinput.addEventListener("input", enableConfigButton);
-
-
-
-//disabled div enable using edit button and save edited data
-        const editButton = document.getElementById('btnEdit');
-        const saveButton = document.getElementById('btnSave');
-        const editableDiv = document.getElementById('edit_section');
-        let originalContent;
-
-        editButton.addEventListener('click', () => {
-          if (editableDiv.getAttribute('contenteditable') === 'false') {
-            // Enable editing
-            editableDiv.setAttribute('contenteditable', 'true');
-            originalContent = editableDiv.innerHTML;
-            saveButton.removeAttribute('disabled');
-          } else {
-            // Disable editing
-            editableDiv.setAttribute('contenteditable', 'false');
-            saveButton.setAttribute('disabled', '');
-          }
-        });
-
-        saveButton.addEventListener('click', () => {
-          // Save the edited content
-          const newContent = editableDiv.innerHTML;
-          // You can now do something with the newContent, like sending it to a server using an HTTP request
-          console.log('New content:', newContent);
-          // Disable editing and the Save button
-          editableDiv.setAttribute('contenteditable', 'false');
-          saveButton.setAttribute('disabled', '');
-        });
 
   </script>
 

@@ -28,9 +28,9 @@ def writeFile(file,batchNo,txnNo,amtType,amount, ccy, ccy1, valueDate,ccyCheck,c
 
     conn = sqlite3.connect('../DataBase/SampleGenerator.db')  # Connect to the database
     cur = conn.cursor()  # Create a cursor object
-    cur.execute('SELECT Key,Path FROM template_config where TemplateName=?', (file,))
+    cur.execute('SELECT Key,Path,RegEx_Pattern FROM template_config where TemplateName=?', (file,))
     ConfigData = cur.fetchall()
-    cur.execute('SELECT Key,Path FROM template_config where TemplateName==?', (file,))
+    cur.execute('SELECT Key,Path,RegEx_Pattern FROM template_config where TemplateName==?', (file,))
     mandataryData = cur.fetchall()
     mandatoryFieldsValue(ns,root,batchNo,txnNo,mandataryData,valueDate)
 

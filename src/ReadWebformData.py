@@ -258,10 +258,10 @@ def validation():
                     cursor.execute("SELECT * FROM template_config WHERE IdType = ? AND Path = ?", (label, path))
                     row = cursor.fetchone()
                     if row is not None:
-                        query = "UPDATE template_config SET TempValue = ? WHERE IdType = ? and Path = ?"
+                        query = "UPDATE template_config SET RegEx_Pattern = ? WHERE IdType = ? and Path = ?"
                         cursor.execute(query, (pattern, label, path))
                     else:
-                        query = "INSERT INTO template_config (IdType,Path,TempValue) VALUES(?,?,?)"
+                        query = "INSERT INTO template_config (IdType,Path,RegEx_Pattern) VALUES(?,?,?)"
                         cursor.execute(query, (label, path, pattern))
                     conn.commit()
         except re.error as e:
